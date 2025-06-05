@@ -8,8 +8,6 @@ const config = useConfigStore()
 const postIndex = usePostStore()
 const posts = postIndex.sortedByDate
 
-console.log(posts)
-
 </script>
 
 <template>

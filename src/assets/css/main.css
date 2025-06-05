@@ -3,10 +3,7 @@
 @import '@/assets/css/indexpage.css';
 @import '@/assets/css/postpage.css';
 
-
 :root {
-  transition: background-color 0.5s ease, color 0.5s ease, transform 0.4s ease, opacity 0.4s ease;
-
   --color-bg: rgba(0, 61, 123, 0.779);
   --color-primary: rgb(255, 177, 88);
   --color-primary-alt: rgb(245, 209, 168);
@@ -25,23 +22,52 @@ html {
   height: 0px;
 }
 
-
 .main-body {
   background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  repeating-radial-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+  repeating-conic-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  
   background-blend-mode: normal, difference;
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.main-body a:not(.introduction-img-link) {
+  transition: color 0.3s ease;
+
+  text-decoration: none;
+  color: var(--color-primary-alt);
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.main-body a:not(.introduction-img-link)::before {
+  content: '';
+  position: absolute;
+  top: -0.2rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.2rem;
+  background-color: var(--color-accent);
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.main-body a:hover {
+  color: var(--color-accent-alt);
+}
+
+.main-body a:active {
   color: var(--color-primary);
 }
 
-
-.main-body a {
-  text-decoration: none;
-  /* color: inherit; */
-  color: var(--color-primary-alt);
-  font-weight: bold;
+.main-body a:hover::before {
+  opacity: 1;
 }
-
 
 .left-bar {
   position: sticky;
@@ -59,56 +85,3 @@ html {
   /* height: 1rem; */
   border-color: var(--color-accent-alt);
 }
-
-/* .home-content a {
-  text-decoration: none;
-  color: var(--color-primary-alt);
-
-  font-weight: bold;
-} */
-
-
-.bg_blue {
-  background-color: rgb(45, 45, 185);
-}
-
-.bg_red {
-  background-color: rgb(198, 47, 47);
-}
-
-.bg_green {
-  background-color: rgb(23, 110, 23);
-}
-
-.bg_yellow {
-  background-color: rgb(211, 211, 55);
-}
-
-/* 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
-
-
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-} */

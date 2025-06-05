@@ -26,8 +26,12 @@ const socialLink = [
 
 
 <template>
-  <div class="d-flex flex-column mt-5 me-5">
-    <!-- <img src="/images/avatar.jpg" class="introduction-image img-fluid mb-3" alt=""> -->
+  <div class=" d-flex flex-column mt-5 me-5">
+    <router-link :to="{ name: 'Home'}" class="introduction-img-link mb-3">
+      <img src="/images/avatar.png" class="img-fluid" alt="">
+    </router-link>
+
+    <!-- <img src="/images/avatar.png" class="introduction-image img-fluid mb-3" alt=""> -->
     
     <div class="d-flex flex-wrap justify-content-center align-items-center my-1 gap-3">
       <a v-for="(item, index) in socialLink" :key="index" :href="item.link" 

@@ -10,9 +10,30 @@
   border-radius: 5px;
 }
 
-.introduction-image {
+.introduction-img-link img {
   opacity: 0.7;
   border-radius: 15px;
+}
+
+.introduction-img-link {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.introduction-img-link::before {
+  content: '';
+  position: absolute;
+  inset: 0rem;
+  background-color: var(--color-accent);
+  border-radius: 15px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.introduction-img-link:hover::before {
+  opacity: 1;
 }
 
 .introduction-content {

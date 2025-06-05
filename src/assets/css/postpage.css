@@ -37,6 +37,20 @@
 
 .post-content {
   padding: 1rem 0rem;
+    word-wrap: break-word;
+  overflow-x: hidden;
+}
+
+.post-content code {
+  color: var(--color-accent-alt);
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  padding: 0rem 0.5rem;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+    /* overflow-wrap: break-word;
+    overflow-x: hidden; */
 }
 
 .post-content pre {
@@ -46,20 +60,34 @@
   border-radius: 5px;
 }
 
-.post-content code {
+.post-content pre code {
   color: var(--color-accent-alt);
+  background-color: unset;
+  border-radius: 0px;
+  padding: 0rem 0rem;
   white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: hidden;
+
+}
+
+.post-content blockquote {
+  margin: 1em 0;
+  padding: 0rem 1rem;
+  /* border-left: 4px solid var(--color-accent); */
+  background-color: rgba(0, 0, 0, 0.08);
+  color: var(--color-accent-alt);
+  /* font-style: italic; */
+  font-size: 0.875rem;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  /* overflow-wrap: break-word;
+  overflow-x: hidden; */
 }
 
 .post-content a, 
 .post-content a:visited, 
 .post-content a:hover {
   text-decoration: none;
-  /* color: inherit; */
   color: var(--color-primary-alt);
-  font-weight: bold;
 }
 
 .post-content img {
@@ -69,4 +97,45 @@
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.post-content del {
+  color: var(--color-accent);
+}
+
+.post-content hr {
+  border-color: var(--color-accent-alt);
+}
+
+.post-content ol {
+  display: block;
+  padding-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  list-style-type: decimal;
+}
+
+.post-content ul {
+  display: block;
+  padding-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  /* list-style-type: circle; */
+}
+
+.post-content li {
+  display: list-item;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.post-content th,
+.post-content td {
+  border: 1px solid var(--color-accent-alt);
+  padding: 0.25rem 0.5rem;
+  text-align: left;
 }
