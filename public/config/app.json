@@ -1,0 +1,60 @@
+{
+    "title": "Tropical Algae's BLOG",
+    "sub_title": "Welcome! Wubba lubba dub dub!",
+    "introduction": "'Diverse, sun-loving organisms vital to marine ecosystems', this is how ChatGPT introduces me.",
+    "md_lables": {
+        "create_time": "create_time1",
+        "labels": "labels"
+    },
+    "links": {
+        "github": "https://github.com/tropical-algae",
+        "discord": "https://tropicalalgae.cn",
+        "notion": "",
+        "website": ""
+    },
+    "colors": [
+        {
+            "--color-bg": "rgba(0, 61, 123, 0.779)",
+            "--color-primary": "rgb(255, 177, 88)",
+            "--color-primary-alt": "rgb(245, 209, 168)",
+            "--color-accent": "#677bab",
+            "--color-accent-alt": "#ffffff"
+        },
+        {
+            "--color-bg": "rgba(108, 88, 76, 0.779)",
+            "--color-primary": "#adc178",
+            "--color-primary-alt": "#dde5b4",
+            "--color-accent": "#a98467",
+            "--color-accent-alt": "#f0ead2"
+            
+        },
+        {
+            "--color-bg": "rgba(239, 247, 223, 0.779)",
+            "--color-primary": "#7d6b57",
+            "--color-primary-alt": "#968972",
+            "--color-accent": "#f7e9d7",
+            "--color-accent-alt": "#ab5852"
+        },
+        {
+            "--color-bg": "rgba(86, 44, 41, 0.779)",
+            "--color-primary": "#cb9979",
+            "--color-primary-alt": "#eadaa0",
+            "--color-accent": "#e1c292",
+            "--color-accent-alt": "#ab5852"
+        },
+        {
+            "--color-bg": "rgba(0, 67, 67, 0.779)",
+            "--color-primary": "#cb9c7d",
+            "--color-primary-alt": "#008585",
+            "--color-accent": "#74a892",
+            "--color-accent-alt": "#fbf2c4"
+        },
+        {
+            "--color-bg": "rgba(41, 37, 37, 0.779)",
+            "--color-primary": "#aeb5c9",
+            "--color-primary-alt": "#aeb5c9",
+            "--color-accent": "#6378b1",
+            "--color-accent-alt": "#f5f3e6"
+        }
+    ]
+}

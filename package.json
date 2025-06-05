@@ -1,0 +1,26 @@
+{
+  "name": "blog_web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/generateMarkdownIndex.js",
+    "dev": "vite",
+    "prebuild": "node scripts/generateMarkdownIndex.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "marked": "^15.0.12",
+    "pinia": "^3.0.2",
+    "vite-svg-loader": "^5.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "vite": "^6.2.4",
+    "vite-plugin-vue-devtools": "^7.7.2"
+  }
+}

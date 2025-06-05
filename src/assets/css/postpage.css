@@ -1,0 +1,72 @@
+
+.post-title {
+  padding: 0rem 0rem;
+}
+
+.post-attribute {
+  padding: 0.5rem 0rem;
+}
+
+.post-attribute table {
+  border-collapse: collapse;
+  width: auto;
+  table-layout: auto;
+}
+
+.post-attribute table th,
+.post-attribute table td {
+  border: none;
+  padding-right: 1.5rem;
+  font-weight: normal;
+  white-space: nowrap;
+
+  text-align: left;       /* 水平左对齐 */
+  vertical-align: top;    /* 垂直顶对齐 */
+}
+
+.post-attribute table tr td:first-child,
+.post-attribute table tr th:first-child {
+  font-weight: bold;      /* 首列加粗 */
+  color: var(--color-primary);
+}
+
+.post-attribute table tr td:not(:first-child),
+.post-attribute table tr th:not(:first-child) {
+  color: var(--color-accent-alt);
+}
+
+.post-content {
+  padding: 1rem 0rem;
+}
+
+.post-content pre {
+  overflow-x: hidden;
+  background-color: var(--color-accent);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.post-content code {
+  color: var(--color-accent-alt);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: hidden;
+}
+
+.post-content a, 
+.post-content a:visited, 
+.post-content a:hover {
+  text-decoration: none;
+  /* color: inherit; */
+  color: var(--color-primary-alt);
+  font-weight: bold;
+}
+
+.post-content img {
+  margin: 1rem 0rem;
+  opacity: 0.8;
+  border-radius: 15px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

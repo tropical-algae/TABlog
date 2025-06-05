@@ -1,0 +1,33 @@
+.index-title {
+  margin: 0;
+  padding: 0;
+}
+
+.index-content {
+  padding: 1rem 2rem;
+}
+
+
+.index-content ul{
+  margin: 0;
+  padding: 0;
+}
+
+.index-content ul li{
+  /* font-weight: bold; */
+  list-style-type: none;
+  padding-top: 1rem;
+  /* padding-bottom: 1rem; */
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  line-height: 1;
+}
+
+.index-labels {
+  color: var(--color-accent-alt);
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  padding: 0.1rem 0.4rem;
+}
