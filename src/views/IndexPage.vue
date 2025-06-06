@@ -1,7 +1,5 @@
 <script setup>
 import { useConfigStore, usePostStore } from '@/scripts/configStore'
-import { ref, onMounted } from 'vue'
-import { marked } from 'marked'
 import ActionBar from './components/ActionBar.vue'
 
 const config = useConfigStore()
@@ -12,14 +10,21 @@ const posts = postIndex.sortedByDate
 
 <template>
   <div>
-    <h3 class="index-title">INDEX</h3>
-    <div class="index-content">
+    <h3 class="index-title">ARCHIVE</h3>
+    <div class="index-content py-4 px-2">
       <ul>
-        <li v-for="post in posts" :key="post.slug" class="d-flex justify-content-between align-items-center">
-          <!-- <router-link :to="'/post/' + post.slug">{{ post.title }}</router-link> -->
-          <router-link :to="{ name: 'Post', params: { title: post.title } }">{{ post.title }}</router-link>
+        <li 
+          v-for="post in posts" :key="post.slug" 
+          class="d-flex justify-content-between align-items-center"
+        >
+          <router-link 
+            :to="{ name: 'Post', params: { title: post.title } }"
+            class="flex-grow-1 text-truncate index-link"
+          >
+            {{ post.title }}
+          </router-link>
 
-          <div class="text-end">
+          <div>
             <span 
               v-for="label in post.labels" :key="label" 
               class="index-labels small ms-2"

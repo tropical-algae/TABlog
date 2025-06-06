@@ -9,8 +9,7 @@ export const useConfigStore = defineStore('config', {
   actions: {
     async loadConfig() {
       if (this.loaded) return
-      const resRoot = import.meta.env.VITE_CONFIG_ROOT || '/config'
-      const res = await fetch(`${resRoot}/app.json`)
+      const res = await fetch('/config/app.json')
       this.config = await res.json()
       this.loaded = true
     },
@@ -84,15 +83,28 @@ export const usePostStore = defineStore('post', {
     getByTitle: (state) => (title) => {
       return state.posts.find(p => p.title === title) || null
     },
-    relatedTitlesByLabel: (state) => (label) => {
-      return state.posts
-        .filter(p => p.labels.includes(label))
-        .map(p => p.title)
-    },
-    relatedTitlesByLabels: (state) => (labelList) => {
-      return state.posts
-        .filter(post => post.labels.some(label => labelList.includes(label)))
-        .map(post => post.title)
+    // relatedTitlesByLabel: (state) => (label) => {
+    //   return state.posts
+    //     .filter(p => p.labels.includes(label))
+    //     .map(p => p.title)
+    // },
+    // relatedTitlesByLabels: (state) => (labelList) => {
+    //   return state.posts
+    //     .filter(post => post.labels.some(label => labelList.includes(label)))
+    //     .map(post => post.title)
+    // }
+    relatedTitlesByLabels: (state) => (labelList, title = '') => {
+      return labelList
+        .map(label => {
+          const titles = state.posts
+            .filter(post => 
+              post.labels.includes(label) && post.title !== title
+            )
+            .map(post => post.title)
+    
+          return titles.length > 0 ? { label, titles } : null
+        })
+        .filter(item => item !== null)
     }
   }
 })

@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node scripts/generateMarkdownIndex.js",
+    "predev": "node public/scripts/generateMarkdownIndex.js",
     "dev": "vite",
-    "prebuild": "node scripts/generateMarkdownIndex.js",
+    "prebuild": "node public/scripts/generateMarkdownIndex.js",
     "build": "vite build",
     "preview": "vite preview"
   },

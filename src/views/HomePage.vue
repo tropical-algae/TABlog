@@ -9,10 +9,8 @@ import PostView from './components/PostView.vue'
 const markdownHtml = ref('')
 const config = useConfigStore()
 
-
 onMounted(async () => {
-  const resRoot = import.meta.env.VITE_CONFIG_ROOT || '/config'
-  const res = await fetch(`${resRoot}/home.md`)
+  const res = await fetch('/config/home.md')
   const mdText = await res.text()
   const procText = removeMetadataFromMarkdown(mdText, Object.values(config.mdLables))
   markdownHtml.value = marked.parse(procText)

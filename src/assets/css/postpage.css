@@ -37,7 +37,7 @@
 
 .post-content {
   padding: 1rem 0rem;
-    word-wrap: break-word;
+  word-wrap: break-word;
   overflow-x: hidden;
 }
 
@@ -136,6 +136,6 @@
 .post-content th,
 .post-content td {
   border: 1px solid var(--color-accent-alt);
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.5rem;
   text-align: left;
 }

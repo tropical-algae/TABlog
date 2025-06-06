@@ -1,12 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { extractMetadataFromMarkdown, fixLocalAssetPaths, removeMetadataFromMarkdown } from '../src/scripts/markdownProcess.js'
+import { extractMetadataFromMarkdown, fixLocalAssetPaths, removeMetadataFromMarkdown } from '../../src/scripts/markdownProcess.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const publicDir = path.join(__dirname, '../public')
+const publicDir = path.join(__dirname, '../')
+
 const markdownDir = path.join(publicDir, 'markdowns')
 const processedDir = path.join(publicDir, 'markdowns_processed')
 const configPath = path.join(publicDir, 'config/app.json')
