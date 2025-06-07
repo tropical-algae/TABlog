@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { extractMetadataFromMarkdown, fixLocalAssetPaths, removeMetadataFromMarkdown } from '../../src/scripts/markdownProcess.js'
+import { extractMetadataFromMarkdown, fixLocalAssetPaths, removeMetadataFromMarkdown } from './markdownProcess.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -37,7 +37,6 @@ function getAllFiles(dir, fileList = []) {
       fileList.push(fullPath)
     }
   }
-
   return fileList
 }
 
