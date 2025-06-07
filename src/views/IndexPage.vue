@@ -32,10 +32,10 @@ const posts = postIndex.sortedByDate
               {{ label }}
             </span>
             <span
-              v-if="post.create_time && post.create_time.trim() !== ''"
+              v-if="post.created_time && post.created_time.trim() !== ''"
               class="index-labels small ms-2"
             >
-              {{ post.create_time }}
+              {{ post.created_time }}
             </span>
           </div>
         </li>

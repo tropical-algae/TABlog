@@ -29,7 +29,7 @@ export const useConfigStore = defineStore('config', {
         }
     ],
     mdLables: (state) => state.config?.md_lables || {
-      "create_time": "create_time",
+      "created_time": "created_time",
       "labels": "labels"
     },
     links: (state) => state.config?.links || {
@@ -60,7 +60,7 @@ export const usePostStore = defineStore('post', {
   getters: {
     // 按创建时间降序排序
     sortedByDate: (state) =>
-      [...state.posts].sort((a, b) => new Date(b.create_time || 0) - new Date(a.create_time || 0)),
+      [...state.posts].sort((a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)),
 
     // 所有标签合集（去重）
     allLabels: (state) => {

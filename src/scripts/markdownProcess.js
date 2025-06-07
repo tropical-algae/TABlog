@@ -68,8 +68,8 @@ export function extractMetadataFromMarkdown(mdText, labelMap) {
         if (mappedKey === 'labels') {
           if (!result.labels) result.labels = []
           result.labels.push(value)
-        } else if (mappedKey === 'create_time' && !result.create_time) {
-          result.create_time = value
+        } else if (mappedKey === 'created_time' && !result.created_time) {
+          result.created_time = value
         } else {
           result[mappedKey] = value
         }
@@ -78,7 +78,7 @@ export function extractMetadataFromMarkdown(mdText, labelMap) {
   }
 
   // 默认值处理
-  if (!result.create_time) result.create_time = ''
+  if (!result.created_time) result.created_time = ''
   if (!result.labels) result.labels = []
 
   return result

@@ -1,12 +1,9 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { marked } from 'marked'
-import { removeMetadataFromMarkdown } from '@/scripts/markdownProcess'
 import { useConfigStore, usePostStore } from '@/scripts/configStore'
-import ActionBar from './components/ActionBar.vue'
 import { useRoute } from 'vue-router'
 import PostView from './components/PostView.vue'
-
 
 const { title } = defineProps({
   title: {
@@ -66,11 +63,11 @@ watch(
     <div class="post-attribute">
       <table>
         <tbody>
-          <tr v-if="post.create_time && post.create_time.trim() !== ''">
+          <tr v-if="post.created_time && post.created_time.trim() !== ''">
             <td>created time:</td>
-            <td><span class="ms-2">{{ post.create_time }}</span></td>
+            <td><span class="ms-2">{{ post.created_time }}</span></td>
           </tr>
-          <tr v-if="post.labels && post.create_time.trim() !== ''">
+          <tr v-if="post.labels && post.created_time.trim() !== ''">
             <td>labels:</td>
             <td>
               <span 

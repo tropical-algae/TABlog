@@ -3,7 +3,7 @@
     "sub_title": "Welcome! Wubba lubba dub dub!",
     "introduction": "'Diverse, sun-loving organisms vital to marine ecosystems', this is how ChatGPT introduces me.",
     "md_lables": {
-        "create_time": "create_time1",
+        "created_time": "created_time",
         "labels": "labels"
     },
     "links": {
