@@ -1,9 +1,50 @@
 <script setup>
+// import { ref, watch, onMounted } from 'vue'
+// import { usePostStore } from '@/scripts/configStore'
+// import { useRoute } from 'vue-router'
+// import PostView from './components/PostView.vue'
+
+// import MarkdownIt from 'markdown-it'
+// import markdownItKatex from 'markdown-it-katex'
+// import 'katex/dist/katex.min.css' // 必须引入样式
+
+// const { title } = defineProps({
+//   title: {
+//     type: String,
+//     required: true
+//   }
+// })
+
+// const route = useRoute()
+// const markdownHtml = ref('')
+// const postStore = usePostStore()
+// const post = ref(postStore.getByTitle(title))
+
+
+
+// async function updatePost() {
+//   const md = new MarkdownIt({
+//   html: true,
+//   linkify: true,
+//   typographer: true
+// }).use(markdownItKatex)
+//   const slugPath = `${post.value.dir}/${post.value.slug}` // 注意路径写法
+//   const res = await fetch(slugPath)
+//   const mdText = await res.text()
+//   const htmlText = md.render(mdText)
+//   markdownHtml.value = htmlText
+//   console.log(markdownHtml)
+// }
+
+
 import { ref, watch, onMounted } from 'vue'
 import { marked } from 'marked'
-import { useConfigStore, usePostStore } from '@/scripts/configStore'
+import { usePostStore } from '@/scripts/configStore'
 import { useRoute } from 'vue-router'
 import PostView from './components/PostView.vue'
+import katexExtension from '@/scripts/mdKatex.js'
+
+marked.use(katexExtension())
 
 const { title } = defineProps({
   title: {
@@ -14,9 +55,9 @@ const { title } = defineProps({
 
 const route = useRoute()
 const markdownHtml = ref('')
-const config = useConfigStore()
 const postStore = usePostStore()
 const post = ref(postStore.getByTitle(title))
+
 
 async function updatePost() {
   const slugPath = `${post.value.dir}\\${post.value.slug}`
@@ -24,6 +65,7 @@ async function updatePost() {
   const mdText = await res.text()
   const htmlText = marked.parse(mdText)
   markdownHtml.value = htmlText
+
 }
 
 onMounted(async () => {

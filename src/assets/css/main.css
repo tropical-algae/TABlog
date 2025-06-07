@@ -29,7 +29,31 @@ html {
   
   background-blend-mode: normal, difference;
   color: var(--color-primary);
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.main-body h1 {
+  font-size: 1.6rem;
+}
+
+.main-body h2 {
+  font-size: 1.5rem;
+}
+
+.main-body h3 {
+  font-size: 1.4rem;
+}
+
+.main-body h4 {
+  font-size: 1.3rem;
+}
+
+.main-body h5 {
+  font-size: 1.2rem;
+}
+
+.main-body h6 {
+  font-size: 1.1rem;
 }
 
 .main-body a {
