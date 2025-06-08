@@ -1,7 +1,6 @@
 <script setup>
 import { usePostStore } from '@/scripts/configStore'
 
-
 const { title } = defineProps({
   title: {
     type: String,
@@ -10,8 +9,8 @@ const { title } = defineProps({
 })
 
 const postStore = usePostStore()
-const labels = postStore.getByTitle(title).labels
-const relatedPosts = postStore.relatedTitlesByLabels(labels, title)
+const tags = postStore.getByTitle(title).tags
+const relatedPosts = postStore.relatedTitlesByTags(tags, title)
 
 </script>
 

@@ -3,15 +3,7 @@ import GithubIcon from '@/assets/icons/icons8-github.svg?component'
 import DiscordIcon from '@/assets/icons/icons8-discord.svg?component'
 import NotionIcon from '@/assets/icons/icons8-notion.svg?component'
 import WebsiteIcon from '@/assets/icons/icons8-website.svg?component'
-
 import { useConfigStore } from '@/scripts/configStore'
-
-// const { introduction } = defineProps({
-//   'introduction': {
-//     type: String,
-//     required: true
-//   }
-// })
 
 const config = useConfigStore()
 
@@ -51,6 +43,7 @@ const socialLink = [
     <div class="introduction-content py-0 my-2"> {{ config.introduction }} </div>
   </div>
 </template>
+
 
 <style>
 

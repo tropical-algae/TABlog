@@ -30,7 +30,7 @@ export const useConfigStore = defineStore('config', {
     ],
     mdLables: (state) => state.config?.md_lables || {
       "created_time": "created_time",
-      "labels": "labels"
+      "tags": "tags"
     },
     links: (state) => state.config?.links || {
       "github": "",
@@ -61,19 +61,17 @@ export const usePostStore = defineStore('post', {
     // 按创建时间降序排序
     sortedByDate: (state) =>
       [...state.posts].sort((a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)),
-
     // 所有标签合集（去重）
-    allLabels: (state) => {
+    allTags: (state) => {
       const set = new Set()
-      state.posts.forEach(p => p.labels.forEach(l => set.add(l)))
+      state.posts.forEach(p => p.tags.forEach(l => set.add(l)))
       return Array.from(set)
     },
-
     // 按标签分组
     groupedByLabel: (state) => {
       const groups = {}
       state.posts.forEach(post => {
-        post.labels.forEach(label => {
+        post.tags.forEach(label => {
           if (!groups[label]) groups[label] = []
           groups[label].push(post)
         })
@@ -83,22 +81,12 @@ export const usePostStore = defineStore('post', {
     getByTitle: (state) => (title) => {
       return state.posts.find(p => p.title === title) || null
     },
-    // relatedTitlesByLabel: (state) => (label) => {
-    //   return state.posts
-    //     .filter(p => p.labels.includes(label))
-    //     .map(p => p.title)
-    // },
-    // relatedTitlesByLabels: (state) => (labelList) => {
-    //   return state.posts
-    //     .filter(post => post.labels.some(label => labelList.includes(label)))
-    //     .map(post => post.title)
-    // }
-    relatedTitlesByLabels: (state) => (labelList, title = '') => {
+    relatedTitlesByTags: (state) => (labelList, title = '') => {
       return labelList
         .map(label => {
           const titles = state.posts
             .filter(post => 
-              post.labels.includes(label) && post.title !== title
+              post.tags.includes(label) && post.title !== title
             )
             .map(post => post.title)
     

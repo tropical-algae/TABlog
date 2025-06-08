@@ -1,0 +1,38 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": [
+    "stylelint-order",
+    "@stylistic/stylelint-plugin"
+  ],
+  "rules": {
+    "@stylistic/indentation": 2,
+    "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 5,
+    "no-descending-specificity": null,
+    "order/properties-order": [
+      "display",
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+      "float",
+      "clear",
+      "width",
+      "height",
+      "margin",
+      "padding",
+      "color",
+      "background",
+      "font",
+      "text-align",
+      "border",
+      "box-shadow",
+      "overflow",
+      "visibility",
+      "animation",
+      "transition"
+    ]
+  }
+}

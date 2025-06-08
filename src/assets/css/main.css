@@ -1,15 +1,14 @@
-@import '@/assets/css/homepage.css';
-@import '@/assets/css/templates.css';
-@import '@/assets/css/indexpage.css';
-@import '@/assets/css/postpage.css';
+@import url('@/assets/css/homepage.css');
+@import url('@/assets/css/components.css');
+@import url('@/assets/css/indexpage.css');
+@import url('@/assets/css/postpage.css');
 
 :root {
-  --color-bg: rgba(0, 61, 123, 0.779);
-  --color-primary: rgb(255, 177, 88);
-  --color-primary-alt: rgb(245, 209, 168);
-
+  --color-bg: rgb(0 61 123 / 77.9%);
+  --color-primary: rgb(255 177 88);
+  --color-primary-alt: rgb(245 209 168);
   --color-accent: #677bab;
-  --color-accent-alt: rgb(255, 255, 255);
+  --color-accent-alt: rgb(255 255 255);
 }
 
 html {
@@ -18,18 +17,17 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
 }
 
 .main-body {
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-  repeating-radial-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-  repeating-conic-gradient(#000000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
-  
-  background-blend-mode: normal, difference;
   color: var(--color-primary);
   font-size: 14px;
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  background-blend-mode: normal, difference;
 }
 
 .main-body h1 {
@@ -57,28 +55,24 @@ html {
 }
 
 .main-body a {
-  transition: color 0.3s ease;
-
-  text-decoration: none;
-  color: var(--color-primary-alt);
-  font-weight: bold;
-  position: relative;
   display: inline-block;
+  position: relative;
   z-index: 1;
+  color: var(--color-primary-alt);
+  transition: color 0.3s ease;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .main-body a::before {
-  content: '';
   position: absolute;
-  top: -0.15rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.15rem;
+  inset: -0.15rem -0.5rem;
+  z-index: -1;
   background-color: var(--color-accent);
   border-radius: 5px;
   opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: -1;
+  content: '';
 }
 
 .main-body a:hover {

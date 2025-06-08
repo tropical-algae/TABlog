@@ -1,42 +1,4 @@
 <script setup>
-// import { ref, watch, onMounted } from 'vue'
-// import { usePostStore } from '@/scripts/configStore'
-// import { useRoute } from 'vue-router'
-// import PostView from './components/PostView.vue'
-
-// import MarkdownIt from 'markdown-it'
-// import markdownItKatex from 'markdown-it-katex'
-// import 'katex/dist/katex.min.css' // 必须引入样式
-
-// const { title } = defineProps({
-//   title: {
-//     type: String,
-//     required: true
-//   }
-// })
-
-// const route = useRoute()
-// const markdownHtml = ref('')
-// const postStore = usePostStore()
-// const post = ref(postStore.getByTitle(title))
-
-
-
-// async function updatePost() {
-//   const md = new MarkdownIt({
-//   html: true,
-//   linkify: true,
-//   typographer: true
-// }).use(markdownItKatex)
-//   const slugPath = `${post.value.dir}/${post.value.slug}` // 注意路径写法
-//   const res = await fetch(slugPath)
-//   const mdText = await res.text()
-//   const htmlText = md.render(mdText)
-//   markdownHtml.value = htmlText
-//   console.log(markdownHtml)
-// }
-
-
 import { ref, watch, onMounted } from 'vue'
 import { marked } from 'marked'
 import { usePostStore } from '@/scripts/configStore'
@@ -109,12 +71,12 @@ watch(
             <td>created time:</td>
             <td><span class="ms-2">{{ post.created_time }}</span></td>
           </tr>
-          <tr v-if="post.labels && post.created_time.trim() !== ''">
-            <td>labels:</td>
+          <tr v-if="post.tags && post.created_time.trim() !== ''">
+            <td>tags:</td>
             <td>
               <span 
-                v-for="label in post.labels" :key="label" 
-                class="index-labels small ms-2"
+                v-for="label in post.tags" :key="label" 
+                class="index-tags small ms-2"
               >
                 {{ label }}
               </span>
@@ -130,6 +92,5 @@ watch(
 
 
 <style scoped>
-
 
 </style>

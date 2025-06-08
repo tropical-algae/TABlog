@@ -4,7 +4,7 @@
     "introduction": "'Diverse, sun-loving organisms vital to marine ecosystems', this is how ChatGPT introduces me.",
     "md_lables": {
         "created_time": "created_time",
-        "labels": "labels"
+        "tags": "tags"
     },
     "links": {
         "github": "https://github.com/tropical-algae",

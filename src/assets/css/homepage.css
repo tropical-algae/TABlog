@@ -1,6 +1,6 @@
 
 .home-title {
-  padding: 0rem 0rem;
+  padding: 0;
 
   /* background-color: rgb(80, 119, 146); */
 }
@@ -12,13 +12,14 @@
 }
 
 .home-sub-title {
-  padding: 0rem 2rem;
+  padding: 0 2rem;
 }
 
 .home-content {
   /* padding-left: 0.5rem; */
+
   /* padding-right: 0.5rem; */
-  padding: 0rem 2rem;
+  padding: 0 2rem;
 }
 
 
@@ -28,41 +29,43 @@
 }
 
 .home-content ul li{
-  list-style-type: none;
+  margin-right: 0;
+  margin-left: 0;
   padding-top: 1.5rem;
+  padding-right: 0;
+
   /* padding-bottom: 1rem; */
   padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
+  list-style-type: none;
+
   /* line-height: 1; */
 }
 
 .home-content table {
-  border-collapse: collapse;
   width: auto;
   table-layout: auto;
+  border-collapse: collapse;
 }
 
 .home-content table th,
 .home-content table td {
-  border: none;
   padding-right: 1.5rem;
   font-weight: normal;
   white-space: nowrap;
-
-  text-align: left;       /* 水平左对齐 */
-  vertical-align: top;    /* 垂直顶对齐 */
+  text-align: left;
+  vertical-align: top;
+  border: none;
 }
 
 .home-content table tr td:first-child,
 .home-content table tr th:first-child {
-  font-weight: bold;      /* 首列加粗 */
+  font-weight: bold;
+
   /* color: rgba(239, 247, 223, 0.779) */
 }
 
 
 .home-bottom {
-  padding: 0rem 0.5rem;
+  padding: 0 0.5rem;
 }
 

@@ -1,8 +1,7 @@
 <script setup>
-import { useConfigStore, usePostStore } from '@/scripts/configStore'
+import { usePostStore } from '@/scripts/configStore'
 import ActionBar from './components/ActionBar.vue'
 
-const config = useConfigStore()
 const postIndex = usePostStore()
 const posts = postIndex.sortedByDate
 
@@ -26,14 +25,14 @@ const posts = postIndex.sortedByDate
 
           <div>
             <span 
-              v-for="label in post.labels" :key="label" 
-              class="index-labels small ms-2"
+              v-for="label in post.tags" :key="label" 
+              class="index-tags small ms-2"
             >
               {{ label }}
             </span>
             <span
               v-if="post.created_time && post.created_time.trim() !== ''"
-              class="index-labels small ms-2"
+              class="index-tags small ms-2"
             >
               {{ post.created_time }}
             </span>
@@ -52,6 +51,5 @@ const posts = postIndex.sortedByDate
   
 
 <style scoped>
-
 
 </style>
