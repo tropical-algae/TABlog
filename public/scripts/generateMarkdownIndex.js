@@ -45,25 +45,23 @@ function ensureDirExists(filePath) {
   fs.mkdirSync(dir, { recursive: true })
 }
 
-async function clearDirectory(dir) {
-  const entries = await fs.promises.readdir(dir, { withFileTypes: true });
+function clearDirectory(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
-    // 跳过 . 开头的隐藏文件或目录
-    if (entry.name.startsWith('.')) continue;
+    if (entry.name.startsWith('.')) continue; // 跳过隐藏文件/目录
 
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      await fs.promises.rm(fullPath, { recursive: true, force: true });
+      fs.rmSync(fullPath, { recursive: true, force: true });
     } else {
-      await fs.promises.unlink(fullPath);
+      fs.unlinkSync(fullPath);
     }
   }
 }
 
 ensureDirExists(processedDir)
 clearDirectory(processedDir)
-  .then(() => console.log('✅ Directory cleared!'))
-  .catch(err => console.error('❌ Error clearing directory:', err));
+console.log('✅ Directory cleared!')
 
 for (const filePath of allFiles) {
   // const relativePathFromPublic = path.relative(publicDir, filePath)
