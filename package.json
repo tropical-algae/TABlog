@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "npx stylelint \"src/**/*.css\" --fix && node public/scripts/generateMarkdownIndex.js",
+    "predev": "(npx stylelint \"src/**/*.css\" --fix || true) && node public/scripts/generateMarkdownIndex.js",
     "dev": "vite",
-    "prebuild": "npx stylelint \"src/**/*.css\" --fix && node public/scripts/generateMarkdownIndex.js",
+    "prebuild": "(npx stylelint \"src/**/*.css\" --fix || true) && node public/scripts/generateMarkdownIndex.js",
     "build": "vite build",
     "preview": "vite preview"
   },

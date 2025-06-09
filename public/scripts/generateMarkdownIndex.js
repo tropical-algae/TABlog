@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { extractMetadataFromMarkdown, fixLocalAssetPaths, removeMetadataFromMarkdown } from './markdownProcess.js'
+import { getAllFiles, ensureDirExists, clearDirectory, stripMarkdownAndImageExtensions } from './fileTools.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -12,6 +13,7 @@ const markdownDir = path.join(publicDir, 'markdowns')
 const processedDir = path.join(publicDir, 'markdowns_processed')
 const configPath = path.join(publicDir, 'config/app.json')
 const indexFile = path.join(processedDir, 'index.json')
+const excludedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'md']
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
 const mdLabelMap = config.md_lables || {}
@@ -24,40 +26,6 @@ const reverseLabelMap = Object.entries(mdLabelMap).reduce((acc, [key, value]) =>
 
 const allFiles = getAllFiles(markdownDir)
 const indexData = []
-
-function getAllFiles(dir, fileList = []) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true })
-
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name)
-
-    if (entry.isDirectory()) {
-      getAllFiles(fullPath, fileList)
-    } else {
-      fileList.push(fullPath)
-    }
-  }
-  return fileList
-}
-
-function ensureDirExists(filePath) {
-  const dir = path.dirname(filePath)
-  fs.mkdirSync(dir, { recursive: true })
-}
-
-function clearDirectory(dir) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue; // 跳过隐藏文件/目录
-
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      fs.rmSync(fullPath, { recursive: true, force: true });
-    } else {
-      fs.unlinkSync(fullPath);
-    }
-  }
-}
 
 ensureDirExists(processedDir)
 clearDirectory(processedDir)
@@ -80,7 +48,7 @@ for (const filePath of allFiles) {
     fs.writeFileSync(targetPath, cleanedContent, 'utf-8')
 
     indexData.push({
-      title: slug.replace(/\.md$/, ''),
+      title: stripMarkdownAndImageExtensions(slug, excludedExtensions), // slug.replace(/\.md$/, ''),
       slug,
       dir: dirPath,
       ...metadata
