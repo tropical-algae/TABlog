@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+.index-content {
+  margin-bottom: 0.5rem;
+  overflow-x: hidden;
+}
+
 .index-content ul li{
   list-style-type: none;
 }

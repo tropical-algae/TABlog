@@ -9,10 +9,10 @@
   --color-primary-alt: rgb(245 209 168);
   --color-accent: #677bab;
   --color-accent-alt: rgb(255 255 255);
-}
 
-html {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  height: 100%;
+  overflow: hidden;
   scrollbar-width: none;
 }
 
@@ -87,16 +87,51 @@ html {
   opacity: 0.91;
 }
 
+.main-contain {
+  overflow-y: scroll;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  /* -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 95%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 0%, black 95%, transparent); */
+}
+
 .left-bar {
+  display: flex;
   position: sticky;
-  top: 3rem;
+  top: 0;
+  left: 0;
+  width: 100%;
   align-self: flex-start;
+  overflow-y: scroll;
+
+  /* position: sticky;
+  top: 3rem;
+  align-self: flex-start; */
 }
 
 .right-bar {
+  display: flex;
   position: sticky;
-  top: 3rem;
+  top: 0;
+  left: 0;
+  width: 100%;
   align-self: flex-start;
+  overflow-y: scroll;
+
+  /* position: sticky;
+  top: 3rem;
+  align-self: flex-start; */
+}
+
+.bottom-bar {
+  width: 100%;
+  height: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .split-line {

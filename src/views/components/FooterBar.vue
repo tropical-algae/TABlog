@@ -1,5 +1,7 @@
 <template>
-  <footer class="footer-content text-center py-2 mt-4 small">
-    © 2025 powered by Tropical Algae's cat (Mia).
+  <footer class="footer-content">
+    <span class="text-center small">
+      © 2025 powered by Tropical Algae's cat (Mia).
+    </span>
   </footer>
 </template>

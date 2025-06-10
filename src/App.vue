@@ -7,8 +7,8 @@ const config = useConfigStore()
 </script>
 
 <template>
-  <main class="d-flex flex-column min-vh-100 main-body">
-    <div class="container-md flex-fill pt-5">
+  <main class="d-flex flex-column vh-100 max-vh-100 main-body">
+    <div class="main-contain container-md pt-5 d-flex flex-column">
       <div class="row">
         
         <div class="left-bar col-md-3 pt-5 d-none d-md-block mx-auto">
@@ -43,7 +43,9 @@ const config = useConfigStore()
       </div>
       
     </div>
-    <FooterBar />
+    <div class="bottom-bar">
+      <FooterBar />
+    </div>
   </main>
   
 </template>

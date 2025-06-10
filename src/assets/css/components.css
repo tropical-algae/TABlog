@@ -57,14 +57,26 @@
 /*********************** 页脚 ***********************/
 
 .footer-content {
-  color: var(--color-accent-alt)
+  width: 100%;
+
+  overflow-x: hidden;
+  white-space: nowrap;
+  /* display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0; */
+
+  color: var(--color-accent-alt);
+  display: flex;
+  justify-content: center;  /* 水平居中 */
+  align-items: center;      /* 垂直居中 */
 }
 
 /*********************** 底部功能组件 ***********************/
 
 .action-bar {
   margin: 0;
-  padding: 0;
+  padding: 1rem 0 2rem;
 }
 
 .action-bar ul{
@@ -77,8 +89,6 @@
   margin-left: 0;
   padding-top: 1rem;
   padding-right: 0;
-
-  /* padding-bottom: 1rem; */
   padding-left: 0;
   font-weight: bold;
   list-style-type: none;

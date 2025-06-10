@@ -17,7 +17,7 @@ const relatedPosts = postStore.relatedTitlesByTags(tags, title)
 <template>
   <div class="index-content p-0">
     <ul v-for="relatedPost in relatedPosts" :key="relatedPost.label" class="p-0">
-      <h5 class="py-2 my-2 fw-bold fs-4">{{ relatedPost.label }}</h5>
+      <h5 class="py-2 my-2 fw-bold">{{ relatedPost.label }}</h5>
       <li 
         v-for="postTitle in relatedPost.titles" 
         class="d-flex justify-content-between align-items-center"

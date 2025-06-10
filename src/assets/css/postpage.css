@@ -4,6 +4,7 @@
 
 .post-attribute {
   padding: 0.5rem 0;
+  /* overflow-x: hidden; */
 }
 
 .post-attribute table {
@@ -16,14 +17,20 @@
 .post-attribute table td {
   padding-right: 1.5rem;
   font-weight: normal;
-  white-space: nowrap;
   text-align: left;
   vertical-align: top;
   border: none;
+
+}
+
+.post-attribute table td span {
+  display: inline;
+  line-height: 1.5rem;
 }
 
 .post-attribute table tr td:first-child,
 .post-attribute table tr th:first-child {
+  white-space: nowrap;
   color: var(--color-primary);
   font-weight: bold;
 }
@@ -31,6 +38,8 @@
 .post-attribute table tr td:not(:first-child),
 .post-attribute table tr th:not(:first-child) {
   color: var(--color-accent-alt);
+  white-space: normal;
+  word-break: break-word;
 }
 
 .post-content {

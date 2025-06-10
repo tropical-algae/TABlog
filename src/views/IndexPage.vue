@@ -1,9 +1,33 @@
 <script setup>
 import { usePostStore } from '@/scripts/configStore'
 import ActionBar from './components/ActionBar.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const postIndex = usePostStore()
 const posts = postIndex.sortedByDate
+const postTagMaxNum = ref(3) // 初始值
+
+function updateMaxTags() {
+  const width = window.innerWidth
+  if (width < 576) {
+    postTagMaxNum.value = 0
+  } else if (width < 768) {
+    postTagMaxNum.value = 1
+  } else if (width < 992) {
+    postTagMaxNum.value = 2
+  } else {
+    postTagMaxNum.value = 3
+  }
+}
+
+onMounted(() => {
+  updateMaxTags()
+  window.addEventListener('resize', updateMaxTags)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateMaxTags)
+})
 
 </script>
 
@@ -25,7 +49,7 @@ const posts = postIndex.sortedByDate
 
           <div>
             <span 
-              v-for="label in post.tags" :key="label" 
+              v-for="label in post.tags.slice(0, postTagMaxNum)" :key="label" 
               class="index-tags small ms-2"
             >
               {{ label }}
