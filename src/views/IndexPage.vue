@@ -16,12 +16,12 @@ const posts = postIndex.sortedByDate
           v-for="post in posts" :key="post.slug" 
           class="d-flex justify-content-between align-items-center"
         >
-          <router-link 
+          <RouterLink 
             :to="{ name: 'Post', params: { title: post.title } }"
             class="flex-grow-1 text-truncate index-link"
           >
             {{ post.title }}
-          </router-link>
+          </RouterLink>
 
           <div>
             <span 

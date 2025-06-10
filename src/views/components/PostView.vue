@@ -34,6 +34,7 @@ const { title, clz, markdownHtml } = defineProps({
 <style scoped>
 .fade-slide-enter-active, .fade-slide-leave-active {
   transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
 }
 .fade-slide-enter-from, .fade-slide-leave-to {
   opacity: 0;

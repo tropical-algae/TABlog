@@ -69,7 +69,6 @@ router.beforeEach((to, from, next) => {
   } else {
     isFirstEnter = false
   }
-  
   next()
   
 })

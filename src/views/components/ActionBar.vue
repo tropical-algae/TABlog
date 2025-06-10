@@ -2,14 +2,14 @@
   <div class="action-bar">
     <ul>
       <li>
-        <router-link :to="{ name: 'Home'}">
+        <RouterLink :to="{ name: 'Home'}">
           Home...
-        </router-link>
+        </RouterLink>
       </li>
       <li>
-        <router-link :to="{ name: 'Index'}">
+        <RouterLink :to="{ name: 'Index'}">
           Links...
-        </router-link>
+        </RouterLink>
       </li>
     </ul>
   </div>

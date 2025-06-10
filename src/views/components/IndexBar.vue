@@ -22,9 +22,9 @@ const relatedPosts = postStore.relatedTitlesByTags(tags, title)
         v-for="postTitle in relatedPost.titles" 
         class="d-flex justify-content-between align-items-center"
       >
-        <router-link :to="{ name: 'Post', params: {title: postTitle} }" class="index-link small text-truncate w-100">
+        <RouterLink :to="{ name: 'Post', params: {title: postTitle} }" class="index-link small text-truncate w-100">
           {{ postTitle }}
-        </router-link>
+        </RouterLink>
       </li>
     </ul>
   </div>

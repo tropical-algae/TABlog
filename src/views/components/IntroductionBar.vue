@@ -22,9 +22,9 @@ const socialLink = [
 
     <img src="/images/avatar.png" class="introduction-image img-fluid my-2" alt="">
 
-    <!-- <router-link :to="{ name: 'Home'}" class="introduction-img-link mb-3">
+    <!-- <RouterLink :to="{ name: 'Home'}" class="introduction-img-link mb-3">
       <img src="/images/avatar.png" class="img-fluid" alt="">
-    </router-link> -->
+    </RouterLink> -->
     
     <div class="d-flex flex-wrap justify-content-center align-items-center my-2 gap-3">
       <a v-for="(item, index) in socialLink" :key="index" :href="item.link" 
@@ -35,7 +35,7 @@ const socialLink = [
     </div>
 
     <div class="introduction-home-link my-2">
-      <router-link :to="{ name: 'Home'}" class="w-100 mb-0">Home</router-link>
+      <RouterLink :to="{ name: 'Home'}" class="w-100 mb-0">Home</RouterLink>
     </div>
     
     <hr class="split-line my-2"/>
