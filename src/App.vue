@@ -1,5 +1,22 @@
 <script setup>
 
+const scrollToTop = () =>
+  new Promise((resolve) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    const checkScroll = () => {
+      if (window.scrollY === 0) {
+        resolve()
+      } else {
+        requestAnimationFrame(checkScroll)
+      }
+    }
+    checkScroll()
+  })
+
+async function handleAfterLeave() {
+  await scrollToTop()
+}
+
 </script>
 
 <template>
@@ -22,7 +39,7 @@
         <div class="col-10 col-md-7 mx-auto">
           <!-- <RouterView :key="$route.fullPath" /> -->
           <RouterView v-slot="{ Component }">
-            <transition name="main-body-fade-anime" mode="out-in">
+            <transition name="main-body-fade-anime" mode="out-in" @before-enter="handleAfterLeave">
               <component :is="Component" :key="$route.fullPath" />
             </transition>
           </RouterView>

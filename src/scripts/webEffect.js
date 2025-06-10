@@ -14,7 +14,6 @@ export function applyRandomTheme(config) {
 export function applyGlobalStyle(config) {
   const className = 'fixed-footer'
   const root = document.documentElement
-  console.log(config.isFixedFooter)
   if (config.isFixedFooter) {
     root.classList.add(className)
   } else {

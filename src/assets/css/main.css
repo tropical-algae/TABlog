@@ -18,6 +18,14 @@
   scrollbar-width: none;
 }
 
+html,
+body {
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  background-blend-mode: normal, difference;
+}
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -28,10 +36,6 @@
   min-height: 100vh;
   color: var(--color-primary);
   font-size: 14px;
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
-  background-blend-mode: normal, difference;
 }
 
 .main-body h1 {
@@ -92,7 +96,7 @@
 }
 
 .main-contain {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   flex: 1 1 0%;
 
   /* -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 95%, transparent);
@@ -102,7 +106,7 @@
 .left-bar {
   display: flex;
   position: sticky;
-  top: 0;
+  top: 3rem;
   left: 0;
   width: 100%;
   align-self: flex-start;
@@ -116,7 +120,7 @@
 .right-bar {
   display: flex;
   position: sticky;
-  top: 0;
+  top: 3rem;
   left: 0;
   width: 100%;
   align-self: flex-start;
