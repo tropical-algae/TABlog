@@ -57,17 +57,17 @@
 /*********************** 页脚 ***********************/
 
 .footer-content {
+  display: flex;
   width: 100%;
 
-  overflow-x: hidden;
-  white-space: nowrap;
   /* display: flex;
   position: fixed;
   bottom: 0;
   left: 0; */
 
   color: var(--color-accent-alt);
-  display: flex;
+  overflow-x: hidden;
+  white-space: nowrap;
   justify-content: center;  /* 水平居中 */
   align-items: center;      /* 垂直居中 */
 }
