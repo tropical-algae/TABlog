@@ -1,8 +1,4 @@
 <script setup>
-import FooterBar from '@/views/components/FooterBar.vue'
-import { useConfigStore } from '@/scripts/configStore'
-
-const config = useConfigStore()
 
 </script>
 
@@ -44,26 +40,16 @@ const config = useConfigStore()
       
     </div>
     <div class="bottom-bar">
-      <FooterBar />
+      <RouterView v-slot="{ Component }" name="bar_bottom">
+        <transition name="main-body-fade-anime" mode="out-in">
+          <component :is="Component" :key="$route.fullPath" />
+        </transition>
+      </RouterView>
     </div>
   </main>
   
 </template>
 
 <style scoped>
-.main-body-fade-anime-enter-active, 
-.main-body-fade-anime-leave-active {
-  transition: opacity 0.2s ease;
-  will-change: opacity;
-}
-.main-body-fade-anime-enter-from, 
-.main-body-fade-anime-leave-to {
-  opacity: 0;
-  /* transform: translateY(15px); */
-}
-.main-body-fade-anime-enter-to, 
-.main-body-fade-anime-leave-from {
-  opacity: 1;
-  /* transform: translateY(0); */
-}
+
 </style>

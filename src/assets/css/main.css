@@ -2,6 +2,8 @@
 @import url('@/assets/css/components.css');
 @import url('@/assets/css/indexpage.css');
 @import url('@/assets/css/postpage.css');
+@import url('@/assets/css/transition.css');
+
 
 :root {
   --color-bg: rgb(0 61 123 / 77.9%);
@@ -11,7 +13,8 @@
   --color-accent-alt: rgb(255 255 255);
 
   /* overflow-y: scroll; */
-  overflow: hidden;
+  overflow: visible;
+  overflow-y: scroll;
   scrollbar-width: none;
 }
 
@@ -21,8 +24,8 @@
 }
 
 .main-body {
-  height: 100vh;
-
+  height: auto;
+  min-height: 100vh;
   color: var(--color-primary);
   font-size: 14px;
   background: linear-gradient(var(--color-bg), var(--color-bg)),
@@ -139,22 +142,35 @@
   border-color: var(--color-accent-alt);
 }
 
+html.fixed-footer .bottom-bar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
 
+  /* background-color: #1a1a1a; */
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  background-blend-mode: normal, difference;
+}
 
-/* :root {
-  overflow: unset;
-  overflow-y: scroll;
+/* 
+html.fixed_footer {
+
+  overflow: hidden;
 }
-:root .main-body {
-  height: auto;
-  min-height: 100vh;
+
+html.fixed_footer .main-body {
+  height: 100vh;
+
 }
-:root .main-body .main-contain {
+
+:root.fixed_footer .main-contain {
   height: auto;
-  
 }
-:root .main-body .bottom-bar {
-  height: auto;
-  flex-shrink: unset;
+
+html.fixed_footer .bottom-bar {
+  flex-shrink: 0;
+
 } */
-

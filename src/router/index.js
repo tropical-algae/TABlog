@@ -7,7 +7,8 @@ import IndexBar from "@/views/components/IndexBar.vue"
 import IntroductionBar from "@/views/components/IntroductionBar.vue"
 import IndexPage from "@/views/IndexPage.vue"
 import PostPage from "@/views/PostPage.vue"
-import { applyRandomTheme } from "@/scripts/webEffect"
+import { applyRandomTheme, applyGlobalStyle } from "@/scripts/webEffect"
+import FooterBar from "@/views/components/FooterBar.vue"
 
 
 const routes = [
@@ -17,7 +18,8 @@ const routes = [
         components: {
             default: HomePage,
             bar_left: IntroductionBar,
-            bar_right: EntityBar
+            bar_right: EntityBar,
+            bar_bottom: FooterBar
         }
     },
     {
@@ -26,7 +28,8 @@ const routes = [
         components: {
             default: IndexPage,
             bar_left: IntroductionBar,
-            bar_right: EntityBar
+            bar_right: EntityBar,
+            bar_bottom: FooterBar
         }
     },
     {
@@ -35,7 +38,8 @@ const routes = [
         components: {
             default: PostPage,
             bar_left: IntroductionBar,
-            bar_right: IndexBar
+            bar_right: IndexBar,
+            bar_bottom: FooterBar
         },
         props: {
             default: true,
@@ -59,11 +63,13 @@ router.beforeEach((to, from, next) => {
       config.loadConfig().then(() => {
         document.startViewTransition(() => {
           applyRandomTheme(config);
+          applyGlobalStyle(config);
         })
       })
     } else {
       document.startViewTransition(() => {
         applyRandomTheme(config);
+        applyGlobalStyle(config);
       })
     }
   } else {
