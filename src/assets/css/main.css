@@ -7,6 +7,7 @@
 
 :root {
   --color-bg: rgb(0 61 123 / 77.9%);
+  --color-bg-opaque: rgb(0 61 123);
   --color-primary: rgb(255 177 88);
   --color-primary-alt: rgb(245 209 168);
   --color-accent: #677bab;
@@ -16,14 +17,6 @@
   overflow: visible;
   overflow-y: scroll;
   scrollbar-width: none;
-}
-
-html,
-body {
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
-  background-blend-mode: normal, difference;
 }
 
 ::-webkit-scrollbar {
@@ -36,6 +29,17 @@ body {
   min-height: 100vh;
   color: var(--color-primary);
   font-size: 14px;
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
+  background-blend-mode: normal, difference;
+}
+
+@media screen and (hover: none) and (pointer: coarse) {
+  .main-body {
+    background: var(--color-bg-opaque);
+    background-blend-mode: normal;
+  }
 }
 
 .main-body h1 {
@@ -146,7 +150,7 @@ body {
   border-color: var(--color-accent-alt);
 }
 
-html.fixed-footer .bottom-bar {
+html.dynamic-footer .bottom-bar {
   position: sticky;
   bottom: 0;
   left: 0;
@@ -159,22 +163,29 @@ html.fixed-footer .bottom-bar {
   background-blend-mode: normal, difference;
 }
 
+@media screen and (hover: none) and (pointer: coarse) {
+  html.dynamic-footer .bottom-bar {
+    background: var(--color-bg-opaque);
+    background-blend-mode: normal;
+  }
+}
+
 /* 
-html.fixed_footer {
+html.dynamic_footer {
 
   overflow: hidden;
 }
 
-html.fixed_footer .main-body {
+html.dynamic_footer .main-body {
   height: 100vh;
 
 }
 
-:root.fixed_footer .main-contain {
+:root.dynamic_footer .main-contain {
   height: auto;
 }
 
-html.fixed_footer .bottom-bar {
+html.dynamic_footer .bottom-bar {
   flex-shrink: 0;
 
 } */

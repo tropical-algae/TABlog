@@ -19,10 +19,11 @@ export const useConfigStore = defineStore('config', {
     title: (state) => state.config?.title || 'NONE',
     subTitle: (state) => state.config?.sub_title || 'NONE',
     introduction: (state) => state.config?.introduction || 'NONE',
-    isFixedFooter: (state) => state.config?.fixed_footer || false,
+    isDynamicFooter: (state) => state.config?.dynamic_footer || false,
     colors: (state) => state.config?.colors || [
         {
             "--color-bg": "rgba(0, 61, 123, 0.779)",
+            "--color-bg-opaque": "rgb(0, 61, 123)",
             "--color-primary": "rgb(255, 177, 88)",
             "--color-primary-alt": "rgb(245, 209, 168)",
             "--color-accent": "#003f5c",

@@ -55,28 +55,33 @@ const router = createRouter({
     routes
 })
 
+function routerChangeAnim(config) {
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      applyRandomTheme(config);
+      applyGlobalStyle(config);
+    })
+  }else{
+    applyRandomTheme(config);
+    applyGlobalStyle(config);
+  }
+}
+
 router.beforeEach((to, from, next) => {
   const config = useConfigStore()
 
   if (!isFirstEnter) {
     if (!config.loaded) {
       config.loadConfig().then(() => {
-        document.startViewTransition(() => {
-          applyRandomTheme(config);
-          applyGlobalStyle(config);
-        })
+        routerChangeAnim(config);
       })
     } else {
-      document.startViewTransition(() => {
-        applyRandomTheme(config);
-        applyGlobalStyle(config);
-      })
+      routerChangeAnim(config);
     }
   } else {
     isFirstEnter = false
   }
   next()
-  
 })
 
 export default router

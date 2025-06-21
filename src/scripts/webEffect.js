@@ -12,9 +12,9 @@ export function applyRandomTheme(config) {
 }
 
 export function applyGlobalStyle(config) {
-  const className = 'fixed-footer'
+  const className = 'dynamic-footer'
   const root = document.documentElement
-  if (config.isFixedFooter) {
+  if (config.isDynamicFooter) {
     root.classList.add(className)
   } else {
     root.classList.remove(className)

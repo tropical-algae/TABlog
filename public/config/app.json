@@ -6,7 +6,7 @@
         "created_time": "created_time",
         "tags": "tags"
     },
-    "fixed_footer": true,
+    "dynamic_footer": true,
     "links": {
         "github": "https://github.com/tropical-algae",
         "discord": "",
@@ -16,6 +16,7 @@
     "colors": [
         {
             "--color-bg": "rgba(0, 61, 123, 0.779)",
+            "--color-bg-opaque": "rgb(0, 61, 123)",
             "--color-primary": "rgb(255, 177, 88)",
             "--color-primary-alt": "rgb(245, 209, 168)",
             "--color-accent": "#677bab",
@@ -23,6 +24,7 @@
         },
         {
             "--color-bg": "rgba(108, 88, 76, 0.779)",
+            "--color-bg-opaque": "rgb(108, 88, 76)",
             "--color-primary": "#adc178",
             "--color-primary-alt": "#dde5b4",
             "--color-accent": "#a98467",
@@ -31,6 +33,7 @@
         },
         {
             "--color-bg": "rgba(239, 247, 223, 0.779)",
+            "--color-bg-opaque": "rgb(239, 247, 223)",
             "--color-primary": "#7d6b57",
             "--color-primary-alt": "#968972",
             "--color-accent": "#f7e9d7",
@@ -38,6 +41,7 @@
         },
         {
             "--color-bg": "rgba(86, 44, 41, 0.779)",
+            "--color-bg-opaque": "rgb(86, 44, 41)",
             "--color-primary": "#cb9979",
             "--color-primary-alt": "#eadaa0",
             "--color-accent": "#e1c292",
@@ -45,6 +49,7 @@
         },
         {
             "--color-bg": "rgba(0, 67, 67, 0.779)",
+            "--color-bg-opaque": "rgb(0, 67, 67)",
             "--color-primary": "#cb9c7d",
             "--color-primary-alt": "#008585",
             "--color-accent": "#74a892",
@@ -52,6 +57,7 @@
         },
         {
             "--color-bg": "rgba(41, 37, 37, 0.779)",
+            "--color-bg-opaque": "rgb(41, 37, 37)",
             "--color-primary": "#aeb5c9",
             "--color-primary-alt": "#aeb5c9",
             "--color-accent": "#6378b1",
