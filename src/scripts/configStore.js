@@ -3,15 +3,12 @@ import { defineStore } from 'pinia'
 export const useConfigStore = defineStore('config', {
   state: () => ({
     config: null,
-    loaded: false,
   }),
 
   actions: {
     async loadConfig() {
-      if (this.loaded) return
       const res = await fetch('/config/app.json')
       this.config = await res.json()
-      this.loaded = true
     },
   },
 
@@ -47,15 +44,12 @@ export const useConfigStore = defineStore('config', {
 export const usePostStore = defineStore('post', {
   state: () => ({
     posts: [],
-    loaded: false,
   }),
 
   actions: {
     async loadPosts() {
-      if (this.loaded) return
       const res = await fetch('/markdowns_processed/index.json')
       this.posts = await res.json()
-      this.loaded = true
     },
   },
 
