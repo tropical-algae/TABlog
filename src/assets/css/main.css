@@ -12,16 +12,20 @@
   --color-primary-alt: rgb(245 209 168);
   --color-accent: #677bab;
   --color-accent-alt: rgb(255 255 255);
-
-  /* overflow-y: scroll; */
-  overflow: visible;
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+body {
+  /* overflow-y: scroll; */
+  overflow: visible;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* 禁止ios页面回弹 */
+  overscroll-behavior-y: none;
 }
 
 .main-body {
