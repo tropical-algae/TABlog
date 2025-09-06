@@ -6,17 +6,18 @@ export function applyRandomTheme(config) {
   for (const key in theme) {
     if (key.startsWith('--')) {
       document.documentElement.style.setProperty(key, theme[key])
-    //   document.querySelector('html').style.setProperty(key, theme[key])
+      // document.querySelector('html').style.setProperty(key, theme[key])
     }
   }
 }
 
 export function applyGlobalStyle(config) {
   const className = 'dynamic-footer'
-  const root = document.documentElement
+  // const root = document.documentElement
+  const footer = document.querySelector('.footer-bar')
   if (config.isDynamicFooter) {
-    root.classList.add(className)
+    footer.classList.add(className)
   } else {
-    root.classList.remove(className)
+    footer.classList.remove(className)
   }
 }

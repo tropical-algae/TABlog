@@ -1,31 +1,36 @@
-.main-body-fade-anime-enter-active, 
-.main-body-fade-anime-leave-active {
+.fade-footer-enter-active, 
+.fade-footer-leave-active {
   transition: opacity 0.2s ease;
   will-change: opacity;
 }
 
-.main-body-fade-anime-enter-from, 
-.main-body-fade-anime-leave-to {
+.fade-comp-enter-active, 
+.fade-comp-leave-active {
+  transition: opacity 0.2s ease;
+  will-change: opacity;
+}
+
+.fade-comp-enter-from, 
+.fade-comp-leave-to {
   opacity: 0;
 }
 
-.main-body-fade-anime-enter-to, 
-.main-body-fade-anime-leave-from {
+.fade-comp-enter-to, 
+.fade-comp-leave-from {
   opacity: 1;
 }
 
-
-.fade-slide-enter-active, .fade-slide-leave-active {
+.fade-post-enter-active, .fade-post-leave-active {
   transition: opacity 0.6s ease, transform 0.6s ease;
   will-change: opacity, transform;
 }
 
-.fade-slide-enter-from, .fade-slide-leave-to {
+.fade-post-enter-from, .fade-post-leave-to {
   opacity: 0;
   transform: translateY(15px);
 }
 
-.fade-slide-enter-to, .fade-slide-leave-from {
+.fade-post-enter-to, .fade-post-leave-from {
   opacity: 1;
   transform: translateY(0);
 }

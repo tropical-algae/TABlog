@@ -49,6 +49,8 @@
   word-wrap: break-word;
 }
 
+/*********** 代码标 ***********/
+
 .post-content code {
   padding: 0 0.5rem;
   color: var(--color-accent-alt);
@@ -60,6 +62,8 @@
   /* overflow-wrap: break-word;
     overflow-x: hidden; */
 }
+
+/*********** 代码块 ***********/
 
 .post-content pre {
   padding: 0.5rem 1rem;
@@ -76,8 +80,10 @@
   border-radius: 0;
 }
 
+/*********** 引用块 ***********/
+
 .post-content blockquote {
-  margin: 1em 0;
+  margin: 1rem 0;
   padding: 0 1rem;
   color: var(--color-accent-alt);
 
@@ -92,6 +98,13 @@
   /* overflow-wrap: break-word;
   overflow-x: hidden; */
 }
+
+.post-content blockquote p {
+  margin: 0;
+  padding: 0;
+}
+
+/*********** 链接 ***********/
 
 .post-content a, 
 .post-content a:visited, 

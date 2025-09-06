@@ -7,7 +7,7 @@ import IndexBar from "@/views/components/IndexBar.vue"
 import IntroductionBar from "@/views/components/IntroductionBar.vue"
 import IndexPage from "@/views/IndexPage.vue"
 import PostPage from "@/views/PostPage.vue"
-import { applyRandomTheme, applyGlobalStyle } from "@/scripts/webEffect"
+import { applyRandomTheme } from "@/scripts/webEffect"
 import FooterBar from "@/views/components/FooterBar.vue"
 
 
@@ -49,37 +49,24 @@ const routes = [
     },
 ]
 
-let isFirstEnter = true
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
 
-function routerChangeAnim(config) {
+router.beforeEach(async (to, from, next) => {
+  const config = useConfigStore()
+
+  if (!config.config){
+    await config.loadConfig();
+  }
+
   if (document.startViewTransition) {
     document.startViewTransition(() => {
       applyRandomTheme(config);
-      applyGlobalStyle(config);
     })
   }else{
     applyRandomTheme(config);
-    applyGlobalStyle(config);
-  }
-}
-
-router.beforeEach((to, from, next) => {
-  const config = useConfigStore()
-
-  if (!isFirstEnter) {
-    if (!config.loaded) {
-      config.loadConfig().then(() => {
-        routerChangeAnim(config);
-      })
-    } else {
-      routerChangeAnim(config);
-    }
-  } else {
-    isFirstEnter = false
   }
   next()
 })

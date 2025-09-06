@@ -39,7 +39,7 @@ onMounted(async () => {
   } catch (err) {
     console.log("[onMounted error]", err)
   }
-})
+});
 
 watch(
   () => route.params.title,

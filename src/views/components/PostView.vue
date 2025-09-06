@@ -20,7 +20,7 @@ const { title, clz, markdownHtml } = defineProps({
 </script>
 
 <template>
-  <transition name="fade-slide" mode="out-in">
+  <transition name="fade-post" mode="out-in">
     <div v-if="markdownHtml" class="d-flex flex-column" >
       <div
         :class="[clz, ]"

@@ -13,11 +13,11 @@ export const useConfigStore = defineStore('config', {
   },
 
   getters: {
-    title: (state) => state.config?.title || 'NONE',
-    subTitle: (state) => state.config?.sub_title || 'NONE',
-    introduction: (state) => state.config?.introduction || 'NONE',
-    isDynamicFooter: (state) => state.config?.dynamic_footer || false,
-    colors: (state) => state.config?.colors || [
+    title: (state) => state.config?.title ?? 'NONE',
+    subTitle: (state) => state.config?.sub_title ?? 'NONE',
+    introduction: (state) => state.config?.introduction ?? 'NONE',
+    isDynamicFooter: (state) => state.config?.dynamic_footer ?? true,
+    colors: (state) => state.config?.colors ?? [
         {
             "--color-bg": "rgba(0, 61, 123, 0.779)",
             "--color-bg-opaque": "rgb(0, 61, 123)",
@@ -27,11 +27,11 @@ export const useConfigStore = defineStore('config', {
             "--color-accent-alt": "#ffffff"
         }
     ],
-    mdLables: (state) => state.config?.md_lables || {
+    mdLabels: (state) => state.config?.md_lables ?? {
       "created_time": "created_time",
       "tags": "tags"
     },
-    links: (state) => state.config?.links || {
+    links: (state) => state.config?.links ?? {
       "github": "",
       "discord": "",
       "notion": "",

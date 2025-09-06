@@ -16,6 +16,7 @@ export default defineConfig(({mode}) => {
       svgLoader(),
     ],
     server: {
+      host: '0.0.0.0',
       port: parseInt(env.VITE_WEB_PORT) || 8000,
     },
     resolve: {
