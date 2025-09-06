@@ -1,12 +1,12 @@
-<p align="center"><strong><span style="font-size: 1.8em;">✨ TABlog</span></strong></p>
+<div align="center">
+  <img src="assets/logo.png" style="vertical-align:middle;height:4em;">
+  <h2 style="margin: 0.5rem">一个轻量级的、Markdown 驱动的个人博客</h2>
+</div>
+
 <p align="center">
   <a href="README.md"><img src="https://img.shields.io/badge/Language-English-blue.svg"></a>
   <a href="README_CN.md"><img src="https://img.shields.io/badge/Language-简体中文-red.svg"></a>
 </p>
-
-<p align="center" style="font-size: 1.2em;">一个轻量级的、Markdown 驱动的个人博客 📝</p>
-
-<hr>
 
 ### 🌟 特点：
 - 轻量的响应式博客，动画丝滑

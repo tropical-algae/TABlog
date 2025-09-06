@@ -98,3 +98,7 @@
 
 - 修复config的getter默认值赋值错误问题
 - 解决页面跳转后定位不符预期的问题
+
+**Docs**:
+
+- 更新README中的logo

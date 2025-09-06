@@ -1,12 +1,12 @@
-<p align="center"><strong><span style="font-size: 1.8em;">✨ TABlog</span></strong></p>
+<div align="center">
+  <img src="assets/logo.png" style="vertical-align:middle;height:4em;">
+  <h2 style="margin: 0.5rem">A lightweight, markdown-driven personal blog</h2>
+</div>
+
 <p align="center">
   <a href="README.md"><img src="https://img.shields.io/badge/Language-English-blue.svg"></a>
   <a href="README_CN.md"><img src="https://img.shields.io/badge/Language-简体中文-red.svg"></a>
 </p>
-
-<p align="center" style="font-size: 1.2em;">A lightweight, markdown-driven personal blog 📝</p>
-
-<hr>
 
 ### 🌟 Features:
 - Lightweight and responsive blog with smooth animations
