@@ -16,8 +16,8 @@ const indexFile = path.join(processedDir, 'index.json')
 const excludedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'md']
 
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
-const mdLabelMap = config.md_lables || {}
-const mdLableName = Object.values(mdLabelMap)
+const mdLabelMap = config.md_labels || {}
+const mdLabelName = Object.values(mdLabelMap)
 
 const reverseLabelMap = Object.entries(mdLabelMap).reduce((acc, [key, value]) => {
   acc[value.toLowerCase()] = key
@@ -44,7 +44,7 @@ for (const filePath of allFiles) {
     const fixedContent = fixLocalAssetPaths(content, dirPath)
     const metadata = extractMetadataFromMarkdown(fixedContent, reverseLabelMap)
 
-    const cleanedContent = removeMetadataFromMarkdown(fixedContent, mdLableName)
+    const cleanedContent = removeMetadataFromMarkdown(fixedContent, mdLabelName)
     fs.writeFileSync(targetPath, cleanedContent, 'utf-8')
 
     indexData.push({

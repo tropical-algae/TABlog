@@ -27,7 +27,7 @@ export const useConfigStore = defineStore('config', {
             "--color-accent-alt": "#ffffff"
         }
     ],
-    mdLabels: (state) => state.config?.md_lables ?? {
+    mdLabels: (state) => state.config?.md_labels ?? {
       "created_time": "created_time",
       "tags": "tags"
     },
