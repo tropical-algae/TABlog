@@ -1,5 +1,5 @@
 <script setup>
-import { useConfigStore } from '@/scripts/configStore'
+import { useConfigStore, useMapStore } from '@/scripts/configStore'
 import { ref, onMounted } from 'vue'
 import { marked } from 'marked'
 import PostView from './components/PostView.vue'
@@ -8,7 +8,9 @@ const markdownHtml = ref('')
 const config = useConfigStore()
 
 onMounted(async () => {
-  const res = await fetch('/config/home.md')
+  const mapStore = useMapStore()
+
+  const res = await fetch(await mapStore.getValue('home'))
   const mdText = await res.text()
   markdownHtml.value = marked.parse(mdText)
 })

@@ -1,4 +1,7 @@
-export function removeMetadataFromMarkdown(md, matchPrefixes = []) {
+import path from 'path'
+
+
+export function removeMdMetadata(md, matchPrefixes = []) {
   const lines = md.split('\n')
   let hasMatchingItem = false
   let cutIndex = -1
@@ -25,18 +28,30 @@ export function removeMetadataFromMarkdown(md, matchPrefixes = []) {
   return md
 }
 
-export function fixLocalAssetPaths(mdContent, dirPath) {
-  return mdContent.replace(/(!\[.*?\]\()(\.\/|\.\.\/|[^\/].*?)(\))/g, (match, prefix, relativePath, suffix) => {
-    if (/^(https?:)?\/\//.test(relativePath)) return match
+export function fixMdAssetsRef(mdContent, originFile, dirPath, fileMap) {
+  // 获取前端访问的资源路径
+  return mdContent.replace(/(!\[.*?\]\()([^\)]+)(\))/g, (match, prefix, imgPath, suffix) => {
+    if (/^(https?:)?\/\//.test(imgPath)) return match
 
-    const normalized = relativePath.replace(/^\.?\//, '')
-    const fixedPath = `${dirPath}/${normalized}`.replace(/\/+/g, '/')
+    // 获取引用文件绝对路径
+    let originAbsPath
+    if (imgPath.startsWith("/")) {
+      originAbsPath = imgPath
+    } else {
+      originAbsPath = path.resolve(path.dirname(originFile), imgPath)
+    }
 
-    return `${prefix}${fixedPath}${suffix}`
+    // 查找映射表获取移动后的文件
+    const newAbsPath = fileMap[originAbsPath]
+    if (!newAbsPath) {
+      return match
+    }
+    let relativeToProcessed = path.join(dirPath, path.basename(newAbsPath))
+    return `${prefix}${relativeToProcessed}${suffix}`
   })
 }
 
-export function extractMetadataFromMarkdown(mdText, labelMap) {
+export function extractMdMetadata(mdText, labelMap) {
   const lines = mdText.split('\n')
   const result = {}
 

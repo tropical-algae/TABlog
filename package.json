@@ -1,12 +1,12 @@
 {
   "name": "tablog",
-  "version": "0.2",
+  "version": "0.3",
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "(npx stylelint \"src/**/*.css\" --fix || true) && node public/scripts/generateMarkdownIndex.js",
+    "predev": "(npx stylelint \"src/**/*.css\" --fix || true) && node public/scripts/buildPost.js",
     "dev": "vite",
-    "prebuild": "node public/scripts/generateMarkdownIndex.js",
+    "prebuild": "node public/scripts/buildPost.js",
     "build": "vite build",
     "preview": "vite preview"
   },

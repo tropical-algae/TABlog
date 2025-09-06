@@ -85,7 +85,7 @@
 - 调整缓存策略，解决添加md后网页无法同步更新的问题
 - css防ios页面回弹
 
-## 2025/9/4 Sat
+## 2025/9/6 Sat
 
 **Refactor**:
 
@@ -102,3 +102,14 @@
 **Docs**:
 
 - 更新README中的logo
+
+## 2025/9/7 Sun
+
+**Feat**:
+
+- 为文件计算了hash，修改nginx的cache策略
+- 新增config的后处理文件夹
+
+**Refactor**:
+
+- 优化部分文件结构与函数

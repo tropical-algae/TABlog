@@ -1,5 +1,28 @@
 import { defineStore } from 'pinia'
 
+
+export const useMapStore = defineStore('map', {
+  state: () => ({
+    mapData: null,
+  }),
+
+  actions: {
+    async loadMap() {
+      if (!this.mapData) {  // 避免重复 fetch
+        const res = await fetch('/config_processed/map.json')
+        this.mapData = await res.json()
+      }
+    },
+
+    async getValue(key) {
+      if (!this.mapData) {
+        await this.loadMap()
+      }
+      return this.mapData?.[key] ?? null
+    }
+  },
+})
+
 export const useConfigStore = defineStore('config', {
   state: () => ({
     config: null,
@@ -7,8 +30,12 @@ export const useConfigStore = defineStore('config', {
 
   actions: {
     async loadConfig() {
-      const res = await fetch('/config/app.json')
-      this.config = await res.json()
+      if (!this.config) {
+        const mapStore = useMapStore()
+
+        const res = await fetch(await mapStore.getValue('app'))
+        this.config = await res.json()
+      }
     },
   },
 
@@ -43,13 +70,17 @@ export const useConfigStore = defineStore('config', {
 
 export const usePostStore = defineStore('post', {
   state: () => ({
-    posts: [],
+    posts: null,
   }),
 
   actions: {
     async loadPosts() {
-      const res = await fetch('/markdowns_processed/index.json')
-      this.posts = await res.json()
+      if (!this.posts) {
+        const mapStore = useMapStore()
+
+        const res = await fetch(await mapStore.getValue('index'))
+        this.posts = await res.json()
+      }
     },
   },
 

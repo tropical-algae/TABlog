@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [ -f ./scripts/generateMarkdownIndex.js ]; then
+if [ -f ./scripts/buildPost.js ]; then
   echo "🛠️ Generating markdown index..."
-  node ./scripts/generateMarkdownIndex.js
+  node ./scripts/buildPost.js
 fi
 
 echo "✅ Done. Starting Nginx"
