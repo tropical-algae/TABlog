@@ -11,7 +11,7 @@ import { applyRandomTheme } from "@/scripts/webEffect"
 import FooterBar from "@/views/components/FooterBar.vue"
 import { initializeApp } from '@/scripts/globalInit'
 
-
+const title = import.meta.env.VITE_SITE_TITLE || 'My Blog';
 const routes = [
     {
         path: "/",
@@ -21,7 +21,8 @@ const routes = [
             bar_left: IntroductionBar,
             bar_right: EntityBar,
             bar_bottom: FooterBar
-        }
+        },
+        meta: {"title": title}
     },
     {
         path: "/index",
@@ -31,7 +32,8 @@ const routes = [
             bar_left: IntroductionBar,
             bar_right: EntityBar,
             bar_bottom: FooterBar
-        }
+        },
+        meta: {"title": 'Index - ' + title}
     },
     {
         path: "/post/:title",
@@ -46,7 +48,8 @@ const routes = [
             default: true,
             // bar_left: true,
             bar_right: true
-        }
+        },
+        meta: {"title": 'Post - ' + title}
     },
 ]
 
@@ -56,6 +59,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  document.title = to.meta.title
+
   await initializeApp()
   const config = useConfigStore()
 

@@ -1,4 +1,7 @@
-export $(grep -v '^#' .env | xargs)
+#!/bin/sh
+set -a
+. ./.env
+set +a
 
 npm run build
 chmod +x ./dist/scripts/run.sh
