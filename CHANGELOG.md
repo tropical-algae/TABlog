@@ -109,6 +109,7 @@
 
 - 为文件计算了hash，修改nginx的cache策略
 - 新增config的后处理文件夹
+- 解决延迟加载造成的背景色闪烁问题
 
 **Refactor**:
 

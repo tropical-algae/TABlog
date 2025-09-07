@@ -20,22 +20,21 @@
 }
 
 body {
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
   overflow: visible;
   overflow-y: scroll;
   scrollbar-width: none;
 
   /* 禁止ios页面回弹 */
   overscroll-behavior-y: none;
-  background-blend-mode: normal, difference;
-
 }
 
 .main-page {
   display: flex;
   height: auto;
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
+  background-blend-mode: normal, difference;
   min-height: 100vh;
   flex-direction: column;
 }
@@ -152,14 +151,11 @@ body {
 @media screen and (hover: none) and (pointer: coarse) {
   .main-page {
     background-blend-mode: normal;
+    background: var(--color-bg-opaque) !important;
   }
 
   .dynamic-footer {
     background: var(--color-bg-opaque);
     background-blend-mode: normal;
-  }
-
-  body {
-    background: var(--color-bg-opaque) !important;
   }
 }
