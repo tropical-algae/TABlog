@@ -9,6 +9,7 @@ import IndexPage from "@/views/IndexPage.vue"
 import PostPage from "@/views/PostPage.vue"
 import { applyRandomTheme } from "@/scripts/webEffect"
 import FooterBar from "@/views/components/FooterBar.vue"
+import { initializeApp } from '@/scripts/globalInit'
 
 
 const routes = [
@@ -55,11 +56,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  await initializeApp()
   const config = useConfigStore()
-
-  if (!config.config){
-    await config.loadConfig();
-  }
 
   if (document.startViewTransition) {
     document.startViewTransition(() => {

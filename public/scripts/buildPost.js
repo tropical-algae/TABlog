@@ -14,6 +14,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const publicDir = path.join(__dirname, '../')
+
 const originMdDir = path.join(publicDir, 'markdowns')
 const newMdDir = path.join(publicDir, 'markdowns_processed')
 const originCfgDir = path.join(publicDir, 'config')
@@ -31,11 +32,14 @@ console.log('✅ Directory cleared!')
 // 预处理post
 const indexData = movePosts(config, sortedPostFiles, publicDir, originMdDir, newMdDir)
 const indexMap = buildPostIndex(publicDir, newMdDir, indexData)
+console.log('✅ Markdown preprocessing completed!')
 
 // 预处理config
 const configMap = moveConfig(publicDir, originCfgDir, newCfgDir)
+console.log('✅ Configs preprocessing completed!')
 
+// 保存原始文件与hashed文件映射
 const mergedMap = { ...indexMap, ...configMap }
-fs.writeFileSync(path.join(newCfgDir, "map.json"), JSON.stringify(mergedMap, null, 2), 'utf-8')
+fs.writeFileSync(path.join(newCfgDir, 'map.json'), JSON.stringify(mergedMap, null, 2), 'utf-8')
 
-console.log('✅ All markdowns processed and index.json generated.')
+console.log('✅ Done.')

@@ -8,14 +8,14 @@ import {
 } from './mdProcessor.js'
 
 
-export function getFileHash(filePath, algorithm = "sha256", length = 8) {
+export function getFileHash(filePath, algorithm = 'sha256', length = 8) {
   const buffer = fs.readFileSync(filePath)
   const hash = crypto.createHash(algorithm)  //（md5/sha1/sha256）
   hash.update(buffer)
   return hash.digest("hex").slice(0, length)
 }
 
-export function getTextHash(text, algorithm = "sha256", length = 8) {
+export function getTextHash(text, algorithm = 'sha256', length = 8) {
   const hash = crypto.createHash(algorithm)  //（md5/sha1/sha256）
   hash.update(text, "utf8")
   return hash.digest("hex").slice(0, length)
@@ -31,8 +31,8 @@ export function getNewParentDir(originFile, originDir, newDir) {
 // 基于 原文件/新文本 生成新路径
 export function getNewHashedPath(originFile, newParentDir, newContent = null) {
   const hash = newContent 
-    ? getTextHash(newContent, "md5")
-    : getFileHash(originFile, "md5")
+    ? getTextHash(newContent, 'md5')
+    : getFileHash(originFile, 'md5')
   const ext = path.extname(originFile)
   const base = path.basename(originFile, ext)
 
@@ -85,7 +85,9 @@ export function clearDirectory(dir) {
   }
 }
 
-// 获取文件名（去除hash、去除多后缀干扰
+/**
+ * 获取文件名（去除hash、去除多后缀干扰）
+ */
 export function getFileRealName(filename, excludedExtensions) {
   // 去除连续的后缀
   const parts = filename.split('.')
@@ -104,7 +106,6 @@ export function getFileRealName(filename, excludedExtensions) {
   return fullname.slice(0, lastIndex)
 }
 
-// 预处理post
 export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
   const indexData = []
   // 旧数据与新数据的映射表

@@ -1,22 +1,17 @@
 <script setup>
-import { useConfigStore, useMapStore } from '@/scripts/configStore'
+import { useHomePost, useConfigStore } from '@/scripts/configStore'
 import { ref, onMounted } from 'vue'
-import { marked } from 'marked'
 import PostView from './components/PostView.vue'
 
 const markdownHtml = ref('')
 const config = useConfigStore()
+const home = useHomePost()
 
 onMounted(async () => {
-  const mapStore = useMapStore()
-
-  const res = await fetch(await mapStore.getValue('home'))
-  const mdText = await res.text()
-  markdownHtml.value = marked.parse(mdText)
+  markdownHtml.value = home.content
 })
 
 </script>
-
 
 <template>
   <div>
