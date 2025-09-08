@@ -6,26 +6,8 @@ import { applyGlobalStyle } from "@/scripts/webEffect"
 const config = useConfigStore()
 
 onMounted(async () => {
-  window.scrollTo(0, 0);
   applyGlobalStyle(config)
 })
-
-// const scrollToTop = () =>
-//   new Promise((resolve) => {
-//     window.scrollTo({ top: 0, behavior: 'smooth' })
-//     const checkScroll = () => {
-//       if (window.scrollY === 0) {
-//         resolve()
-//       } else {
-//         requestAnimationFrame(checkScroll)
-//       }
-//     }
-//     checkScroll()
-//   })
-
-// async function handleAfterLeave() {
-//   await scrollToTop()
-// }
 
 </script>
 
@@ -34,8 +16,8 @@ onMounted(async () => {
     <main class="main-body">
       <div class="container-md pt-5">
         <div class="row">
-          
-          <div class="left-bar col-md-3 pt-5 d-none d-md-block mx-auto">
+
+          <div class="left-bar col-md-2 pt-3 px-0 d-none d-md-block mx-auto">
             <RouterView v-slot="{ Component }" name="bar_left">
               <transition name="fade-comp" mode="out-in">
                 <component :is="Component"/>
@@ -47,7 +29,7 @@ onMounted(async () => {
             </RouterView> -->
           </div>
 
-          <div class="col-10 col-md-7 mx-auto">
+          <div class="col-10 col-md-8 px-5 mx-auto">
             <!-- <RouterView :key="$route.fullPath" /> -->
             <RouterView v-slot="{ Component }">
               <transition name="fade-comp" mode="out-in">
@@ -56,7 +38,7 @@ onMounted(async () => {
             </RouterView>
           </div>
 
-          <div class="right-bar col-md-2 pt-5 d-none d-md-block mx-auto">
+          <div class="right-bar col-md-2 pt-3 px-2 d-none d-md-block mx-auto">
             <!-- <RouterView name="bar_right" /> -->
             <RouterView v-slot="{ Component }" name="bar_right">
               <transition name="fade-comp" mode="out-in">

@@ -18,7 +18,7 @@ const { title } = defineProps({
 const route = useRoute()
 const markdownHtml = ref('')
 const postStore = usePostStore()
-const post = ref(postStore.getByTitle(title))
+const post = ref(postStore.getPostByTitle(title))
 
 
 async function updatePost() {
@@ -46,7 +46,7 @@ watch(
   async (newTitle, oldTitle) => {
     if (newTitle !== oldTitle) {
       try {
-        const newPost = postStore.getByTitle(newTitle)
+        const newPost = postStore.getPostByTitle(newTitle)
         if (!newPost) {
           throw new Error(`Post not found for title: ${newTitle}`)
         }
@@ -69,16 +69,16 @@ watch(
         <tbody>
           <tr v-if="post.created_time && post.created_time.trim() !== ''">
             <td>created time:</td>
-            <td><span class="ms-2">{{ post.created_time }}</span></td>
+            <td><span>{{ post.created_time }}</span></td>
           </tr>
           <tr v-if="post.tags && post.created_time.trim() !== ''">
             <td>tags:</td>
-            <td>
+            <td class="index-tags-container">
               <span 
-                v-for="label in post.tags" :key="label" 
-                class="index-tags small ms-2"
+                v-for="tag in post.tags" :key="tag" 
+                class="index-tags small"
               >
-                {{ label }}
+                {{ tag }}
               </span>
             </td>
           </tr>

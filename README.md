@@ -59,7 +59,7 @@ bash run.sh           # Start the container
 In the `$CONTAINER_MOUNT/config` folder, add the configuration file [app.json](./public/config/app.json).
 
 In this file:
-- `md_labels` defines the keywords that will be recognized as tags. These keywords will be rendered as tags when the blog content is parsed. More details will be introduced later.
+- `label_map` defines the keywords that will be recognized as tags. These keywords will be rendered as tags when the blog content is parsed. More details will be introduced later.
 - `colors` defines the theme color palette for the blog. A random theme will be applied on each route navigation.
 
 #### 2. Add Homepage Content

@@ -24,11 +24,6 @@
 
 }
 
-.post-attribute table td span {
-  display: inline;
-  line-height: 1.5rem;
-}
-
 .post-attribute table tr td:first-child,
 .post-attribute table tr th:first-child {
   white-space: nowrap;
@@ -39,8 +34,9 @@
 .post-attribute table tr td:not(:first-child),
 .post-attribute table tr th:not(:first-child) {
   color: var(--color-accent-alt);
-  white-space: normal;
-  word-break: break-all;
+
+  /* white-space: normal;
+  word-break: break-all; */
 }
 
 .post-content {

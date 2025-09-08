@@ -10,44 +10,32 @@
 }
 
 /*********************** 简介栏 ***********************/
+.introduction-bar {
+  max-height: 80vh;
+  /* background-color: aqua; */
+}
+
 .introduction-image {
   border-radius: 15px;
   opacity: 0.65;
 }
 
 .introduction-home-link {
-  padding: 0.15rem 0.5rem;
+  padding: 0.15rem 0rem;
+  text-decoration: none;
+  color: var(--color-accent-alt);
+  font-weight: bold;
+  display: inline-block;
   background: var(--color-accent);
   text-align: center;
-  border-radius: 5px;
+  border-radius: 7px;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* 
-.introduction-img-link img {
-  opacity: 0.7;
-  border-radius: 15px;
+.introduction-home-link:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-alt);
 }
-
-.introduction-img-link {
-  position: relative;
-  display: inline-block;
-  z-index: 1;
-}
-
-.introduction-img-link::before {
-  content: '';
-  position: absolute;
-  inset: 0rem;
-  background-color: var(--color-accent);
-  border-radius: 15px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-}
-
-.introduction-img-link:hover::before {
-  opacity: 0.78;
-} */
 
 .introduction-content {
   color: var(--color-primary);
@@ -77,7 +65,7 @@
 
 .action-bar {
   margin: 0;
-  padding: 1rem 0 3rem;
+  padding: 0 0 2rem 0;
 }
 
 .action-bar ul{
@@ -88,7 +76,7 @@
 .action-bar ul li{
   margin-right: 0;
   margin-left: 0;
-  padding-top: 1rem;
+  padding-bottom: 0.7rem;
   padding-right: 0;
   padding-left: 0;
   font-weight: bold;

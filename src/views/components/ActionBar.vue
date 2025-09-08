@@ -1,4 +1,5 @@
 <template>
+  <hr class="split-line"/>
   <div class="action-bar">
     <ul>
       <li>

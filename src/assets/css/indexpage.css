@@ -4,7 +4,9 @@
 }
 
 .index-content {
-  overflow-x: hidden;
+  overflow: hidden auto;
+  flex: 1 1 0%;
+  max-height: 65vh;
 }
 
 .index-content ul li{
@@ -37,6 +39,7 @@
 
 .index-content ul li:last-of-type::after {
   position: absolute;
+  flex: 1 1 0%;
   bottom: 0;
   left: -0.1rem; 
   width: 0.5rem;
@@ -54,9 +57,27 @@
 }
 
 .index-tags {
-  padding: 0.1rem 0.4rem;
+  display: inline;
+
+  /* all: unset; */
+  padding: 0 0.2rem;
+  text-decoration: none;
+  line-height: 1.1rem;
   color: var(--color-accent-alt);
   white-space: nowrap;
   background-color: var(--color-accent);
   border-radius: 2px;
+}
+
+.index-tags.selected {
+  color: var(--color-accent);
+  background-color: var(--color-accent-alt);
+}
+
+.index-tags-container {
+  display: flex;
+  flex-wrap: wrap; /* 允许子元素自动换行 */
+  max-height: 7.5rem;
+  overflow-y: auto;
+  gap: 0.4rem; /* 标签之间的间距 */
 }

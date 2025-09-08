@@ -15,7 +15,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <div class="row home-title"><h3>{{ config.title }}</h3></div>
+    <div class="row home-title"><h1>{{ config.title }}</h1></div>
     <div class="row home-sub-title">{{ config.subTitle }}</div>
     <PostView :title="'home-page'" :clz="'row home-content'" :markdownHtml="markdownHtml" />
   </div>

@@ -70,7 +70,7 @@ export const useConfigStore = defineStore('config', {
             "--color-accent-alt": "#ffffff"
         }
     ],
-    mdLabels: (state) => state.config?.md_labels ?? {
+    labelMap: (state) => state.config?.label_map ?? {
       "created_time": "created_time",
       "tags": "tags"
     },
@@ -87,6 +87,9 @@ export const useConfigStore = defineStore('config', {
 export const usePostStore = defineStore('post', {
   state: () => ({
     posts: null,
+    sortedPosts: null,
+    tags: null,
+    selectedTags: [],
   }),
 
   actions: {
@@ -94,46 +97,55 @@ export const usePostStore = defineStore('post', {
       if (!this.posts) {
         const res = await fetch(sourcePath)
         this.posts = await res.json()
+        this.tags = [...new Set(this.posts.flatMap(post => post.tags))].sort()
+        this.sortedPosts = [...this.posts].sort(
+          (a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)
+        )
       }
     },
+    selectTag(tag) {
+      if (!this.selectedTags.includes(tag)) {
+        this.selectedTags.push(tag)
+      }
+    },
+    unselectTag(tag) {
+      this.selectedTags = this.selectedTags.filter(_tag => _tag !== tag)
+    }
   },
 
   getters: {
     // 按创建时间降序排序
-    sortedByDate: (state) =>
-      [...state.posts].sort((a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)),
+    filterBySelectedTags: (state) => {
+      // 如果没选任何标签，返回排序后的所有 post
+      if (state.selectedTags.length === 0) {
+        return state.sortedPosts
+      }
+      // 否则返回至少包含一个选中标签的 post
+      return state.sortedPosts.filter(post =>
+        post.tags?.some(tag => state.selectedTags.includes(tag))
+      )
+    },
     // 所有标签合集（去重）
-    allTags: (state) => {
-      const set = new Set()
-      state.posts.forEach(p => p.tags.forEach(l => set.add(l)))
-      return Array.from(set)
-    },
-    // 按标签分组
-    groupedByLabel: (state) => {
-      const groups = {}
-      state.posts.forEach(post => {
-        post.tags.forEach(label => {
-          if (!groups[label]) groups[label] = []
-          groups[label].push(post)
-        })
-      })
-      return groups
-    },
-    getByTitle: (state) => (title) => {
+    getAllTags: (state) => { return state.tags },
+    getPostByTitle: (state) => (title) => {
       return state.posts.find(p => p.title === title) || null
     },
-    relatedTitlesByTags: (state) => (labelList, title = '') => {
-      return labelList
-        .map(label => {
-          const titles = state.posts
-            .filter(post => 
-              post.tags.includes(label) && post.title !== title
-            )
-            .map(post => post.title)
+    getRelatedPosts(state) {
+      return (title = '') => {
+        const post = this.getPostByTitle(title)
+        if (!post) return []
     
-          return titles.length > 0 ? { label, titles } : null
-        })
-        .filter(item => item !== null)
+        const tags = post.tags || []
+        return tags
+          .map(tag => {
+            const titles = state.posts
+              .filter(p => p.tags.includes(tag) && p.title !== title)
+              .map(p => p.title)
+    
+            return titles.length > 0 ? { tag, titles } : null
+          })
+          .filter(item => item !== null)
+      }
     }
   }
 })

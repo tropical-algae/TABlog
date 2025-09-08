@@ -158,11 +158,12 @@ export function getFileRealName(filename, suffixes) {
  * @returns 全部markdown的元信息
  */
 export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
+  let mdId = 0
   const indexData = []
   // 旧数据与新数据的映射表
   const fileMap = {}
 
-  const mdLabelMap = config.md_labels || {}
+  const mdLabelMap = config.label_map || {}
   const mdLabelName = Object.values(mdLabelMap)
   const reverseLabelMap = Object.entries(mdLabelMap).reduce((acc, [key, value]) => {
     acc[value.toLowerCase()] = key
@@ -181,6 +182,7 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
     ensureDirExists(newFile)
 
     if (isMarkdown) {
+      mdId += 1
       const sourceDir = "/" + path.relative(publicDir, newParentDir).replace(/\\/g, "/")
       const fixedContent = fixMdAssetsRef(content, originFile, sourceDir, fileMap)
       const finalContent = removeMdMetadata(fixedContent, mdLabelName)
@@ -189,6 +191,7 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
 
       const metadata = extractMdMetadata(fixedContent, reverseLabelMap)
       indexData.push({
+        id: mdId,
         title: getFileRealName(path.basename(newFile), suffixes),
         slug: path.basename(newFile),
         dir: sourceDir,

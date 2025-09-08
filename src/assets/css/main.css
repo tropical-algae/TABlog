@@ -69,7 +69,7 @@ body {
   font-size: 1.1rem;
 }
 
-.main-body a {
+.main-body a:not(.default-style) {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -79,7 +79,7 @@ body {
   text-decoration: none;
 }
 
-.main-body a::before {
+.main-body a:not(.default-style)::before {
   position: absolute;
   inset: -0.15rem -0.5rem;
   z-index: -1;
@@ -90,15 +90,15 @@ body {
   content: '';
 }
 
-.main-body a:hover {
+.main-body a:not(.default-style):hover {
   color: var(--color-accent-alt);
 }
 
-.main-body a:active {
+.main-body a:not(.default-style):active {
   color: var(--color-primary);
 }
 
-.main-body a:hover::before {
+.main-body a:not(.default-style):hover::before {
   opacity: 0.91;
 }
 
@@ -133,6 +133,8 @@ body {
 
 .split-line {
   /* height: 1rem; */
+  margin: 1.5rem 0;
+  padding: 0;
   border-color: var(--color-accent-alt);
 }
 
