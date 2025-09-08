@@ -131,7 +131,7 @@ export const usePostStore = defineStore('post', {
       return state.posts.find(p => p.title === title) || null
     },
     getRelatedPosts(state) {
-      return (title = '', limit = 1) => {
+      return (title = '', limit = 8) => {
         const post = this.getPostByTitle(title)
         if (!post) return []
 
