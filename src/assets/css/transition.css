@@ -1,22 +1,3 @@
-/* 新增/删除动画 */
-.tag-enter-active, .tag-leave-active {
-  transition: all 0.3s ease;
-}
-
-.tag-enter-from, .tag-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.tag-enter-to, .tag-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.tag-move {
-  transition: transform 0.3s ease;
-}
-
 .fade-footer-enter-active, 
 .fade-footer-leave-active {
   transition: opacity 0.2s ease;

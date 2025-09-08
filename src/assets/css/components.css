@@ -12,6 +12,7 @@
 /*********************** 简介栏 ***********************/
 .introduction-bar {
   max-height: 80vh;
+
   /* background-color: aqua; */
 }
 
@@ -21,15 +22,15 @@
 }
 
 .introduction-home-link {
-  padding: 0.15rem 0rem;
-  text-decoration: none;
-  color: var(--color-accent-alt);
-  font-weight: bold;
   display: inline-block;
+  padding: 0.15rem 0;
+  color: var(--color-accent-alt);
   background: var(--color-accent);
   text-align: center;
-  border-radius: 7px;
   transition: color 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 7px;
 }
 
 .introduction-home-link:hover {
@@ -65,7 +66,7 @@
 
 .action-bar {
   margin: 0;
-  padding: 0 0 2rem 0;
+  padding: 0 0 2rem;
 }
 
 .action-bar ul{
