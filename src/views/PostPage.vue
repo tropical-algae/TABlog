@@ -62,7 +62,7 @@ watch(
 </script>
 
 <template>
-  <div class="d-flex flex-column">
+  <div class="post-bar">
     <h3 class="post-title">{{ post.title }}</h3>
     <div class="post-attribute">
       <table>

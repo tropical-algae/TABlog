@@ -42,8 +42,8 @@ watch(
 </script>
 
 <template>
-  <div class="d-flex flex-column h-100">
-    <h3 class="index-title">ARCHIVE</h3>
+  <div class="index-bar">
+    <h2 class="index-title">ARCHIVE</h2>
     <transition name="fade-comp" mode="out-in">
       <div :key="pageKey" class="index-content py-4 px-2">
         <ul>

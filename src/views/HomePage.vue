@@ -14,10 +14,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <div class="row home-title"><h1>{{ config.title }}</h1></div>
-    <div class="row home-sub-title">{{ config.subTitle }}</div>
-    <PostView :title="'home-page'" :clz="'row home-content'" :markdownHtml="markdownHtml" />
+  <div class="home-bar">
+    <div class="home-title"><h1>{{ config.title }}</h1></div>
+    <div class="home-sub-title">{{ config.subTitle }}</div>
+    <PostView :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml" />
   </div>
 </template>
 

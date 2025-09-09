@@ -1,12 +1,24 @@
+.index-bar {
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  overflow: hidden auto;
+  padding: 0 0.5rem;
+  /* background-color: aqua; */
+}
+
 .index-title {
+  height: 2rem;
   margin: 0;
   padding: 0;
 }
 
 .index-content {
-  overflow: hidden auto;
-  flex: 1 1 0%;
-  max-height: 65vh;
+  /* overflow: hidden auto; */
+  /* flex: 1 1 0%; */
+  /* 减去标题和底部导航的高 */
+  max-height: calc(100% - 10rem - 2rem);
+  overflow-y: auto;
 }
 
 .index-content ul li{

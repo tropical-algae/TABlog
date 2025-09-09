@@ -1,8 +1,10 @@
+.home-bar {
+  padding: 0 0.5rem;
+}
 
 .home-title {
   padding: 0;
-
-  /* background-color: rgb(80, 119, 146); */
+  margin: 0;
 }
 
 .home-title p,

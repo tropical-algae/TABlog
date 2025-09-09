@@ -1,6 +1,6 @@
 <template>
-  <hr class="split-line"/>
   <div class="action-bar">
+    <hr class="split-line"/>
     <ul>
       <li>
         <RouterLink :to="{ name: 'Home'}">
