@@ -9,7 +9,6 @@ export default function (options = {}) {
     ]
   }
 }
-
 function inlineKatex(options) {
   return {
     name: 'inlineKatex',
@@ -17,8 +16,8 @@ function inlineKatex(options) {
     start(src) {
       return src.indexOf('$')
     },
-    tokenizer(src, _tokens) {
-      const match = src.match(/^\$+([^$\n]+?)\$+/)
+    tokenizer(src) {
+      const match = src.match(/^\$([^$\n]+?)\$/)
       if (match) {
         return {
           type: 'inlineKatex',
@@ -40,8 +39,9 @@ function blockKatex(options) {
     start(src) {
       return src.indexOf('$$')
     },
-    tokenizer(src, _tokens) {
-      const match = src.match(/^\$\$+\n([^$]+?)\n\$\$/)
+    tokenizer(src) {
+      // 仅匹配段落级公式，要求独占一行
+      const match = src.match(/^\$\$\s*\n([\s\S]+?)\n\$\$/)
       if (match) {
         return {
           type: 'blockKatex',
@@ -51,8 +51,7 @@ function blockKatex(options) {
       }
     },
     renderer(token) {
-      options.displayMode = true
-      return `<p>${katex.renderToString(token.text, options)}</p>`
+      return `<p>${katex.renderToString(token.text, { ...options, displayMode: true })}</p>`
     }
   }
 }

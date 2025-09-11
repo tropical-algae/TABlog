@@ -48,8 +48,8 @@ Refer to the [`.env.example`](.env.example) file and create your own `.env` file
 Use the following commands to build the Docker image and run the container:
 
 ```bash
-bash script/build.sh  # Package and build the Docker image
-bash run.sh           # Start the container
+bash scripts/build.sh  # Package and build the Docker image
+bash scripts/run.sh    # Start the container
 ```
 
 ### 🛠️ How to Use
