@@ -74,6 +74,7 @@ export const useConfigStore = defineStore('config', {
       "created_time": "created_time",
       "tags": "tags"
     },
+    pageSize: (state) => state.config?.page_size ?? 12,
     links: (state) => state.config?.links ?? {
       "github": "",
       "discord": "",
@@ -83,13 +84,13 @@ export const useConfigStore = defineStore('config', {
   }
 })
 
-
 export const usePostStore = defineStore('post', {
   state: () => ({
     posts: null,
     sortedPosts: null,
     tags: null,
     selectedTags: [],
+    currentPage: 1,
   }),
 
   actions: {
@@ -114,8 +115,7 @@ export const usePostStore = defineStore('post', {
   },
 
   getters: {
-    // 按创建时间降序排序
-    filterBySelectedTags: (state) => {
+    getFilteredPosts: (state) => {
       // 如果没选任何标签，返回排序后的所有 post
       if (state.selectedTags.length === 0) {
         return state.sortedPosts
@@ -125,7 +125,15 @@ export const usePostStore = defineStore('post', {
         post.tags?.some(tag => state.selectedTags.includes(tag))
       )
     },
-    // 所有标签合集（去重）
+    getFilteredPaginatedPosts: (state) => (pageSize) => {
+      const start = (state.currentPage - 1) * pageSize
+      const end = start + pageSize
+      return state.getFilteredPosts.slice(start, end)
+    },
+    getFilteredPages: (state) => (pageSize) => {
+      if (!state.getFilteredPosts.length) return 1
+      return Math.ceil(state.getFilteredPosts.length / pageSize)
+    },
     getAllTags: (state) => { return state.tags },
     getPostByTitle: (state) => (title) => {
       return state.posts.find(p => p.title === title) || null

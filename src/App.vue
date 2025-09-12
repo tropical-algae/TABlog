@@ -29,7 +29,7 @@ onMounted(async () => {
             </RouterView> -->
           </div>
 
-          <div class="col-10 col-md-8 px-5 mx-auto">
+          <div class="col-10 col-md-8 px-4 mx-auto">
             <!-- <RouterView :key="$route.fullPath" /> -->
             <RouterView v-slot="{ Component }">
               <transition name="fade-comp" mode="out-in">

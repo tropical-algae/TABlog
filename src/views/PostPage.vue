@@ -63,7 +63,7 @@ watch(
 
 <template>
   <div class="post-bar">
-    <h3 class="post-title">{{ post.title }}</h3>
+    <h1 class="post-title">{{ post.title }}</h1>
     <div class="post-attribute">
       <table>
         <tbody>

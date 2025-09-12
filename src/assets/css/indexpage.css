@@ -14,14 +14,77 @@
   padding: 0;
 }
 
+/* 选页卡 */
+.index-pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* 选页按钮 */
+.page-button {
+  height: 1.4rem;
+  padding: 0.1rem 0.2rem;
+  color: var(--color-accent-alt);
+  background: var(--color-accent);
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(.25,.8,.25,1), color 0.6s ease, background-color 0.6s ease;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 1.2rem;
+  min-width: 1.4rem;
+  border-radius: 3px;
+  will-change: transform; 
+}
+
+.page-button:hover {
+  transform: rotate(25deg);
+}
+
+.page-button.selected {
+  color: var(--color-accent);
+  background: var(--color-accent-alt);
+}
+
+.page-button.ellipsis {
+  background: none;
+  border-radius: 0;
+  transition: none;
+  will-change: none;
+}
+
+.page-button.ellipsis:hover {
+  transform: none;
+}
+
+/* 前后选页SVG */
+.page-svg-button {
+  width: auto; 
+  height: 1.4rem;
+  color: var(--color-accent);
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.8;
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
+}
+
+.page-svg-button:hover {
+  opacity: 1;
+  fill: var(--color-accent-alt);
+  color: var(--color-accent-alt);
+  stroke: var(--color-accent-alt);
+}
+
 .index-content {
   /* overflow: hidden auto; */
-
-  /* flex: 1 1 0%; */
+  flex: 1 1 0%;
 
   /* 减去标题和底部导航的高 */
-  max-height: calc(100% - 10rem - 2rem);
+  /* max-height: calc(100% - 10rem - 2rem); */
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .index-content ul li{
