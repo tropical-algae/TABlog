@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.13.1
+          check-latest: true
+
+      - name: npm install
+        run: npm install -g npm@10.5.2
+
+      - run: npm ci
+
+      - name: Code Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: Docker login
+        run: |
+          echo "IMAGE_NAME=tropicalalgae/tablog" >> $GITHUB_ENV
+          echo "IMAGE_VERSION=v$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Docker Release
+        env:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_VERSION: ${{ env.IMAGE_VERSION }}
+        run: |
+          bash ./scripts/build.sh
+          docker tag $IMAGE_NAME:$IMAGE_VERSION $IMAGE_NAME:$IMAGE_VERSION 
+          docker tag $IMAGE_NAME:$IMAGE_VERSION $IMAGE_NAME
+
+          docker push $IMAGE_NAME:$IMAGE_VERSION
+          docker push $IMAGE_NAME
