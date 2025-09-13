@@ -1,27 +1,26 @@
 .timeline-bar {
-  height: 90vh;
   display: flex;
+  height: 90vh;
   padding: 0 0.5rem;
   overflow: hidden auto;
   flex-direction: column;
 }
 
 .timeline-title {
-  padding: 0;
   margin: 0;
+  padding: 0;
+  color: var(--color-accent-alt);
   text-align: center;
   font-size: 2.5rem;
   font-weight: bold;
-  color: var(--color-accent-alt);
 }
 
 .timeline-content {
   position: relative;
   overflow-y: scroll;
   flex: 1 1 0%;
-  -webkit-mask: linear-gradient(#000, #000);
   mask: linear-gradient(#000, #000);
-  -webkit-mask-composite: destination-in;
+  mask-composite: destination-in;
   mask-composite: intersect;
 }
 
@@ -40,6 +39,7 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   line-height: 1rem;
+
   /* font-weight: normal !important; */
 
 }
@@ -50,10 +50,10 @@
 }
 
 .timeline-years {
-  width: calc(50% - 10px);
   float: left;
-  padding: 20px;
   clear: both;
+  width: calc(50% - 10px);
+  padding: 20px;
   text-align: right;
 }
 
@@ -69,18 +69,18 @@
 
 }
 
-.timeline-years .title:before {
-  content: '';
+.timeline-years .title::before {
   position: absolute;
+  top: 50%;
+  right: -38px;
+  z-index: 1000;
   width: 16px;
   height: 16px;
   border: 5px solid var(--color-accent-alt);
+  content: '';
   background-color: var(--color-accent);
   border-radius: 100%;
-  top: 50%;
   transform: translateY(-50%);
-  right: -38px;
-  z-index: 1000;
 }
 
 .timeline-years .title.big {
@@ -88,21 +88,21 @@
   margin-bottom: 0.5rem;
 }
 
-.timeline-years .title.big:before {
+.timeline-years .title.big::before {
   width: 28px;
   height: 28px;
   transform: translate(6px, -50%);
 }
 
 .timeline-years:nth-child(2n) {
-  text-align: left;
   float: right;
+  text-align: left;
 }
 
-.timeline-years:nth-child(2n) .title:before {
+.timeline-years:nth-child(2n) .title::before {
   left: -38px;
 }
 
-.timeline-years:nth-child(2n) .title.big:before {
+.timeline-years:nth-child(2n) .title.big::before {
   transform: translate(-6px, -50%);
 }
