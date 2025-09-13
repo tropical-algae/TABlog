@@ -1,6 +1,6 @@
 module.exports = {
   branches: ["main"],
-  repositoryUrl: "https://github.com/tropical-algae/release_test_vue",
+  repositoryUrl: "https://github.com/tropical-algae/TABlog",
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
