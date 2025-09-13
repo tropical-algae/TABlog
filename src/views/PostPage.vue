@@ -3,7 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import { marked } from 'marked'
 import { usePostStore } from '@/scripts/configStore'
 import { useRoute } from 'vue-router'
-import PostView from './components/PostView.vue'
+import PostView from '@/views/components/PostView.vue'
 import katexExtension from '@/scripts/mdKatex.js'
 
 marked.use(katexExtension())
@@ -63,7 +63,7 @@ watch(
 
 <template>
   <div class="post-bar">
-    <h1 class="post-title">{{ post.title }}</h1>
+    <h1 class="p-0 m-0">{{ post.title }}</h1>
     <div class="post-attribute">
       <table>
         <tbody>

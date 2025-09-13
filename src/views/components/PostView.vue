@@ -1,5 +1,5 @@
 <script setup>
-import ActionBar from './ActionBar.vue';
+import ActionBar from '@/views/components/ActionBar.vue';
 
 
 const { title, clz, markdownHtml } = defineProps({

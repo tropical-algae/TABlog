@@ -3,13 +3,18 @@
     <hr class="split-line"/>
     <ul>
       <li>
-        <RouterLink :to="{ name: 'Home'}">
-          Home...
+        <RouterLink :to="{ name: 'Timeline'}">
+          Timeline...
         </RouterLink>
       </li>
       <li>
         <RouterLink :to="{ name: 'Index'}">
-          Links...
+          Archive...
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'Home'}">
+          Home...
         </RouterLink>
       </li>
     </ul>
