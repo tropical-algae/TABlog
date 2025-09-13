@@ -88,6 +88,7 @@ export const usePostStore = defineStore('post', {
   state: () => ({
     posts: null,
     sortedPosts: null,
+    timeGroupPosts: null,
     tags: null,
     selectedTags: [],
     currentPage: 1,
@@ -102,6 +103,7 @@ export const usePostStore = defineStore('post', {
         this.sortedPosts = [...this.posts].sort(
           (a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)
         )
+        this.timeGroupPosts = this.groupByYearMonth
       }
     },
     selectTag(tag) {
@@ -155,6 +157,42 @@ export const usePostStore = defineStore('post', {
           })
           .filter(item => item !== null)
       }
+    },
+    groupByYearMonth: (state) => {
+      if (!state.sortedPosts) return {}
+  
+      const grouped = {}
+  
+      state.sortedPosts.forEach(post => {
+        if (!post.created_time) return
+  
+        const date = new Date(post.created_time)
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1 // 月份 0-11，所以要 +1
+  
+        if (!grouped[year]) {
+          grouped[year] = {}
+        }
+        if (!grouped[year][month]) {
+          grouped[year][month] = []
+        }
+        grouped[year][month].push(post)
+      })
+  
+      // 把年份和月份排序（降序）
+      const sorted = Object.keys(grouped)
+        .sort((a, b) => b - a) // 年份从大到小
+        .map(year => ({
+          year: Number(year),
+          months: Object.keys(grouped[year])
+            .sort((a, b) => b - a) // 月份从大到小
+            .map(month => ({
+              month: Number(month),
+              posts: grouped[year][month]
+            }))
+        }))
+  
+      return sorted
     }
   }
 })

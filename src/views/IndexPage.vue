@@ -2,7 +2,7 @@
 import { usePostStore, useConfigStore } from '@/scripts/configStore'
 import BackIcon from '@/assets/icons/chevron-back.svg?component'
 import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
-import ActionBar from './components/ActionBar.vue'
+import ActionBar from '@/views/components/ActionBar.vue'
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 
 const postStore = usePostStore()
@@ -104,7 +104,7 @@ watch(
 
 <template>
   <div class="index-bar">
-    <h2 class="index-title">ARCHIVE</h2>
+    <h1 class="m-0 p-0">ARCHIVE</h1>
     <transition name="fade-comp" mode="out-in">
       <div :key="pageKey" class="index-content py-1 px-2">
         <ul class="my-3">
