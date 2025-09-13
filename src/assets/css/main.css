@@ -13,29 +13,31 @@
   --color-primary-alt: #fff;
   --color-accent: #fff;
   --color-accent-alt: #fff;
+
+    /* 禁止ios页面回弹 */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
+  display: none;
   width: 0;
   height: 0;
 }
 
 body {
-  overflow: visible;
+  background: linear-gradient(var(--color-bg), var(--color-bg)),
+    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
   overflow-y: scroll;
-  scrollbar-width: none;
 
-  /* 禁止ios页面回弹 */
-  overscroll-behavior-y: none;
+  background-blend-mode: normal, difference !important;
 }
 
 .main-page {
   display: flex;
   height: auto;
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
-  background-blend-mode: normal, difference;
   min-height: 100vh;
   flex-direction: column;
 }
@@ -152,8 +154,8 @@ body {
 }
 
 @media screen and (hover: none) and (pointer: coarse) {
-  .main-page {
-    background-blend-mode: normal;
+  body {
+    background-blend-mode: normal !important;
     background: var(--color-bg-opaque) !important;
   }
 

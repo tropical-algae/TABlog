@@ -17,7 +17,7 @@
 
 .timeline-content {
   position: relative;
-  overflow-y: scroll;
+  overflow: hidden scroll;
   flex: 1 1 0%;
   mask: linear-gradient(#000, #000);
   mask-composite: destination-in;
@@ -66,7 +66,7 @@
   font-weight: bold;
   position: relative;
   color: var(--color-accent-alt);
-
+  overflow-wrap: break-word;
 }
 
 .timeline-years .title::before {
@@ -84,7 +84,7 @@
 }
 
 .timeline-years .title.big {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 

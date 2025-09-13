@@ -1,15 +1,8 @@
 <script setup>
-import { usePostStore, useConfigStore } from '@/scripts/configStore'
+import { usePostStore } from '@/scripts/configStore'
 import ActionBar from '@/views/components/ActionBar.vue'
 
-import { ref, onMounted } from 'vue'
-
-const markdownHtml = ref('')
-const config = useConfigStore()
 const postStore = usePostStore()
-
-console.log(postStore.timeGroupPosts)
-
 const months_map = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"

@@ -98,7 +98,14 @@ export const usePostStore = defineStore('post', {
     async load(sourcePath) {
       if (!this.posts) {
         const res = await fetch(sourcePath)
-        this.posts = await res.json()
+        this.posts = (await res.json()).map(p => {
+          if (p.created_time) {
+            // 补齐日期格式
+            const [y, m, d] = p.created_time.split('-')
+            p.created_time = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
+          }
+          return p
+        })
         this.tags = [...new Set(this.posts.flatMap(post => post.tags))].sort()
         this.sortedPosts = [...this.posts].sort(
           (a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)
@@ -178,7 +185,7 @@ export const usePostStore = defineStore('post', {
         }
         grouped[year][month].push(post)
       })
-  
+
       // 把年份和月份排序（降序）
       const sorted = Object.keys(grouped)
         .sort((a, b) => b - a) // 年份从大到小
