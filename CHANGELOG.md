@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/tropical-algae/TABlog/compare/v1.1.0...v1.1.1) (2025-09-13)
+
+
+### Bug Fixes
+
+* resolve style inconsistencies and date parsing issues ([2ef61f6](https://github.com/tropical-algae/TABlog/commit/2ef61f683d7157d93d5efa06f6f4bb36ca501f13))
+
 # [1.1.0](https://github.com/tropical-algae/TABlog/compare/v1.0.0...v1.1.0) (2025-09-13)
 
 
