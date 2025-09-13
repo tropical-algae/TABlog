@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/tropical-algae/TABlog/compare/v1.0.0...v1.1.0) (2025-09-13)
+
+
+### Features
+
+* Add timeline for posts ([58c6f6a](https://github.com/tropical-algae/TABlog/commit/58c6f6ac8585afe527ee0d39b50a48320a01110f))
+
 # 1.0.0 (2025-09-13)
 
 
