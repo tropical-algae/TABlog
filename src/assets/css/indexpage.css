@@ -16,6 +16,7 @@
 
 /* 选页卡 */
 .index-pagination {
+  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -81,6 +82,7 @@
   flex: 1 1 0%;
 
   /* 减去标题和底部导航的高 */
+
   /* max-height: calc(100% - 10rem - 2rem); */
   overflow-y: auto;
   display: flex;

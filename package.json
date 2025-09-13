@@ -1,6 +1,6 @@
 {
   "name": "tablog",
-  "version": "0.5",
+  "version": "1.0",
   "private": true,
   "type": "module",
   "scripts": {

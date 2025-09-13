@@ -133,7 +133,7 @@ body {
 
 .split-line {
   /* height: 1rem; */
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   padding: 0;
   border-color: var(--color-accent-alt);
 }
