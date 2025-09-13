@@ -9,48 +9,45 @@
 </p>
 
 ### 🌟 特点：
-- 轻量的响应式博客，动画丝滑
-- markdown驱动，大量可自定义的配置
-- 部署简单、拥有一键启动脚本
+- 轻量化、响应式的静态博客，动画流畅自然
+- Markdown 驱动，简单易用，支持 LaTeX
+- 部署便捷，内置一键启动脚本
 - 是一个不懂前端的人重复造的轮子
 
 ### 📷 预览：
 
 ![](assets/blog.png)
 
-### ⚙️ 部署环境
-
-项目基于Docker部署，部署前请确保你的环境中包含以下工具：
-
-> ⚠️ 以下版本仅供参考，过低版本可能导致构建失败
-
-- **Docker**： v27.0.2
-- **npm**： v10.5.2
-- **Node.js**： v20.13.1
+---
 
 ### 🚀 如何启动？
 
-#### 1. 添加你的 `.env`
+#### 1. 源码部署
 
-参考[.env.example](.env.example)，创建一份属于你的 `.env` 文件，示例配置如下：
+参考 [本地构建方法](./assets/local_build_cn.md)。
 
-| 名称 | 介绍 |
-| --- | --- |
-| VITE_SITE_TITLE | 网页标题 |
-| VITE_WEB_PORT | Dev阶段绑定的端口 |
-| IMAGE_NAME | 打包的镜像名 |
-| IMAGE_VERSION | 打包的镜像版本 |
-| CONTAINER_PORT | 容器开放的端口 |
-| CONTAINER_MOUNT | 容器挂载的目录 |
+#### 2. Docker部署（推荐）
 
-#### 2. 一键构建与启动
+运行以下命令以启动容器：
 
-使用如下命令构建镜像并运行容器：
+```shell
+PORT=10000
+CONTAINER_MOUNT=/data/tablog
 
-```bash
-bash script/build.sh  # 打包并构建镜像
-bash run.sh           # 启动容器
+docker run -itd --name tablog \
+--restart=unless-stopped \
+-p $PORT:80 \
+-v $CONTAINER_MOUNT/config:/app/config \
+-v $CONTAINER_MOUNT/images:/app/images \
+-v $CONTAINER_MOUNT/markdowns:/app/markdowns \
+tropicalalgae/tablog:latest
 ```
+
+> **提示** 
+> 建议先完成下一节的配置后再启动容器；或者先运行容器，再补充配置并重启
+
+---
+
 ### 🛠️  如何使用？
 
 #### 1. 添加你的配置

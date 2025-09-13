@@ -9,48 +9,44 @@
 </p>
 
 ### 🌟 Features:
-- Lightweight and responsive blog with smooth animations
-- Fully Markdown-driven with extensive customization options
-- Easy to deploy with one-click startup scripts
+- A lightweight, responsive static blog with smooth animations
+- Markdown-driven, easy to use, with LaTeX support
+- Easy deployment with built-in one-click startup scripts
 - A reinvented wheel built by someone who doesn’t know much about frontend
 
 ### 📷 Preview:
 
 ![](assets/blog.png)
 
-### ⚙️ Deployment Environment
-
-This project is deployed using Docker. Please ensure the following tools are installed in your environment **before deployment**:
-
-> ⚠️ The versions listed below are for reference only. Using versions that are too old may cause the build to fail.
-
-- **Docker**: v27.0.2  
-- **npm**: v10.5.2  
-- **Node.js**: v20.13.1  
+---
 
 ### 🚀 Getting Started
 
-#### 1. Add Your `.env` File
+1. Source Code Deployment
 
-Refer to the [`.env.example`](.env.example) file and create your own `.env` file. A sample configuration is shown below:
+Refer to the [local build guide](./assets/local_build_en.md).
 
-| Name              | Description                          |
-| ----------------- | ------------------------------------ |
-| `VITE_SITE_TITLE` | The title of the website             |
-| `VITE_WEB_PORT`   | The port used during development     |
-| `IMAGE_NAME`      | The name of the Docker image         |
-| `IMAGE_VERSION`   | The version of the Docker image      |
-| `CONTAINER_PORT`  | The exposed port of the container    |
-| `CONTAINER_MOUNT` | The directory mounted to the container |
+2. Docker Deployment (Recommended)
 
-#### 2. One-Click Build and Launch
+Run the following command to start the container:
 
-Use the following commands to build the Docker image and run the container:
+```shell
+PORT=10000
+CONTAINER_MOUNT=/data/tablog
 
-```bash
-bash scripts/build.sh  # Package and build the Docker image
-bash scripts/run.sh    # Start the container
+docker run -itd --name tablog \
+--restart=unless-stopped \
+-p $PORT:80 \
+-v $CONTAINER_MOUNT/config:/app/config \
+-v $CONTAINER_MOUNT/images:/app/images \
+-v $CONTAINER_MOUNT/markdowns:/app/markdowns \
+tropicalalgae/tablog:latest
 ```
+
+> **Note**
+> It is recommended to complete the configuration described in the next section before starting the container, or update the configuration after startup and then restart the container.
+
+---
 
 ### 🛠️ How to Use
 

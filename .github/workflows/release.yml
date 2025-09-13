@@ -40,6 +40,7 @@ jobs:
         env:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_VERSION: ${{ env.IMAGE_VERSION }}
+          VITE_SITE_TITLE: Reef Flats
         run: |
           bash ./scripts/build.sh
           docker tag $IMAGE_NAME:$IMAGE_VERSION $IMAGE_NAME:$IMAGE_VERSION 
