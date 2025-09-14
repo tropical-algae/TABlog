@@ -19,21 +19,41 @@
   position: relative;
   overflow: hidden scroll;
   flex: 1 1 0%;
-  mask: linear-gradient(#000, #000);
-  mask-composite: destination-in;
-  mask-composite: intersect;
+
+  /* mask: linear-gradient(#000, #000);
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect; */
 }
 
+
+.timeline-inner {
+  position: absolute;
+  min-height: 100%;
+  width: 100%;
+}
+
+.timeline-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%; /* 这里的 100% = inner 的内容高度 */
+  background-color: var(--color-accent-alt);
+}
+
+/* 
 .timeline-content::before {
   content: '';
-  position: fixed; /* 保持 fixed */
+  position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
   height: 100%;
   background-color: var(--color-accent-alt);
-}
+} */
 
 .timeline-posts {
   margin-top: 0.5rem;
@@ -63,6 +83,7 @@
 
 .timeline-years .title {
   font-size: 1.3rem;
+  font-size: clamp(1.1rem, 0.5vw + 1.1rem, 1.3rem);
   font-weight: bold;
   position: relative;
   color: var(--color-accent-alt);
@@ -84,7 +105,7 @@
 }
 
 .timeline-years .title.big {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 1vw + 1.2rem, 2rem);
   margin-bottom: 0.5rem;
 }
 

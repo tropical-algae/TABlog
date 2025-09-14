@@ -8,6 +8,8 @@
 .fade-comp-leave-active {
   transition: opacity 0.2s ease;
   will-change: opacity;
+  -webkit-transform-style: preserve-3d; /* Safari/Chrome 需要前缀 */
+  transform-style: preserve-3d;
 }
 
 .fade-comp-enter-from, 
