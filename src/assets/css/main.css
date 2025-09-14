@@ -13,11 +13,6 @@
   --color-primary-alt: #fff;
   --color-accent: #fff;
   --color-accent-alt: #fff;
-
-    /* 禁止ios页面回弹 */
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: auto;
-  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
@@ -26,12 +21,22 @@
   height: 0;
 }
 
+html.fixed-page {
+  /* 禁止ios页面回弹 */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  scrollbar-width: none;
+}
+
 body {
+  background-color: var(--color-bg-opaque) !important;
+  overflow-y: scroll;
+}
+
+body.pattern-bg {
   background: linear-gradient(var(--color-bg), var(--color-bg)),
     repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
     repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
-  overflow-y: scroll;
-
   background-blend-mode: normal, difference !important;
 }
 
@@ -134,14 +139,16 @@ body {
   align-items: center;
 }
 
-.split-line {
-  /* height: 1rem; */
-  margin: 1rem 0;
-  padding: 0;
-  border-color: var(--color-accent-alt);
+.footer-bar.dynamic-footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: var(--color-bg-opaque) !important;
 }
 
-.dynamic-footer {
+.footer-bar.dynamic-footer.pattern-bg {
   display: flex;
   position: fixed;
   bottom: 0;
@@ -149,8 +156,15 @@ body {
   z-index: 9999;
   background: linear-gradient(var(--color-bg), var(--color-bg)),
     repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px;
-  background-blend-mode: normal, difference;
+    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
+  background-blend-mode: normal, difference !important;
+}
+
+.split-line {
+  /* height: 1rem; */
+  margin: 1rem 0;
+  padding: 0;
+  border-color: var(--color-accent-alt);
 }
 
 @media screen and (hover: none) and (pointer: coarse) {

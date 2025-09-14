@@ -5,6 +5,7 @@
     "@stylistic/stylelint-plugin"
   ],
   "rules": {
+    "property-no-vendor-prefix": null,
     "@stylistic/indentation": 2,
     "max-nesting-depth": 3,
     "selector-max-compound-selectors": 5,

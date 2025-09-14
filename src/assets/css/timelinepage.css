@@ -20,7 +20,7 @@
   overflow: hidden scroll;
   flex: 1 1 0%;
   mask: linear-gradient(#000, #000);
-  mask-composite: destination-in;
+  -webkit-mask-composite: destination-in;
   mask-composite: intersect;
 }
 

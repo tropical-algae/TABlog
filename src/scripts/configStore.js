@@ -60,6 +60,7 @@ export const useConfigStore = defineStore('config', {
     subTitle: (state) => state.config?.sub_title ?? 'NONE',
     introduction: (state) => state.config?.introduction ?? 'NONE',
     isDynamicFooter: (state) => state.config?.dynamic_footer ?? true,
+    isPatternBackground: (state) => state.config?.pattern_background ?? true,
     colors: (state) => state.config?.colors ?? [
         {
             "--color-bg": "rgba(0, 61, 123, 0.779)",

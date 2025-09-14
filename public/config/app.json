@@ -8,6 +8,7 @@
     },
     "page_size": 12,
     "dynamic_footer": true,
+    "pattern_background": true,
     "links": {
         "github": "https://github.com/tropical-algae",
         "discord": "",
