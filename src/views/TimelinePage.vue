@@ -13,22 +13,23 @@ const months_map = [
 <template>
   <div class="timeline-bar">
     <p class="timeline-title">TIMELINE</p>
-
     <div class="timeline-content">
-      <div class="timeline-years" v-for="{ year, months } in postStore.timeGroupPosts">
-        <div class="title big">{{ year }}</div>
-        <div>
-          <div v-for="{month, posts} in months" class="timeline-months">
-              <div class="title">{{ months_map[month - 1] }}</div>
-              <RouterLink 
-                v-for="post in posts"
-                :to="{ name: 'Post', params: { title: post.title } }"
-                class="timeline-posts "
-              >
-                {{ post.title }}
-              </RouterLink>
+      <div class="timeline-inner">
+        <div class="timeline-years" v-for="{ year, months } in postStore.timeGroupPosts">
+          <div class="title big">{{ year }}</div>
+          <div>
+            <div v-for="{month, posts} in months" class="timeline-months">
+                <div class="title">{{ months_map[month - 1] }}</div>
+                <RouterLink 
+                  v-for="post in posts"
+                  :to="{ name: 'Post', params: { title: post.title } }"
+                  class="timeline-posts "
+                >
+                  {{ post.title }}
+                </RouterLink>
+              </div>
             </div>
-          </div>
+        </div>
       </div>
     </div>
 
