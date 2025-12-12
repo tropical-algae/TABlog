@@ -6,10 +6,10 @@ import PostPage from "@/views/PostPage.vue"
 import IndexPage from "@/views/IndexPage.vue"
 import TimelinePage from "@/views/TimelinePage.vue"
 
-import EntityBar from "@/views/components/EntityBar.vue"
-import IndexBar from "@/views/components/IndexBar.vue"
-import FooterBar from "@/views/components/FooterBar.vue"
-import IntroductionBar from "@/views/components/IntroductionBar.vue"
+import EntityBar from "@/components/EntityBar.vue"
+import IndexBar from "@/components/IndexBar.vue"
+import FooterBar from "@/components/FooterBar.vue"
+import IntroductionBar from "@/components/IntroductionBar.vue"
 
 import { applyRandomTheme } from "@/scripts/webEffect"
 import { initializeApp } from '@/scripts/globalInit'

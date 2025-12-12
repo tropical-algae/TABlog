@@ -1,7 +1,7 @@
 <script setup>
 import { useHomePost, useConfigStore } from '@/scripts/configStore'
 import { ref, onMounted } from 'vue'
-import PostView from '@/views/components/PostView.vue'
+import PostView from '@/components/PostView.vue'
 
 const markdownHtml = ref('')
 const config = useConfigStore()

@@ -3,7 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import { marked } from 'marked'
 import { usePostStore } from '@/scripts/configStore'
 import { useRoute } from 'vue-router'
-import PostView from '@/views/components/PostView.vue'
+import PostView from '@/components/PostView.vue'
 import katexExtension from '@/scripts/mdKatex.js'
 
 marked.use(katexExtension())

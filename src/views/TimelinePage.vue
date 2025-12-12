@@ -1,6 +1,6 @@
 <script setup>
 import { usePostStore } from '@/scripts/configStore'
-import ActionBar from '@/views/components/ActionBar.vue'
+import ActionBar from '@/components/ActionBar.vue'
 
 const postStore = usePostStore()
 const months_map = [

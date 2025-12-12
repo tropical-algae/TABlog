@@ -2,7 +2,7 @@
 import { usePostStore, useConfigStore } from '@/scripts/configStore'
 import BackIcon from '@/assets/icons/chevron-back.svg?component'
 import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
-import ActionBar from '@/views/components/ActionBar.vue'
+import ActionBar from '@/components/ActionBar.vue'
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 
 const postStore = usePostStore()

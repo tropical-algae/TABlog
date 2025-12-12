@@ -1,9 +1,9 @@
-@import url('@/assets/css/homepage.css');
-@import url('@/assets/css/components.css');
-@import url('@/assets/css/indexpage.css');
-@import url('@/assets/css/postpage.css');
-@import url('@/assets/css/transition.css');
-@import url('@/assets/css/timelinepage.css');
+@import url('@/assets/styles/homepage.css');
+@import url('@/assets/styles/components.css');
+@import url('@/assets/styles/indexpage.css');
+@import url('@/assets/styles/postpage.css');
+@import url('@/assets/styles/transition.css');
+@import url('@/assets/styles/timelinepage.css');
 
 
 :root {

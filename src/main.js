@@ -1,4 +1,4 @@
-import '@/assets/css/main.css'
+import '@/assets/styles/main.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import { createPinia } from 'pinia'
