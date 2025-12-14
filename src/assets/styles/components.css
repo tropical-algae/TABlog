@@ -10,11 +10,6 @@
 }
 
 /*********************** 简介栏 ***********************/
-.introduction-bar {
-  max-height: 80vh;
-
-  /* background-color: aqua; */
-}
 
 .introduction-image {
   border-radius: 15px;
@@ -27,7 +22,7 @@
   color: var(--color-accent-alt);
   background: var(--color-accent);
   text-align: center;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  transition: color 0.5s ease, background-color 0.5s ease;
   text-decoration: none;
   font-weight: bold;
   border-radius: 7px;
@@ -48,7 +43,7 @@
 .footer-content {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 1.5rem;
 
   /* display: flex;
   position: fixed;
@@ -58,7 +53,7 @@
   color: var(--color-accent-alt);
   overflow-x: hidden;
   white-space: nowrap;
-  justify-content: center;  /* 水平居中 */
+  justify-content: left;  /* 水平居中 */
   align-items: center;      /* 垂直居中 */
 }
 

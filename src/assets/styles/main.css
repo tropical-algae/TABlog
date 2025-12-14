@@ -1,17 +1,15 @@
-@import url('@/assets/styles/homepage.css');
+@import url('@/assets/styles/home-page.css');
 @import url('@/assets/styles/components.css');
-@import url('@/assets/styles/indexpage.css');
-@import url('@/assets/styles/postpage.css');
-@import url('@/assets/styles/transition.css');
-@import url('@/assets/styles/timelinepage.css');
+@import url('@/assets/styles/index-page.css');
+@import url('@/assets/styles/post-page.css');
+@import url('@/assets/styles/timeline-page.css');
 
 
 :root {
-  --color-bg: #fff;
-  --color-bg-opaque: #fff;
-  --color-primary: #fff;
-  --color-primary-alt: #fff;
-  --color-accent: #fff;
+  --color-bg: rgb(0 61 123);
+  --color-primary: rgb(255 177 88);
+  --color-primary-alt: rgb(245 209 168);
+  --color-accent: #677bab;
   --color-accent-alt: #fff;
 }
 
@@ -21,23 +19,26 @@
   height: 0;
 }
 
-html.fixed-page {
-  /* 禁止ios页面回弹 */
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: auto;
-  scrollbar-width: none;
-}
-
 body {
-  background-color: var(--color-bg-opaque) !important;
+  background-color: var(--color-bg) !important;
   overflow-y: scroll;
+  user-select: none;
+  transition: background-color 0.7s ease;
 }
 
-body.pattern-bg {
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
-  background-blend-mode: normal, difference !important;
+body::before {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.44'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .main-page {
@@ -45,6 +46,7 @@ body.pattern-bg {
   height: auto;
   min-height: 100vh;
   flex-direction: column;
+  opacity: 1;
 }
 
 .main-body {
@@ -81,20 +83,21 @@ body.pattern-bg {
   display: inline-block;
   position: relative;
   z-index: 1;
+  padding: 0.15rem 0.5rem;
   color: var(--color-primary-alt);
-  transition: color 0.3s ease;
+  transition: color 0.5s ease;
   font-weight: bold;
   text-decoration: none;
 }
 
 .main-body a:not(.default-style)::before {
   position: absolute;
-  inset: -0.15rem -0.5rem;
+  inset: 0;
   z-index: -1;
   background-color: var(--color-accent);
   border-radius: 5px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
   content: '';
 }
 
@@ -139,26 +142,15 @@ body.pattern-bg {
   align-items: center;
 }
 
-.footer-bar.dynamic-footer {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: var(--color-bg-opaque) !important;
+.sticky-sidebar { /* Safari 兼容 */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
-.footer-bar.dynamic-footer.pattern-bg {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
-  background: linear-gradient(var(--color-bg), var(--color-bg)),
-    repeating-radial-gradient(#000 0 0.0001%, #323232 0 0.0002%) 50% 0 / 2500px 2500px,
-    repeating-conic-gradient(#000 0 0.0001%, #323232 0 0.0002%) 60% 60% / 2500px 2500px !important;
-  background-blend-mode: normal, difference !important;
-}
+
 
 .split-line {
   /* height: 1rem; */
@@ -168,13 +160,8 @@ body.pattern-bg {
 }
 
 @media screen and (hover: none) and (pointer: coarse) {
-  body {
-    background-blend-mode: normal !important;
-    background: var(--color-bg-opaque) !important;
+  body::before {
+    display: none;
   }
 
-  .dynamic-footer {
-    background: var(--color-bg-opaque);
-    background-blend-mode: normal;
-  }
 }

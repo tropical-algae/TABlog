@@ -1,5 +1,5 @@
 <template>
-  <div class="action-bar">
+  <div class="action-bar router-elem-slide-fadein">
     <hr class="split-line"/>
     <ul>
       <li>

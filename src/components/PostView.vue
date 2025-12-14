@@ -20,15 +20,14 @@ const { title, clz, markdownHtml } = defineProps({
 </script>
 
 <template>
-  <transition name="fade-post" mode="out-in">
+  <div class="router-elem-slide-fadein">
     <div v-if="markdownHtml" class="d-flex flex-column" >
       <div
         :class="[clz, ]"
         v-html="markdownHtml"
       ></div>
-      <ActionBar />
     </div>
-  </transition>
+  </div>
 </template>
 
 <style scoped>

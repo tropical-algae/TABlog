@@ -4,8 +4,6 @@
   padding: 0 0.5rem;
   overflow: hidden auto;
   flex-direction: column;
-
-  /* background-color: aqua; */
 }
 
 /* 选页卡 */
@@ -58,7 +56,7 @@
   width: auto; 
   height: 1.4rem;
   color: var(--color-accent);
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition: color 0.5s ease, opacity 0.5s ease;
   opacity: 0.8;
   fill: var(--color-accent);
   stroke: var(--color-accent);
@@ -132,8 +130,7 @@
 
 .index-tags {
   display: inline;
-
-  /* all: unset; */
+  user-select: none;
   padding: 0 0.2rem;
   text-decoration: none;
   line-height: 1.1rem;
@@ -141,6 +138,8 @@
   white-space: nowrap;
   background-color: var(--color-accent);
   border-radius: 2px;
+  transition: color 0.5s ease, background-color 0.5s ease;
+
 }
 
 .index-tags.selected {

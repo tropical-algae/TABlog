@@ -1,18 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { useConfigStore } from '@/scripts/configStore'
 
 import HomePage from '@/views/HomePage.vue'
 import PostPage from "@/views/PostPage.vue"
 import IndexPage from "@/views/IndexPage.vue"
 import TimelinePage from "@/views/TimelinePage.vue"
 
-import EntityBar from "@/components/EntityBar.vue"
 import IndexBar from "@/components/IndexBar.vue"
-import FooterBar from "@/components/FooterBar.vue"
-import IntroductionBar from "@/components/IntroductionBar.vue"
 
-import { applyRandomTheme } from "@/scripts/webEffect"
-import { initializeApp } from '@/scripts/globalInit'
+import { initializeApp } from '@/scripts/utils'
+import { usePostStore } from '@/stores/post'
 
 const title = import.meta.env.VITE_SITE_TITLE || 'My Blog';
 const routes = [
@@ -21,49 +17,59 @@ const routes = [
     name: "Home",
     components: {
       default: HomePage,
-      bar_left: IntroductionBar,
-      bar_right: EntityBar,
-      bar_bottom: FooterBar
     },
-    meta: {"title": title}
+    meta: {
+      "layout": "introOnly",
+      "title": title
+    }
   },
   {
     path: "/index",
     name: "Index",
     components: {
       default: IndexPage,
-      bar_left: IntroductionBar,
-      bar_right: EntityBar,
-      bar_bottom: FooterBar
     },
-    meta: {"title": 'Index - ' + title}
+    meta: {
+      "layout": "introOnly",
+      "title": 'Index - ' + title
+    }
   },
   {
     path: "/timeline",
     name: "Timeline",
     components: {
       default: TimelinePage,
-      bar_left: IntroductionBar,
-      bar_right: EntityBar,
-      bar_bottom: FooterBar
     },
-    meta: {"title": 'Timeline - ' + title}
+    meta: {
+      "layout": "introOnly",
+      "title": 'Timeline - ' + title
+    }
   },
   {
     path: "/post/:title",
     name: "Post",
     components: {
       default: PostPage,
-      bar_left: IntroductionBar,
-      bar_right: IndexBar,
-      bar_bottom: FooterBar
+      indexBar: IndexBar
     },
     props: {
       default: true,
-      // bar_left: true,
-      bar_right: true
+      indexBar: true
     },
-    meta: {"title": 'Post - ' + title}
+    meta: {
+      "layout": "default",
+      "title": 'Post - ' + title
+    },
+    beforeEnter: async (to, from, next) => {
+      const postStore = usePostStore()
+      try {
+        await postStore.fetchPostAndParse(to.params.title)
+        next()
+      } catch (err) {
+        console.error(err)
+        next()
+      }
+    },
   },
 ]
 
@@ -74,17 +80,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   document.title = to.meta.title
-
   await initializeApp()
-  const config = useConfigStore()
-
-  if (document.startViewTransition) {
-    document.startViewTransition(() => {
-      applyRandomTheme(config);
-    })
-  }else{
-    applyRandomTheme(config);
-  }
   next()
 })
 

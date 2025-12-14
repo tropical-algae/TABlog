@@ -1,14 +1,14 @@
 <script setup>
-import { usePostStore } from '@/scripts/configStore'
+import { usePostStore } from '@/stores/post'
+const postStore = usePostStore()
 
 const { title } = defineProps({
   title: {
     type: String,
-    required: true
+    required: false
   }
 })
 
-const postStore = usePostStore()
 const relatedPosts = postStore.getRelatedPosts(title)
 
 </script>

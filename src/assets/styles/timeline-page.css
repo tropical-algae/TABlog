@@ -19,10 +19,20 @@
   position: relative;
   overflow: hidden scroll;
   flex: 1 1 0%;
+  overscroll-behavior: none;
 
-  /* mask: linear-gradient(#000, #000);
-  -webkit-mask-composite: destination-in;
-  mask-composite: intersect; */
+  --mask: linear-gradient(to bottom, transparent, black 20px, black calc(100% - 20px), transparent);
+
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.timeline-content::-webkit-scrollbar {
+  display: none;
 }
 
 

@@ -1,12 +1,13 @@
 <script setup>
-import { usePostStore, useConfigStore } from '@/scripts/configStore'
+import { useConfigStore } from '@/stores/config'
+import { usePostStore } from '@/stores/post'
 import BackIcon from '@/assets/icons/chevron-back.svg?component'
 import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
 import ActionBar from '@/components/ActionBar.vue'
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 
 const postStore = usePostStore()
-const config = useConfigStore()
+const configStore = useConfigStore()
  // post tag 预览数量
 const postTagMaxNum = ref(3)
 // 页码左侧的存留页数
@@ -15,9 +16,9 @@ const frontDetain = ref(2)
 const endDetain = ref(3)
 
 const pageKey = computed(() => 
-  postStore.getFilteredPaginatedPosts(config.pageSize).map(p => p.id).join(',')
+  postStore.getFilteredPaginatedPosts(configStore.pageSize).map(p => p.id).join(',')
 )
-const totalPages = computed(() => postStore.getFilteredPages(config.pageSize))
+const totalPages = computed(() => postStore.getFilteredPages(configStore.pageSize))
 
 function updateMaxTags() {
   const width = window.innerWidth
@@ -104,40 +105,38 @@ watch(
 
 <template>
   <div class="index-bar">
-    <h1 class="m-0 p-0">ARCHIVE</h1>
-    <transition name="fade-comp" mode="out-in">
-      <div :key="pageKey" class="index-content py-1 px-2">
-        <ul class="my-3">
-          <li 
-            v-for="post in postStore.getFilteredPaginatedPosts(config.pageSize)" :key="post.slug" 
-            class="d-flex justify-content-between align-items-center"
+    <h1 class="m-0 p-0 router-elem-slide-fadein">ARCHIVE</h1>
+    <div :key="pageKey" class="index-content py-1 px-2 router-elem-slide-fadein">
+      <ul class="my-3">
+        <li 
+          v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
+          class="d-flex justify-content-between align-items-center"
+        >
+          <RouterLink 
+            :to="{ name: 'Post', params: { title: post.title } }"
+            class="flex-grow-1 text-truncate index-link"
           >
-            <RouterLink 
-              :to="{ name: 'Post', params: { title: post.title } }"
-              class="flex-grow-1 text-truncate index-link"
-            >
-              {{ post.title }}
-            </RouterLink>
-            <div>
-                <span 
-                  v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
-                  class="index-tags small ms-2"
-                >
-                  {{ tag }}
-                </span>
-                <span
-                  v-if="post.created_time && post.created_time.trim() !== ''"
-                  class="index-tags small ms-2"
-                >
-                  {{ post.created_time }}
-                </span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </transition>
+            {{ post.title }}
+          </RouterLink>
+          <div>
+              <span 
+                v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
+                class="index-tags small ms-2"
+              >
+                {{ tag }}
+              </span>
+              <span
+                v-if="post.created_time && post.created_time.trim() !== ''"
+                class="index-tags small ms-2"
+              >
+                {{ post.created_time }}
+              </span>
+          </div>
+        </li>
+      </ul>
+    </div>
 
-    <div class="index-pagination">
+    <div class="index-pagination router-elem-slide-fadein">
       <RouterLink :to="{ name: 'Index'}" class="default-style" @click="prevPage">
         <component :is="BackIcon" class="page-svg-button" />
       </RouterLink>
@@ -163,7 +162,7 @@ watch(
       </RouterLink>
     </div>
 
-    <ActionBar />
+    <ActionBar/>
   </div>
 
 </template>

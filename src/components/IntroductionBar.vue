@@ -3,17 +3,18 @@ import GithubIcon from '@/assets/icons/icons8-github.svg?component'
 import DiscordIcon from '@/assets/icons/icons8-discord.svg?component'
 import NotionIcon from '@/assets/icons/icons8-notion.svg?component'
 import WebsiteIcon from '@/assets/icons/icons8-website.svg?component'
-import { usePostStore, useConfigStore } from '@/scripts/configStore'
+import { useConfigStore } from '@/stores/config'
+import { usePostStore } from '@/stores/post'
 
-const config = useConfigStore()
+const configStore = useConfigStore()
 const postStore = usePostStore()
 const tags = postStore.getAllTags
 
 const socialLink = [
-  { icon: GithubIcon, link: config.links.github },
-  { icon: NotionIcon, link: config.links.notion },
-  { icon: DiscordIcon, link: config.links.discord },
-  { icon: WebsiteIcon, link: config.links.website },
+  { icon: GithubIcon, link: configStore.links.github },
+  { icon: NotionIcon, link: configStore.links.notion },
+  { icon: DiscordIcon, link: configStore.links.discord },
+  { icon: WebsiteIcon, link: configStore.links.website },
 ]
 
 function switchSelectStatus(tag) {
@@ -30,14 +31,14 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
 
 <template>
-  <div class="introduction-bar">
-    <div class="px-3">
+  <div>
+    <div class="px-2">
       <img src="/images/avatar.png" class="introduction-image img-fluid my-2" alt="">
     </div>
     
     <div class="d-flex flex-wrap justify-content-center align-items-center my-1 gap-3">
       <a v-for="(item, index) in socialLink" :key="index" :href="item.link" 
-        class="col-2 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center align-items-center"
+        class="col-2 col-sm-4 col-md-3 col-lg-2 d-flex default-style justify-content-center align-items-center"
       >
         <component :is="item.icon" class="icon-style" />
       </a>
@@ -49,7 +50,7 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
     <hr class="split-line my-2"/>
 
-    <div class="introduction-content my-2"> {{ config.introduction }} </div>
+    <div class="introduction-content my-2"> {{ configStore.introduction }} </div>
 
     <hr class="split-line my-2"/>
 
