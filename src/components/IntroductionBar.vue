@@ -29,7 +29,6 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
 </script>
 
-
 <template>
   <div>
     <div class="px-2">
@@ -40,12 +39,12 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
       <a v-for="(item, index) in socialLink" :key="index" :href="item.link" 
         class="col-2 col-sm-4 col-md-3 col-lg-2 d-flex default-style justify-content-center align-items-center"
       >
-        <component :is="item.icon" class="icon-style" />
+        <component :is="item.icon" class="social-link-icon" />
       </a>
     </div>
 
     <div class="my-2">
-      <RouterLink :to="{ name: 'Home'}" class="introduction-home-link default-style w-100">Home</RouterLink>
+      <RouterLink :to="{ name: 'Home'}" class="home-link-button default-style w-100">Home</RouterLink>
     </div>
 
     <hr class="split-line my-2"/>
@@ -65,11 +64,5 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
       {{ tag }}
       </RouterLink>
     </div>
-
   </div>
 </template>
-
-
-<style>
-
-</style>

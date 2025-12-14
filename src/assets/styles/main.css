@@ -41,7 +41,7 @@ body::before {
   pointer-events: none;
 }
 
-.main-page {
+.ta-root-wrap {
   display: flex;
   height: auto;
   min-height: 100vh;
@@ -49,37 +49,37 @@ body::before {
   opacity: 1;
 }
 
-.main-body {
+.ta-root-container {
   color: var(--color-primary);
   font-size: 14px;
   flex: 1 1 0%;
 }
 
-.main-body h1 {
+.ta-root-container h1 {
   font-size: 1.6rem;
 }
 
-.main-body h2 {
+.ta-root-container h2 {
   font-size: 1.5rem;
 }
 
-.main-body h3 {
+.ta-root-container h3 {
   font-size: 1.4rem;
 }
 
-.main-body h4 {
+.ta-root-container h4 {
   font-size: 1.3rem;
 }
 
-.main-body h5 {
+.ta-root-container h5 {
   font-size: 1.2rem;
 }
 
-.main-body h6 {
+.ta-root-container h6 {
   font-size: 1.1rem;
 }
 
-.main-body a:not(.default-style) {
+.ta-root-container a:not(.default-style) {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -90,7 +90,7 @@ body::before {
   text-decoration: none;
 }
 
-.main-body a:not(.default-style)::before {
+.ta-root-container a:not(.default-style)::before {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -101,36 +101,16 @@ body::before {
   content: '';
 }
 
-.main-body a:not(.default-style):hover {
+.ta-root-container a:not(.default-style):hover {
   color: var(--color-accent-alt);
 }
 
-.main-body a:not(.default-style):active {
+.ta-root-container a:not(.default-style):active {
   color: var(--color-primary);
 }
 
-.main-body a:not(.default-style):hover::before {
+.ta-root-container a:not(.default-style):hover::before {
   opacity: 0.91;
-}
-
-.left-bar {
-  display: flex;
-  position: sticky;
-  top: 3rem;
-  left: 0;
-  width: 100%;
-  align-self: flex-start;
-  overflow-y: scroll;
-}
-
-.right-bar {
-  display: flex;
-  position: sticky;
-  top: 3rem;
-  left: 0;
-  width: 100%;
-  align-self: flex-start;
-  overflow-y: scroll;
 }
 
 .footer-bar {
@@ -142,10 +122,14 @@ body::before {
   align-items: center;
 }
 
-.sticky-sidebar { /* Safari 兼容 */
+.sticky-sidebar {
+  display: flex;
   position: sticky;
   top: 0;
+  left: 0;
   z-index: 100;
+  width: 100%;
+  align-self: flex-start;
   max-height: 100vh;
   overflow-y: auto;
 }

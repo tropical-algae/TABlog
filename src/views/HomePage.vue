@@ -4,7 +4,7 @@ import { useHomeStore } from '@/stores/home'
 
 import { ref, onMounted } from 'vue'
 import PostView from '@/components/PostView.vue'
-import ActionBar from '@/components/ActionBar.vue';
+import NavBar from '@/components/NavBar.vue';
 
 const markdownHtml = ref('')
 const configStore = useConfigStore()
@@ -21,7 +21,7 @@ onMounted(async () => {
     <h1 class="m-0 p-0 router-elem-slide-fadein">{{ configStore.title }}</h1>
     <div class="home-sub-title router-elem-slide-fadein">{{ configStore.subTitle }}</div>
     <PostView :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml"/>
-    <ActionBar/>
+    <NavBar/>
   </div>
 </template>
 

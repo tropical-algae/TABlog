@@ -1,4 +1,4 @@
-.index-bar {
+.index-wrap {
   display: flex;
   height: 90vh;
   padding: 0 0.5rem;
@@ -69,7 +69,7 @@
   stroke: var(--color-accent-alt);
 }
 
-.index-content {
+.index-container {
   /* overflow: hidden auto; */
   flex: 1 1 0%;
 
@@ -81,23 +81,23 @@
   flex-direction: column;
 }
 
-.index-content ul li{
+.index-container ul li{
   list-style-type: none;
 }
 
-.index-content ul {
+.index-container ul {
   margin: 0;
   padding: 0;
 }
 
-.index-content li{
+.index-container li{
   position: relative;
   margin-left: 0.4rem;
   padding: 0.2rem 0 0.2rem 0.5rem;
   border-left: 0.2rem solid var(--color-primary);
 }
 
-.index-content ul li:first-of-type::before {
+.index-container ul li:first-of-type::before {
   position: absolute;
   top: 0;
   left: -0.1rem; 
@@ -109,7 +109,7 @@
   content: '';
 }
 
-.index-content ul li:last-of-type::after {
+.index-container ul li:last-of-type::after {
   position: absolute;
   flex: 1 1 0%;
   bottom: 0;

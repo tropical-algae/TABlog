@@ -1,6 +1,4 @@
 <script setup>
-import ActionBar from '@/components/ActionBar.vue';
-
 
 const { title, clz, markdownHtml } = defineProps({
   "title": {
@@ -29,7 +27,3 @@ const { title, clz, markdownHtml } = defineProps({
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

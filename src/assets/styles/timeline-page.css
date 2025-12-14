@@ -1,4 +1,4 @@
-.timeline-bar {
+.timeline-wrap {
   display: flex;
   height: 90vh;
   padding: 0 0.5rem;
@@ -15,7 +15,7 @@
   font-weight: bold;
 }
 
-.timeline-content {
+.timeline-container {
   position: relative;
   overflow: hidden scroll;
   flex: 1 1 0%;
@@ -31,7 +31,7 @@
   mask-repeat: no-repeat;
 }
 
-.timeline-content::-webkit-scrollbar {
+.timeline-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -54,7 +54,7 @@
 }
 
 /* 
-.timeline-content::before {
+.timeline-container::before {
   content: '';
   position: fixed;
   top: 0;

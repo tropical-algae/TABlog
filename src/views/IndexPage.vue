@@ -1,9 +1,74 @@
+
+<template>
+  <div class="index-wrap">
+    <h1 class="m-0 p-0 router-elem-slide-fadein">ARCHIVE</h1>
+    <div :key="pageKey" class="index-container py-1 px-2 router-elem-slide-fadein">
+      <ul class="my-3">
+        <li 
+          v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
+          class="d-flex justify-content-between align-items-center"
+        >
+          <RouterLink 
+            :to="{ name: 'Post', params: { title: post.title } }"
+            class="flex-grow-1 text-truncate index-link"
+          >
+            {{ post.title }}
+          </RouterLink>
+          <div>
+              <span 
+                v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
+                class="index-tags small ms-2"
+              >
+                {{ tag }}
+              </span>
+              <span
+                v-if="post.created_time && post.created_time.trim() !== ''"
+                class="index-tags small ms-2"
+              >
+                {{ post.created_time }}
+              </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="index-pagination router-elem-slide-fadein">
+      <RouterLink :to="{ name: 'Index'}" class="default-style" @click="prevPage">
+        <component :is="BackIcon" class="page-svg-button" />
+      </RouterLink>
+
+      <template v-for="page in pages" :key="page">
+        <span v-if="page === '...'" class="page-button ellipsis">
+          {{ page }}
+        </span>
+
+        <RouterLink
+          v-else :to="{ name: 'Index'}" :class="{ 'selected': page === postStore.currentPage }"
+          class="page-button default-style" @click="goToPage(page)"
+        >
+          {{ page }}
+        </RouterLink>
+      </template>
+
+      <RouterLink 
+        :to="{ name: 'Index'}" :disabled="postStore.currentPage === totalPages"
+        class="default-style" @click="nextPage"
+      >
+        <component :is="ForwardIcon" class="page-svg-button" />
+      </RouterLink>
+    </div>
+
+    <NavBar/>
+  </div>
+
+</template>
+
 <script setup>
 import { useConfigStore } from '@/stores/config'
 import { usePostStore } from '@/stores/post'
 import BackIcon from '@/assets/icons/chevron-back.svg?component'
 import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
-import ActionBar from '@/components/ActionBar.vue'
+import NavBar from '@/components/NavBar.vue'
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 
 const postStore = usePostStore()
@@ -102,71 +167,3 @@ watch(
   { immediate: true, deep: true }
 )
 </script>
-
-<template>
-  <div class="index-bar">
-    <h1 class="m-0 p-0 router-elem-slide-fadein">ARCHIVE</h1>
-    <div :key="pageKey" class="index-content py-1 px-2 router-elem-slide-fadein">
-      <ul class="my-3">
-        <li 
-          v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
-          class="d-flex justify-content-between align-items-center"
-        >
-          <RouterLink 
-            :to="{ name: 'Post', params: { title: post.title } }"
-            class="flex-grow-1 text-truncate index-link"
-          >
-            {{ post.title }}
-          </RouterLink>
-          <div>
-              <span 
-                v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
-                class="index-tags small ms-2"
-              >
-                {{ tag }}
-              </span>
-              <span
-                v-if="post.created_time && post.created_time.trim() !== ''"
-                class="index-tags small ms-2"
-              >
-                {{ post.created_time }}
-              </span>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <div class="index-pagination router-elem-slide-fadein">
-      <RouterLink :to="{ name: 'Index'}" class="default-style" @click="prevPage">
-        <component :is="BackIcon" class="page-svg-button" />
-      </RouterLink>
-
-      <template v-for="page in pages" :key="page">
-        <span v-if="page === '...'" class="page-button ellipsis">
-          {{ page }}
-        </span>
-
-        <RouterLink
-          v-else :to="{ name: 'Index'}" :class="{ 'selected': page === postStore.currentPage }"
-          class="page-button default-style" @click="goToPage(page)"
-        >
-          {{ page }}
-        </RouterLink>
-      </template>
-
-      <RouterLink 
-        :to="{ name: 'Index'}" :disabled="postStore.currentPage === totalPages"
-        class="default-style" @click="nextPage"
-      >
-        <component :is="ForwardIcon" class="page-svg-button" />
-      </RouterLink>
-    </div>
-
-    <ActionBar/>
-  </div>
-
-</template>
-
-<style scoped>
-
-</style>

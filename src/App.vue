@@ -1,12 +1,12 @@
 <template>
-  <div class="main-page">
-     <div class="container-md main-body">
+  <div class="ta-root-wrap">
+     <div class="container-md ta-root-container">
       <div class="row align-items-start">
 
-        <div class="left-bar col-md-2 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
+        <div class="col-md-2 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
           <IntroductionBar/>
         </div>
-        
+
         <div class="col-md-10 px-0 mx-auto">
   
           <transition 
@@ -32,7 +32,7 @@
 import gsap from "gsap"
 import IntroductionBar from "@/components/IntroductionBar.vue"
 
-import { onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from "vue-router"
 import { useConfigStore } from '@/stores/config'
 import { applyRandomTheme } from "@/scripts/utils"
@@ -107,25 +107,3 @@ const onEnter = async (el, done) => {
   }
 }
 </script>
-
-
-<style scoped>
-
-
-.transition-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  transform: translateY(100%);
-  will-change: transform;
-  backface-visibility: hidden;
-  perspective: 1000px;
-  background-color: #000;
-  z-index: 99;
-}
-
-
-</style>

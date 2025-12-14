@@ -1,11 +1,41 @@
 
+<template>
+  <div class="post-wrap">
+    <h1 class="p-0 m-0 router-elem-slide-fadein">{{ post.title }}</h1>
+    <div class="post-attribute router-elem-slide-fadein">
+      <table class="router-elem-slide-fadein">
+        <tbody>
+          <tr v-if="post.created_time && post.created_time.trim() !== ''">
+            <td>created time:</td>
+            <td><span>{{ post.created_time }}</span></td>
+          </tr>
+          <tr v-if="post.tags && post.created_time.trim() !== ''">
+            <td>tags:</td>
+            <td class="index-tags-container">
+              <span 
+                v-for="tag in post.tags" :key="tag" 
+                class="index-tags small"
+              >
+                {{ tag }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr class="split-line router-elem-slide-fadein">
+    <PostView :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
+    <NavBar/>
+  </div>
+</template>
+
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { marked } from 'marked'
 import { usePostStore } from '@/stores/post'
 import PostView from '@/components/PostView.vue'
-import ActionBar from '@/components/ActionBar.vue';
+import NavBar from '@/components/NavBar.vue';
 
 import katexExtension from '@/scripts/mdKatex.js'
 
@@ -75,39 +105,3 @@ watch(
 )
 
 </script>
-
-<template>
-  <div class="post-bar">
-    <h1 class="p-0 m-0 router-elem-slide-fadein">{{ post.title }}</h1>
-    <div class="post-attribute router-elem-slide-fadein">
-      <table class="router-elem-slide-fadein">
-        <tbody>
-          <tr v-if="post.created_time && post.created_time.trim() !== ''">
-            <td>created time:</td>
-            <td><span>{{ post.created_time }}</span></td>
-          </tr>
-          <tr v-if="post.tags && post.created_time.trim() !== ''">
-            <td>tags:</td>
-            <td class="index-tags-container">
-              <span 
-                v-for="tag in post.tags" :key="tag" 
-                class="index-tags small"
-              >
-                {{ tag }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <hr class="split-line router-elem-slide-fadein">
-    <PostView :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
-    <ActionBar/>
-
-  </div>
-</template>
-
-
-<style scoped>
-
-</style>
