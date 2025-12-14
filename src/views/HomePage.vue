@@ -1,23 +1,27 @@
 <script setup>
-import { useHomePost, useConfigStore } from '@/scripts/configStore'
+import { useConfigStore } from '@/stores/config'
+import { useHomeStore } from '@/stores/home'
+
 import { ref, onMounted } from 'vue'
-import PostView from '@/views/components/PostView.vue'
+import PostView from '@/components/PostView.vue'
+import NavBar from '@/components/NavBar.vue';
 
 const markdownHtml = ref('')
-const config = useConfigStore()
-const home = useHomePost()
+const configStore = useConfigStore()
+const homeStore = useHomeStore()
 
 onMounted(async () => {
-  markdownHtml.value = home.content
+  markdownHtml.value = homeStore.content
 })
 
 </script>
 
 <template>
-  <div class="home-bar">
-    <h1 class="m-0 p-0">{{ config.title }}</h1>
-    <div class="home-sub-title">{{ config.subTitle }}</div>
-    <PostView :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml" />
+  <div>
+    <h1 class="m-0 p-0 router-elem-slide-fadein">{{ configStore.title }}</h1>
+    <div class="home-sub-title router-elem-slide-fadein">{{ configStore.subTitle }}</div>
+    <PostView :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml"/>
+    <NavBar/>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup>
-import { usePostStore } from '@/scripts/configStore'
-import ActionBar from '@/views/components/ActionBar.vue'
+import { usePostStore } from '@/stores/post'
+import NavBar from '@/components/NavBar.vue'
 
 const postStore = usePostStore()
 const months_map = [
@@ -11,9 +11,9 @@ const months_map = [
 </script>
 
 <template>
-  <div class="timeline-bar">
-    <p class="timeline-title">TIMELINE</p>
-    <div class="timeline-content">
+  <div class="timeline-wrap">
+    <p class="timeline-title router-elem-slide-fadein">TIMELINE</p>
+    <div class="timeline-container router-elem-slide-fadein">
       <div class="timeline-inner">
         <div class="timeline-years" v-for="{ year, months } in postStore.timeGroupPosts">
           <div class="title big">{{ year }}</div>
@@ -33,7 +33,7 @@ const months_map = [
       </div>
     </div>
 
-    <ActionBar />
+    <NavBar />
   </div>
 </template>
 

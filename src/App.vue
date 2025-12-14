@@ -1,67 +1,109 @@
-<script setup>
-import { onMounted } from 'vue'
-import { useConfigStore } from '@/scripts/configStore'
-import { applyGlobalStyle } from "@/scripts/webEffect"
-
-const config = useConfigStore()
-
-onMounted(async () => {
-  applyGlobalStyle(config)
-})
-
-</script>
-
 <template>
-  <div class="main-page">
-    <main class="main-body">
-      <div class="container-md pt-5">
-        <div class="row">
+  <div class="ta-root-wrap">
+     <div class="container-md ta-root-container">
+      <div class="row align-items-start">
 
-          <div class="left-bar col-md-2 pt-3 px-0 d-none d-md-block mx-auto">
-            <RouterView v-slot="{ Component }" name="bar_left">
-              <transition name="fade-comp" mode="out-in">
-                <component :is="Component"/>
-              </transition>
-            </RouterView>
-            <!-- <RouterView name="bar_left" /> -->
-            <!-- <RouterView name="bar_left" v-slot="{ Component }">
-              <component :is="Component" :introduction="config.introduction" />
-            </RouterView> -->
-          </div>
-
-          <div class="col-10 col-md-8 px-4 mx-auto">
-            <!-- <RouterView :key="$route.fullPath" /> -->
-            <RouterView v-slot="{ Component }">
-              <transition name="fade-comp" mode="out-in">
-                <component :is="Component" :key="$route.fullPath" />
-              </transition>
-            </RouterView>
-          </div>
-
-          <div class="right-bar col-md-2 pt-3 px-2 d-none d-md-block mx-auto">
-            <!-- <RouterView name="bar_right" /> -->
-            <RouterView v-slot="{ Component }" name="bar_right">
-              <transition name="fade-comp" mode="out-in">
-                <component :is="Component" :key="$route.fullPath" />
-              </transition>
-            </RouterView>
-          </div>
+        <div class="col-md-2 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
+          <IntroductionBar/>
         </div>
-        
+
+        <div class="col-md-10 px-0 mx-auto">
+  
+          <transition 
+            :css="false" 
+            mode="out-in" 
+            @leave="onLeave" 
+            @enter="onEnter"
+          >
+            <component 
+              :is="layoutComponent" 
+              :key="route.fullPath" 
+            />
+          </transition>
+        </div>
+
       </div>
-    </main>
-    <div class="footer-bar">
-      <RouterView v-slot="{ Component }" name="bar_bottom">
-        <transition name="fade-footer" mode="out-in">
-          <component :is="Component" :key="$route.fullPath" />
-        </transition>
-      </RouterView>
     </div>
 
   </div>
 
 </template>
+<script setup>
+import gsap from "gsap"
+import IntroductionBar from "@/components/IntroductionBar.vue"
 
-<style scoped>
+import { computed } from 'vue'
+import { useRoute } from "vue-router"
+import { useConfigStore } from '@/stores/config'
+import { applyRandomTheme } from "@/scripts/utils"
 
-</style>
+import DefaultLayout from "@/layouts/DefaultLayout.vue"
+import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
+
+const configStore = useConfigStore()
+const route = useRoute()
+
+const layoutComponent = computed(() => {
+  const layout = route.meta.layout || "default"
+  switch (layout) {
+    case "introOnly": return IntroOnlyLayout
+    default: return DefaultLayout
+  }
+})
+
+const onLeave = (el, done) => {
+  const fadeout = el.querySelectorAll(".router-elem-fade")
+  
+  if (fadeout.length === 0) {
+    done()
+    return
+  }
+
+  const tl = gsap.timeline({ onComplete: done })
+  tl.to(fadeout, {
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0,
+    ease: "power4.inOut"
+  })
+}
+
+const onEnter = async (el, done) => {
+  requestAnimationFrame(() => {
+    applyRandomTheme(configStore)
+  })
+
+  const fadein = el.querySelectorAll(".router-elem-fade")
+  const slideFadein = el.querySelectorAll(".router-elem-slide-fadein")
+
+  if (fadein.length === 0 && slideFadein.length === 0) {
+    done()
+    return
+  }
+
+  const tl = gsap.timeline({ onComplete: done })
+
+  if (fadein.length > 0) {
+    tl.fromTo(fadein, 
+    { opacity: 0 },
+    {
+      opacity: 1,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: "power2.out"
+    })
+  }
+
+  if (slideFadein.length > 0) {
+    tl.fromTo(slideFadein, 
+    { y: 80, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      stagger: 0.1,
+      ease: "power2.inOut"
+    }, "<0.1")
+  }
+}
+</script>

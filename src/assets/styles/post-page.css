@@ -1,13 +1,12 @@
-.post-bar {
+.post-wrap {
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;
+  user-select: text;
 }
 
 .post-attribute {
   padding: 0.5rem 0;
-
-  /* overflow-x: hidden; */
 }
 
 .post-attribute table {
@@ -57,8 +56,6 @@
   background-color: var(--color-accent);
   border-radius: 2px;
 
-  /* overflow-wrap: break-word;
-    overflow-x: hidden; */
 }
 
 /*********** 代码块 ***********/

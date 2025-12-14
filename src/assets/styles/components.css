@@ -1,4 +1,4 @@
-.icon-style { 
+.social-link-icon { 
   min-width: 30px;
   max-width: 45px;
   height: auto;
@@ -7,33 +7,38 @@
   opacity: 0.91;
   fill: var(--color-primary-alt);
   stroke: var(--color-primary-alt);
+  transition: 
+    stroke 0.3s ease,
+    fill 0.3s ease,
+    color 0.3s ease;
+}
+
+.social-link-icon:hover {
+  stroke: var(--color-accent-alt);
+  fill: var(--color-accent-alt);
+  color: var(--color-accent-alt);
 }
 
 /*********************** 简介栏 ***********************/
-.introduction-bar {
-  max-height: 80vh;
-
-  /* background-color: aqua; */
-}
 
 .introduction-image {
   border-radius: 15px;
   opacity: 0.65;
 }
 
-.introduction-home-link {
+.home-link-button {
   display: inline-block;
   padding: 0.15rem 0;
   color: var(--color-accent-alt);
   background: var(--color-accent);
   text-align: center;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  transition: color 0.5s ease, background-color 0.5s ease;
   text-decoration: none;
   font-weight: bold;
   border-radius: 7px;
 }
 
-.introduction-home-link:hover {
+.home-link-button:hover {
   color: var(--color-accent);
   background: var(--color-accent-alt);
 }
@@ -45,10 +50,10 @@
 
 /*********************** 页脚 ***********************/
 
-.footer-content {
+.footer-container {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 1.5rem;
 
   /* display: flex;
   position: fixed;
@@ -58,24 +63,24 @@
   color: var(--color-accent-alt);
   overflow-x: hidden;
   white-space: nowrap;
-  justify-content: center;  /* 水平居中 */
+  justify-content: left;  /* 水平居中 */
   align-items: center;      /* 垂直居中 */
 }
 
 /*********************** 底部功能组件 ***********************/
 
-.action-bar {
+.nav-container {
   min-height: 10rem;
   margin: 0;
   padding: 0;
 }
 
-.action-bar ul{
+.nav-container ul{
   margin: 0;
   padding: 0;
 }
 
-.action-bar ul li{
+.nav-container ul li{
   margin-right: 0;
   margin-left: 0;
   padding-bottom: 0.7rem;

@@ -1,20 +1,20 @@
 <script setup>
-import { usePostStore } from '@/scripts/configStore'
+import { usePostStore } from '@/stores/post'
+const postStore = usePostStore()
 
 const { title } = defineProps({
   title: {
     type: String,
-    required: true
+    required: false
   }
 })
 
-const postStore = usePostStore()
 const relatedPosts = postStore.getRelatedPosts(title)
 
 </script>
 
 <template>
-  <div class="index-content pb-3">
+  <div class="index-container pb-3">
     <ul v-for="relatedPost in relatedPosts" :key="relatedPost.tag" class="p-0">
       <h5 class="py-2 my-2 fw-bold">{{ relatedPost.tag }}</h5>
       <li 
