@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/tropical-algae/TABlog/compare/v2.0.0...v2.1.0) (2025-12-15)
+
+
+### Features
+
+* add initial loading screen ([3a424f6](https://github.com/tropical-algae/TABlog/commit/3a424f61d7d12e9ca987faf7cef9142e4e2895eb))
+
 # [2.0.0](https://github.com/tropical-algae/TABlog/compare/v1.2.0...v2.0.0) (2025-12-14)
 
 
