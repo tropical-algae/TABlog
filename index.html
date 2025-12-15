@@ -5,9 +5,87 @@
     <link rel="icon" href="/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>%VITE_SITE_TITLE%</title>
+        <style>
+          body { background-color: rgb(0 61 123); overflow: hidden; }
+          
+          #app-loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgb(0 61 123);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: system-ui;
+            pointer-events: auto;
+            color: rgb(255, 255, 255);
+          }
+
+          .loader-container {
+            width: 280px;
+            height: 50px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+        
+          .loader-status {
+            font-size: 12px;
+            letter-spacing: 1px;
+            line-height: 1.5; 
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+          }
+        
+          .loader-line-track {
+            width: 100%;
+            height: 1px;
+            background-color: rgb(255, 255, 255);
+            overflow: visible; 
+          }
+        
+          .loader-line-fill {
+            height: 100%;
+            width: 0%;
+            background-color: rgb(255 177 88);
+            position: relative;
+          }
+        
+          .loader-cursor {
+            position: absolute;
+            right: 0; 
+            top: 50%;
+            transform: translateY(-50%) translateX(50%);
+            width: 6px;
+            height: 6px;
+            background-color: rgb(245 209 168);
+            animation: blink 0.8s steps(2, start) infinite;
+          }
+        
+          @keyframes blink {
+            to { opacity: 0; }
+          }
+        </style>
   </head>
   <body>
     <div id="app"></div>
+    <div id="app-loader">
+      <div class="loader-container">
+        <div class="loader-status">
+          <span class="status-text">REEF FLAT DEVELOPMENT</span>
+          <span class="status-percent">0%</span>
+        </div>
+        <div class="loader-line-track">
+          <div class="loader-line-fill">
+            <div class="loader-cursor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

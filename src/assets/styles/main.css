@@ -9,8 +9,8 @@
   --color-bg: rgb(0 61 123);
   --color-primary: rgb(255 177 88);
   --color-primary-alt: rgb(245 209 168);
-  --color-accent: #677bab;
-  --color-accent-alt: #fff;
+  --color-accent: rgb(103, 123, 171);
+  --color-accent-alt: rgb(255, 255, 255);
 }
 
 ::-webkit-scrollbar {
@@ -19,9 +19,15 @@
   height: 0;
 }
 
+html, body {
+  overscroll-behavior-y: none; 
+  overscroll-behavior: none; 
+  height: 100%; 
+}
+
 body {
   background-color: var(--color-bg) !important;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
   user-select: none;
   transition: background-color 0.7s ease;
 }
@@ -133,8 +139,6 @@ body::before {
   max-height: 100vh;
   overflow-y: auto;
 }
-
-
 
 .split-line {
   /* height: 1rem; */
