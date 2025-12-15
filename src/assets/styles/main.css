@@ -6,11 +6,11 @@
 
 
 :root {
-  --color-bg: rgb(0 61 123);
-  --color-primary: rgb(255 177 88);
-  --color-primary-alt: rgb(245 209 168);
-  --color-accent: rgb(103 123 171);
-  --color-accent-alt: rgb(255 255 255);
+  --color-bg: #003d7b;
+  --color-primary: #ffb158;
+  --color-primary-alt: #f5d1a8;
+  --color-accent: #677bab;
+  --color-accent-alt: #ffffff;
 }
 
 ::-webkit-scrollbar {
