@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/tropical-algae/TABlog/compare/v2.1.0...v2.1.1) (2025-12-15)
+
+
+### Bug Fixes
+
+* fix existed style issue ([fea5751](https://github.com/tropical-algae/TABlog/commit/fea57517491cb57a5f8f9a6bf32bbaaa5d01a612))
+
 # [2.1.0](https://github.com/tropical-algae/TABlog/compare/v2.0.0...v2.1.0) (2025-12-15)
 
 
