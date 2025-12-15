@@ -97,7 +97,10 @@ onMounted(async () => {
 
     if (slideFadein.length > 0) {
       tl.fromTo(slideFadein, 
-      { y: 80, opacity: 0 },
+      { 
+        y: isMobile ? 0 : 80, 
+        opacity: 0 
+      },
       {
         y: 0,
         opacity: 1,
