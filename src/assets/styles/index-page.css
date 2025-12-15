@@ -22,7 +22,7 @@
   color: var(--color-accent-alt);
   background: var(--color-accent);
   text-align: center;
-  transition: transform 0.3s cubic-bezier(.25,.8,.25,1), color 0.6s ease, background-color 0.6s ease;
+  transition: transform 0.3s ease, color 0.6s ease, background-color 0.6s ease;
   font-weight: bold;
   text-decoration: none;
   line-height: 1.2rem;
@@ -128,7 +128,7 @@
   border-radius: 5px;
 }
 
-.index-tags {
+.index-tag {
   display: inline;
   user-select: none;
   padding: 0 0.2rem;
@@ -142,12 +142,12 @@
 
 }
 
-.index-tags.selected {
+.index-tag.selected {
   color: var(--color-accent);
   background-color: var(--color-accent-alt);
 }
 
-.index-tags-container {
+.index-tag-container {
   display: flex;
   flex-wrap: wrap; /* 允许子元素自动换行 */
   max-height: 7.5rem;

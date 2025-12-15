@@ -9,8 +9,8 @@
   --color-bg: rgb(0 61 123);
   --color-primary: rgb(255 177 88);
   --color-primary-alt: rgb(245 209 168);
-  --color-accent: rgb(103, 123, 171);
-  --color-accent-alt: rgb(255, 255, 255);
+  --color-accent: rgb(103 123 171);
+  --color-accent-alt: rgb(255 255 255);
 }
 
 ::-webkit-scrollbar {
@@ -20,7 +20,6 @@
 }
 
 html, body {
-  overscroll-behavior-y: none; 
   overscroll-behavior: none; 
   height: 100%; 
 }
@@ -145,6 +144,12 @@ body::before {
   margin: 1rem 0;
   padding: 0;
   border-color: var(--color-accent-alt);
+}
+
+.router-elem-slide-fadein,
+.router-elem-fade {
+  will-change: transform, opacity;
+  backface-visibility: hidden; 
 }
 
 @media screen and (hover: none) and (pointer: coarse) {

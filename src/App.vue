@@ -3,11 +3,11 @@
      <div class="container-md ta-root-container">
       <div class="row align-items-start">
 
-        <div class="col-md-2 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar router-elem-slide-fadein">
+        <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar router-elem-slide-fadein">
           <IntroductionBar/>
         </div>
 
-        <div class="col-md-10 px-0 mx-auto">
+        <div class="col-md-10 col-12 px-0 mx-auto">
           <transition 
             :css="false" 
             mode="out-in" 
@@ -39,6 +39,8 @@ import IntroductionBar from "@/components/IntroductionBar.vue"
 
 const configStore = useConfigStore()
 const route = useRoute()
+const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
+
 
 const layoutComponent = computed(() => {
   const layout = route.meta.layout || "default"
@@ -153,7 +155,10 @@ const onEnter = async (el, done) => {
 
   if (slideFadein.length > 0) {
     tl.fromTo(slideFadein, 
-    { y: 80, opacity: 0 },
+    { 
+      y: isMobile ? 0 : 80, 
+      opacity: 0 
+    },
     {
       y: 0,
       opacity: 1,
