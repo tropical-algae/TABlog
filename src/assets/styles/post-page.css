@@ -10,7 +10,8 @@
 }
 
 .post-attribute table {
-  width: auto;
+  display: block; 
+  width: 100%;
   table-layout: auto;
   border-collapse: collapse;
 }

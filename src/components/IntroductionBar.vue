@@ -53,11 +53,11 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
     <hr class="split-line my-2"/>
 
-    <div class="index-tags-container justify-content-center my-2" v-if="tags">
+    <div class="index-tag-container justify-content-center my-2" v-if="tags">
       <RouterLink 
         :to="{ name: 'Index'}"
         v-for="tag in tags" :key="tag" 
-        class="index-tags default-style small"
+        class="index-tag default-style small"
         :class="{ 'selected': isSelected(tag) }"
         @click="switchSelectStatus(tag)"
       >

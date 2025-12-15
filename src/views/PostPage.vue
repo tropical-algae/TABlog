@@ -11,10 +11,10 @@
           </tr>
           <tr v-if="post.tags && post.created_time.trim() !== ''">
             <td>tags:</td>
-            <td class="index-tags-container">
+            <td class="index-tag-container">
               <span 
                 v-for="tag in post.tags" :key="tag" 
-                class="index-tags small"
+                class="index-tag small"
               >
                 {{ tag }}
               </span>
