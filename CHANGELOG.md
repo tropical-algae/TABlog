@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/tropical-algae/TABlog/compare/v2.1.1...v2.1.2) (2025-12-15)
+
+
+### Bug Fixes
+
+* optimized default color scheme ([14dd4e3](https://github.com/tropical-algae/TABlog/commit/14dd4e3c68a04af2f57594e7f017f52891940cf6))
+
 ## [2.1.1](https://github.com/tropical-algae/TABlog/compare/v2.1.0...v2.1.1) (2025-12-15)
 
 
