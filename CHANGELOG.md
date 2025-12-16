@@ -1,3 +1,34 @@
+## [2.1.2](https://github.com/tropical-algae/TABlog/compare/v2.1.1...v2.1.2) (2025-12-15)
+
+
+### Bug Fixes
+
+* optimized default color scheme ([14dd4e3](https://github.com/tropical-algae/TABlog/commit/14dd4e3c68a04af2f57594e7f017f52891940cf6))
+
+## [2.1.1](https://github.com/tropical-algae/TABlog/compare/v2.1.0...v2.1.1) (2025-12-15)
+
+
+### Bug Fixes
+
+* fix existed style issue ([fea5751](https://github.com/tropical-algae/TABlog/commit/fea57517491cb57a5f8f9a6bf32bbaaa5d01a612))
+
+# [2.1.0](https://github.com/tropical-algae/TABlog/compare/v2.0.0...v2.1.0) (2025-12-15)
+
+
+### Features
+
+* add initial loading screen ([3a424f6](https://github.com/tropical-algae/TABlog/commit/3a424f61d7d12e9ca987faf7cef9142e4e2895eb))
+
+# [2.0.0](https://github.com/tropical-algae/TABlog/compare/v1.2.0...v2.0.0) (2025-12-14)
+
+
+* refactor!: complete project rewrite & animation overhaul ([27578eb](https://github.com/tropical-algae/TABlog/commit/27578eb133b970119ace42176bd1ffb54d7aa247))
+
+
+### BREAKING CHANGES
+
+* This release includes a complete rewrite of the codebase and is not backward compatible.
+
 # [1.2.0](https://github.com/tropical-algae/TABlog/compare/v1.1.1...v1.2.0) (2025-09-14)
 
 
