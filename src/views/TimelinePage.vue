@@ -1,6 +1,6 @@
 <script setup>
-import { usePostStore } from '@/stores/post'
-import NavBar from '@/components/NavBar.vue'
+import { usePostStore } from "@/stores/post"
+import NavBar from "@/components/NavBar.vue"
 
 const postStore = usePostStore()
 const months_map = [

@@ -27,18 +27,14 @@
 </template>
 
 <script setup>
-import { onMounted, nextTick } from "vue"
 import gsap from "gsap"
-import { computed } from 'vue'
+import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
-import { useConfigStore } from '@/stores/config'
-import { applyRandomTheme } from "@/scripts/utils"
-// import DefaultLayout from "@/layouts/DefaultLayout.vue"
-// import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
-// import IntroductionBar from "@/components/IntroductionBar.vue"
-const DefaultLayout = () => import("@/layouts/DefaultLayout.vue")
-const IntroOnlyLayout = () => import("@/layouts/IntroOnlyLayout.vue")
-const IntroductionBar = () => import("@/components/IntroductionBar.vue")
+import { useConfigStore } from "@/stores/config"
+import { applyRandomTheme, preloadAllRouteChunks } from "@/scripts/utils"
+import DefaultLayout from "@/layouts/DefaultLayout.vue"
+import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
+import IntroductionBar from "@/components/IntroductionBar.vue"
 
 const configStore = useConfigStore()
 const route = useRoute()
@@ -55,6 +51,7 @@ const layoutComponent = computed(() => {
 
 onMounted(async () => {
   await nextTick()
+  await preloadAllRouteChunks()
 
   const loader = document.getElementById("app-loader")
   if (loader) {

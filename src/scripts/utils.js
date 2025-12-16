@@ -35,3 +35,17 @@ export function initializeApp() {
   }
   return initPromise
 }
+
+export function preloadAllRouteChunks() {
+  const preloadModules = [
+    () => import("@/views/HomePage.vue"),
+    () => import("@/views/PostPage.vue"),
+    () => import("@/views/IndexPage.vue"),
+    () => import("@/views/TimelinePage.vue"),
+    () => import("@/components/IndexBar.vue"),
+  ];
+  const loadingPromises = preloadModules.map(loader => loader().catch(err => {
+      console.error("preload error:", err);
+  }));
+  return Promise.all(loadingPromises);
+}

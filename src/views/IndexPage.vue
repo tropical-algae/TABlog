@@ -64,12 +64,12 @@
 </template>
 
 <script setup>
-import { useConfigStore } from '@/stores/config'
-import { usePostStore } from '@/stores/post'
-import BackIcon from '@/assets/icons/chevron-back.svg?component'
-import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
+import { useConfigStore } from "@/stores/config"
+import { usePostStore } from "@/stores/post"
+import { ref, watch, computed, onMounted, onUnmounted } from "vue"
+import BackIcon from "@/assets/icons/chevron-back.svg?component"
+import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
 import NavBar from '@/components/NavBar.vue'
-import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 
 const postStore = usePostStore()
 const configStore = useConfigStore()
@@ -81,7 +81,7 @@ const frontDetain = ref(2)
 const endDetain = ref(3)
 
 const pageKey = computed(() => 
-  postStore.getFilteredPaginatedPosts(configStore.pageSize).map(p => p.id).join(',')
+  postStore.getFilteredPaginatedPosts(configStore.pageSize).map(p => p.id).join(",")
 )
 const totalPages = computed(() => postStore.getFilteredPages(configStore.pageSize))
 
@@ -132,7 +132,7 @@ const pages = computed(() => {
 })
 
 const goToPage = (page) => {
-  if (page === '...') return
+  if (page === "...") return
   postStore.currentPage = page
 }
 
@@ -150,11 +150,11 @@ const nextPage = () => {
 
 onMounted(() => {
   updateMaxTags()
-  window.addEventListener('resize', updateMaxTags)
+  window.addEventListener("resize", updateMaxTags)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', updateMaxTags)
+  window.removeEventListener("resize", updateMaxTags)
 })
 
 watch(

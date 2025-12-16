@@ -30,14 +30,13 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
-import { useRoute, onBeforeRouteUpdate } from 'vue-router'
-import { marked } from 'marked'
-import { usePostStore } from '@/stores/post'
-import PostView from '@/components/PostView.vue'
-import NavBar from '@/components/NavBar.vue';
-
-import katexExtension from '@/scripts/mdKatex.js'
+import { ref, watch, onMounted } from "vue"
+import { useRoute, onBeforeRouteUpdate } from "vue-router"
+import { marked } from "marked"
+import { usePostStore } from "@/stores/post"
+import katexExtension from "@/scripts/mdKatex.js"
+import PostView from "@/components/PostView.vue"
+import NavBar from "@/components/NavBar.vue"
 
 marked.use(katexExtension())
 
@@ -49,10 +48,9 @@ const { title } = defineProps({
 })
 
 const route = useRoute()
-const markdownHtml = ref('')
+const markdownHtml = ref("")
 const postStore = usePostStore()
 const post = ref(postStore.getPostByTitle(title))
-
 
 onBeforeRouteUpdate(async (to, from) => {
   if (to.params.title !== from.params.title) {
@@ -63,14 +61,6 @@ onBeforeRouteUpdate(async (to, from) => {
     }
   }
 })
-
-async function updatePost() {
-  const slugPath = `${post.value.dir}\\${post.value.slug}`
-  const res = await fetch(slugPath)
-  const mdText = await res.text()
-  const htmlText = marked.parse(mdText)
-  markdownHtml.value = htmlText
-}
 
 onMounted(async () => {
   try {
@@ -94,7 +84,6 @@ watch(
           throw new Error(`Post not found for title: ${newTitle}`)
         }
         post.value = newPost
-        // await updatePost()
         markdownHtml.value = postStore.currentHtml
 
       } catch (err) {

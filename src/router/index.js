@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router"
-
-import HomePage from '@/views/HomePage.vue'
-import PostPage from "@/views/PostPage.vue"
-import IndexPage from "@/views/IndexPage.vue"
-import TimelinePage from "@/views/TimelinePage.vue"
-
-import IndexBar from "@/components/IndexBar.vue"
-
 import { initializeApp } from '@/scripts/utils'
 import { usePostStore } from '@/stores/post'
+
+const HomePage = () => import("@/views/HomePage.vue")
+const PostPage = () => import("@/views/PostPage.vue")
+const IndexPage = () => import("@/views/IndexPage.vue")
+const TimelinePage = () => import("@/views/TimelinePage.vue")
+const IndexBar = () => import("@/components/IndexBar.vue")
 
 const title = import.meta.env.VITE_SITE_TITLE || 'My Blog';
 const routes = [
