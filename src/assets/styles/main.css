@@ -6,11 +6,11 @@
 
 
 :root {
-  --color-bg: #003d7b;
-  --color-primary: #ffb158;
-  --color-primary-alt: #f5d1a8;
-  --color-accent: #677bab;
-  --color-accent-alt: #ffffff;
+  --color-bg: #142a31;
+  --color-primary: #c0c7ca;
+  --color-primary-alt: #496e7d;
+  --color-accent: #9d4022;
+  --color-accent-alt: #cfa789;
 }
 
 ::-webkit-scrollbar {

@@ -33,14 +33,17 @@ import { computed } from 'vue'
 import { useRoute } from "vue-router"
 import { useConfigStore } from '@/stores/config'
 import { applyRandomTheme } from "@/scripts/utils"
-import DefaultLayout from "@/layouts/DefaultLayout.vue"
-import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
-import IntroductionBar from "@/components/IntroductionBar.vue"
+// import DefaultLayout from "@/layouts/DefaultLayout.vue"
+// import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
+// import IntroductionBar from "@/components/IntroductionBar.vue"
+const DefaultLayout = () => import("@/layouts/DefaultLayout.vue")
+const IntroOnlyLayout = () => import("@/layouts/IntroOnlyLayout.vue")
+const IntroductionBar = () => import("@/components/IntroductionBar.vue")
 
 const configStore = useConfigStore()
 const route = useRoute()
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
-
+const randomChar = "!@#$%^&*()<>?/.,;'-=_+`~|[]{}"
 
 const layoutComponent = computed(() => {
   const layout = route.meta.layout || "default"
@@ -68,8 +71,8 @@ onMounted(async () => {
 
     tl.to(fill, {
       width: "100%", 
-      duration: 0.9,
-      ease: "power2.inOut",
+      duration: 0.8,
+      ease: "power3.inOut",
       onUpdate: function() {
         const p = Math.round(this.progress() * 100)
         if(percent) percent.innerText = p < 100 ? `0${p}%`.slice(-3) : "OK"
@@ -77,22 +80,24 @@ onMounted(async () => {
     })
     
     tl.to(text, {
-      duration: 0.1,
+      duration: 0.5,
       // text: "DONE.",
-      onStart: () => { if(text) text.innerText = "DONE." }
-    })
+      scrambleText: { text: "DONE.", chars: randomChar, speed: 1, revealDelay: 0.05 },
+      ease: "none"
+      // onStart: () => { if(text) text.innerText = "DONE." }
+    }, ">0.5")
 
     tl.to(".loader-container", {
       opacity: 0,
       duration: 0.4,
       ease: "power2.in"
-    }, ">0.5")
+    }, ">1.5")
 
     tl.to(loader, {
       opacity: 0,
-      duration: 1,
+      duration: 0.8,
       ease: "power2.inOut"
-    }, ">0.5")
+    }, ">0.4")
 
 
     if (slideFadein.length > 0) {
