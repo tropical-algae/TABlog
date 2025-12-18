@@ -36,6 +36,7 @@
   text-decoration: none;
   font-weight: bold;
   border-radius: 7px;
+  will-change: color, background-color;
 }
 
 .home-link-button:hover {
@@ -46,6 +47,8 @@
 .introduction-content {
   color: var(--color-primary);
   text-align: center;
+  transition: color 0.5s ease;
+  will-change: color;
 }
 
 /*********************** 页脚 ***********************/
@@ -70,7 +73,6 @@
 /*********************** 底部功能组件 ***********************/
 
 .nav-container {
-  min-height: 10rem;
   margin: 0;
   padding: 0;
 }

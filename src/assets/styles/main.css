@@ -1,16 +1,16 @@
 @import url('@/assets/styles/home-page.css');
 @import url('@/assets/styles/components.css');
-@import url('@/assets/styles/index-page.css');
+@import url('@/assets/styles/archive-page.css');
 @import url('@/assets/styles/post-page.css');
 @import url('@/assets/styles/timeline-page.css');
 
 
 :root {
-  --color-bg: #003d7b;
-  --color-primary: #ffb158;
-  --color-primary-alt: #f5d1a8;
-  --color-accent: #677bab;
-  --color-accent-alt: #ffffff;
+  --color-bg: #142a31;
+  --color-primary: #c0c7ca;
+  --color-primary-alt: #496e7d;
+  --color-accent: #9d4022;
+  --color-accent-alt: #cfa789;
 }
 
 ::-webkit-scrollbar {
@@ -61,11 +61,11 @@ body::before {
 }
 
 .ta-root-container h1 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .ta-root-container h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .ta-root-container h3 {
@@ -141,14 +141,14 @@ body::before {
 
 .split-line {
   /* height: 1rem; */
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   padding: 0;
   border-color: var(--color-accent-alt);
+  transform-origin: left center;
 }
 
 .router-elem-slide-fadein,
 .router-elem-fade {
-  will-change: transform, opacity;
   backface-visibility: hidden; 
 }
 

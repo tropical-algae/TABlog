@@ -1,15 +1,17 @@
+.home-title {
+  color: var(--color-accent);
+  font-weight: 600;
+}
 
 .home-sub-title {
   padding: 0 2rem;
+  color: var(--color-accent-alt);
+  font-weight: 600;
 }
 
 .home-content {
-  /* padding-left: 0.5rem; */
-
-  /* padding-right: 0.5rem; */
   padding: 0 2rem;
 }
-
 
 .home-content ul{
   margin: 0;

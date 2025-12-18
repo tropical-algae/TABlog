@@ -1,6 +1,6 @@
 <template>
   <div class="nav-container router-elem-slide-fadein">
-    <hr class="split-line"/>
+    <hr class="split-line router-elem-slide-fadein"/>
     <ul>
       <li>
         <RouterLink :to="{ name: 'Timeline'}">
@@ -8,7 +8,7 @@
         </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'Index'}">
+        <RouterLink :to="{ name: 'Archive'}">
           Archive...
         </RouterLink>
       </li>

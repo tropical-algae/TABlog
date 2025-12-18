@@ -12,7 +12,7 @@
             :css="false" 
             mode="out-in" 
             @leave="onLeave" 
-            @enter="onEnter"
+            @enter="(el, done) => onEnter(el, done, configStore)"
           >
             <component 
               :is="layoutComponent" 
@@ -27,20 +27,18 @@
 </template>
 
 <script setup>
-import { onMounted, nextTick } from "vue"
 import gsap from "gsap"
-import { computed } from 'vue'
+import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
-import { useConfigStore } from '@/stores/config'
-import { applyRandomTheme } from "@/scripts/utils"
+import { useConfigStore } from "@/stores/config"
+import { applyRandomTheme, preloadAllRouteChunks } from "@/scripts/utils"
+import { onLoading, onEnter, onLeave } from "./scripts/animation"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
 import IntroductionBar from "@/components/IntroductionBar.vue"
 
-const configStore = useConfigStore()
 const route = useRoute()
-const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
-
+const configStore = useConfigStore()
 
 const layoutComponent = computed(() => {
   const layout = route.meta.layout || "default"
@@ -52,123 +50,8 @@ const layoutComponent = computed(() => {
 
 onMounted(async () => {
   await nextTick()
-
-  const loader = document.getElementById("app-loader")
-  if (loader) {
-    const fill = loader.querySelector(".loader-line-fill")
-    const percent = loader.querySelector(".status-percent")
-    const text = loader.querySelector(".status-text")
-    const slideFadein = document.querySelectorAll(".router-elem-slide-fadein")
-    
-    const tl = gsap.timeline({
-      onComplete: () => {
-        loader.remove();
-      }
-    })
-
-    tl.to(fill, {
-      width: "100%", 
-      duration: 0.9,
-      ease: "power2.inOut",
-      onUpdate: function() {
-        const p = Math.round(this.progress() * 100)
-        if(percent) percent.innerText = p < 100 ? `0${p}%`.slice(-3) : "OK"
-      }
-    })
-    
-    tl.to(text, {
-      duration: 0.1,
-      // text: "DONE.",
-      onStart: () => { if(text) text.innerText = "DONE." }
-    })
-
-    tl.to(".loader-container", {
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.in"
-    }, ">0.5")
-
-    tl.to(loader, {
-      opacity: 0,
-      duration: 1,
-      ease: "power2.inOut"
-    }, ">0.5")
-
-
-    if (slideFadein.length > 0) {
-      tl.fromTo(slideFadein, 
-      { 
-        y: isMobile ? 0 : 80, 
-        opacity: 0 
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power2.inOut"
-      }, "<0.2")
-    }
-
-  }
+  await preloadAllRouteChunks()
+  setTimeout(() => onLoading(), 500);
 })
 
-const onLeave = (el, done) => {
-  const fadeout = el.querySelectorAll(".router-elem-fade")
-  
-  if (fadeout.length === 0) {
-    done()
-    return
-  }
-
-  const tl = gsap.timeline({ onComplete: done })
-  tl.to(fadeout, {
-    opacity: 0,
-    duration: 0.7,
-    stagger: 0,
-    ease: "power4.inOut"
-  })
-}
-
-const onEnter = async (el, done) => {
-  requestAnimationFrame(() => {
-    applyRandomTheme(configStore)
-  })
-
-  const fadein = el.querySelectorAll(".router-elem-fade")
-  const slideFadein = el.querySelectorAll(".router-elem-slide-fadein")
-
-  if (fadein.length === 0 && slideFadein.length === 0) {
-    done()
-    return
-  }
-
-  const tl = gsap.timeline({ onComplete: done })
-
-  if (fadein.length > 0) {
-    tl.fromTo(fadein, 
-    { opacity: 0 },
-    {
-      opacity: 1,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power2.out"
-    })
-  }
-
-  if (slideFadein.length > 0) {
-    tl.fromTo(slideFadein, 
-    { 
-      y: isMobile ? 0 : 80, 
-      opacity: 0 
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: "power2.inOut"
-    }, "<0.1")
-  }
-}
 </script>

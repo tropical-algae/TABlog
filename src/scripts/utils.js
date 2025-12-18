@@ -1,7 +1,7 @@
-import { useConfigStore } from '@/stores/config'
-import { useHomeStore } from '@/stores/home'
-import { useMapStore } from '@/stores/map'
-import { usePostStore } from '@/stores/post'
+import { useConfigStore } from "@/stores/config"
+import { useHomeStore } from "@/stores/home"
+import { useMapStore } from "@/stores/map"
+import { usePostStore } from "@/stores/post"
 
 let initPromise = null
 
@@ -11,9 +11,9 @@ export function applyRandomTheme(config) {
   const theme = themes[Math.floor(Math.random() * themes.length)]
 
   for (const key in theme) {
-    if (key.startsWith('--')) {
+    if (key.startsWith("--")) {
       document.documentElement.style.setProperty(key, theme[key])
-      // document.querySelector('html').style.setProperty(key, theme[key])
+      // document.querySelector("html").style.setProperty(key, theme[key])
     }
   }
 }
@@ -27,11 +27,25 @@ export function initializeApp() {
 
     initPromise = mapStore.load().then(() => {
       return Promise.all([
-        homeStore.load(mapStore.getValue('home')),
-        configStore.load(mapStore.getValue('app')),
-        postStore.load(mapStore.getValue('index'))
+        homeStore.load(mapStore.getValue("home")),
+        configStore.load(mapStore.getValue("app")),
+        postStore.load(mapStore.getValue("index"))
       ])
     })
   }
   return initPromise
+}
+
+export function preloadAllRouteChunks() {
+  const preloadModules = [
+    () => import("@/views/HomePage.vue"),
+    () => import("@/views/PostPage.vue"),
+    () => import("@/views/ArchivePage.vue"),
+    () => import("@/views/TimelinePage.vue"),
+    () => import("@/components/IndexBar.vue"),
+  ];
+  const loadingPromises = preloadModules.map(loader => loader().catch(err => {
+      console.error("preload error:", err);
+  }));
+  return Promise.all(loadingPromises);
 }

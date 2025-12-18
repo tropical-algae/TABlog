@@ -31,9 +31,9 @@
         {
             "--color-bg": "#1d2326",
             "--color-primary": "#8a8c8f",
-            "--color-primary-alt": "#736b6b",
-            "--color-accent": "#a59286",
-            "--color-accent-alt": "#5b504d"
+            "--color-primary-alt": "#605953",
+            "--color-accent": "#9e8778",
+            "--color-accent-alt": "#564945"
         },
         {
             "--color-bg": "#004343",
@@ -43,25 +43,18 @@
             "--color-accent-alt": "#fbf2c4"
         },
         {
-            "--color-bg": "#efeeec",
+            "--color-bg": "#e1e0dc",
             "--color-primary": "#736865",
             "--color-primary-alt": "#c2926b",
-            "--color-accent": "#6b5f5b",
-            "--color-accent-alt": "#bcaf9c"
+            "--color-accent": "#776b67",
+            "--color-accent-alt": "#b2aa9f"
         },
         {
             "--color-bg": "#142a31",
             "--color-primary": "#c0c7ca",
             "--color-primary-alt": "#496e7d",
             "--color-accent": "#9d4022",
-            "--color-accent-alt": "#e3c5ae"
-        },
-        {
-            "--color-bg": "#746f6f",
-            "--color-primary": "#dcd9d9",
-            "--color-primary-alt": "#afa9a9",
-            "--color-accent": "#bdb1b1",
-            "--color-accent-alt": "#534d4d"
+            "--color-accent-alt": "#cfa789"
         }
     ]
 }

@@ -1,6 +1,6 @@
 .timeline-wrap {
   display: flex;
-  height: 90vh;
+  min-height: 90vh;
   padding: 0 0.5rem;
   overflow: hidden auto;
   flex-direction: column;
