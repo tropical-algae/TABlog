@@ -61,11 +61,11 @@ body::before {
 }
 
 .ta-root-container h1 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .ta-root-container h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .ta-root-container h3 {
@@ -144,6 +144,8 @@ body::before {
   margin: 1rem 0;
   padding: 0;
   border-color: var(--color-accent-alt);
+  transform-origin: left center;
+  will-change: transform;
 }
 
 .router-elem-slide-fadein,
