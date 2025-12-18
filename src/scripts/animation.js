@@ -46,21 +46,22 @@ export const onLoading = () => {
     ease: "power2.inOut"
   }, ">1.0");
 
-  // 4. 页面内容入场
   if (slideFadein.length > 0) {
-    tl.fromTo(slideFadein, 
-      { 
-        y: isMobile ? 0 : 24, 
-        opacity: 0,
-        willChange: "transform, opacity",
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.08,
-        ease: "power2.out",
-      }, "<0.2");
+		tl.fromTo(slideFadein, 
+		{ 
+			opacity: 0,
+			scaleX: (i, target) => target.tagName === "HR" ? 0 : 1,
+			y: (i, target) => target.tagName === "HR" ? 0 : isMobile ? 0 : 24,
+			willChange: "transform, opacity"
+		},
+		{
+			y: 0,
+			opacity: 1,
+			scaleX: 1,
+			duration: 0.8,
+			stagger: 0.08,
+			ease: "power2.inOut"
+		}, "<0.1")
   }
 }
 
