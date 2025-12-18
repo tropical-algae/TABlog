@@ -1,3 +1,20 @@
+# [2.2.0](https://github.com/tropical-algae/TABlog/compare/v2.1.2...v2.2.0) (2025-12-18)
+
+
+### Bug Fixes
+
+* fix existed layout and animation issue ([68d89ec](https://github.com/tropical-algae/TABlog/commit/68d89ec05a39e8ef421fba0d2e3a8d430c9fca0b))
+* lock background interaction using touch-action when page loading ([7eeb577](https://github.com/tropical-algae/TABlog/commit/7eeb57787432e6cc4acffd27c7d985e536778945))
+
+
+### Features
+
+* add lazy loading and preload for views ([c8ba61a](https://github.com/tropical-algae/TABlog/commit/c8ba61acd2079f1231bb7d06bd7f3d0d12481750))
+* improve scrolling experience and layout flexibility for archive page ([35e107b](https://github.com/tropical-algae/TABlog/commit/35e107bec61b8fcf990d778554886bbffe2a7ac7))
+* optimize route transition performance and refine visual style ([f9b81f7](https://github.com/tropical-algae/TABlog/commit/f9b81f7f5a581f6909ce36b1d11a50356c7a3231))
+* optimized onEntry animation and code structure ([42e1e7b](https://github.com/tropical-algae/TABlog/commit/42e1e7b41bc34c33e9e9f10062c30f6114f383b5))
+* optimized theme style, add text animation for loading page ([d68237b](https://github.com/tropical-algae/TABlog/commit/d68237b67819ec16d2b5169c5fa191e4c539e977))
+
 ## [2.1.2](https://github.com/tropical-algae/TABlog/compare/v2.1.1...v2.1.2) (2025-12-15)
 
 
