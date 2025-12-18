@@ -55,7 +55,7 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
     <div class="post-tag-container justify-content-center my-2" v-if="tags">
       <RouterLink 
-        :to="{ name: 'Index'}"
+        :to="{ name: 'Archive'}"
         v-for="tag in tags" :key="tag" 
         class="post-tag default-style small"
         :class="{ 'selected': isSelected(tag) }"

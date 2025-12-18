@@ -4,11 +4,11 @@ import { usePostStore } from '@/stores/post'
 
 const HomePage = () => import("@/views/HomePage.vue")
 const PostPage = () => import("@/views/PostPage.vue")
-const IndexPage = () => import("@/views/IndexPage.vue")
+const ArchivePage = () => import("@/views/ArchivePage.vue")
 const TimelinePage = () => import("@/views/TimelinePage.vue")
 const IndexBar = () => import("@/components/IndexBar.vue")
 
-const title = import.meta.env.VITE_SITE_TITLE || 'My Blog';
+const siteTitle = import.meta.env.VITE_SITE_TITLE || 'My Blog';
 const routes = [
   {
     path: "/",
@@ -18,18 +18,18 @@ const routes = [
     },
     meta: {
       "layout": "introOnly",
-      "title": title
+      "title": siteTitle
     }
   },
   {
-    path: "/index",
-    name: "Index",
+    path: "/archive",
+    name: "Archive",
     components: {
-      default: IndexPage,
+      default: ArchivePage,
     },
     meta: {
       "layout": "introOnly",
-      "title": 'Index - ' + title
+      "title": 'Archive - ' + siteTitle
     }
   },
   {
@@ -40,7 +40,7 @@ const routes = [
     },
     meta: {
       "layout": "introOnly",
-      "title": 'Timeline - ' + title
+      "title": 'Timeline - ' + siteTitle
     }
   },
   {
@@ -56,7 +56,7 @@ const routes = [
     },
     meta: {
       "layout": "default",
-      "title": 'Post - ' + title
+      "title": 'Post - ' + siteTitle
     },
     beforeEnter: async (to, from, next) => {
       const postStore = usePostStore()

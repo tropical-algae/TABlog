@@ -1,13 +1,14 @@
-.index-wrap {
-  display: flex;
-  height: 90vh;
+.archive-wrap {
+  display: flex; 
+  height: auto;
   padding: 0 0.5rem;
-  overflow: hidden auto;
+  overflow: visible;
   flex-direction: column;
+  min-height: 90vh; 
 }
 
 /* 选页卡 */
-.index-pagination {
+.archive-pagination {
   padding-top: 1rem;
   display: flex;
   flex-direction: row;
@@ -49,7 +50,6 @@
   transform: none;
 }
 
-/* 前后选页SVG */
 .page-svg-button {
   width: auto; 
   height: 1.4rem;
@@ -67,35 +67,30 @@
   stroke: var(--color-accent-alt);
 }
 
-.index-container {
-  /* overflow: hidden auto; */
-  flex: 1 1 0%;
-
-  /* 减去标题和底部导航的高 */
-
-  /* max-height: calc(100% - 10rem - 2rem); */
-  overflow-y: auto;
+.archive-container {
   display: flex;
   flex-direction: column;
+  flex: 1 0 auto; 
+  overflow: visible;
 }
 
-.index-container ul li{
+.archive-container ul li{
   list-style-type: none;
 }
 
-.index-container ul {
+.archive-container ul {
   margin: 0;
   padding: 0;
 }
 
-.index-container li{
+.archive-container li{
   position: relative;
   margin-left: 0.4rem;
   padding: 0.2rem 0 0.2rem 0.5rem;
   border-left: 0.2rem solid var(--color-primary);
 }
 
-.index-container ul li:first-of-type::before {
+.archive-container ul li:first-of-type::before {
   position: absolute;
   top: 0;
   left: -0.1rem; 
@@ -107,7 +102,7 @@
   content: '';
 }
 
-.index-container ul li:last-of-type::after {
+.archive-container ul li:last-of-type::after {
   position: absolute;
   flex: 1 1 0%;
   bottom: 0;

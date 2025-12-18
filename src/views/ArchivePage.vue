@@ -1,8 +1,8 @@
 
 <template>
-  <div class="index-wrap">
+  <div class="archive-wrap">
     <h1 class="m-0 p-0 router-elem-slide-fadein">ARCHIVE</h1>
-    <div :key="pageKey" class="index-container py-1 px-2 router-elem-slide-fadein">
+    <div :key="pageKey" class="archive-container py-1 px-2 router-elem-slide-fadein">
       <ul class="my-3">
         <li 
           v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
@@ -32,8 +32,8 @@
       </ul>
     </div>
 
-    <div class="index-pagination router-elem-slide-fadein">
-      <RouterLink :to="{ name: 'Index'}" class="default-style" @click="prevPage">
+    <div class="archive-pagination router-elem-slide-fadein">
+      <RouterLink :to="{ name: 'Archive'}" class="default-style" @click="prevPage">
         <component :is="BackIcon" class="page-svg-button" />
       </RouterLink>
 
@@ -43,7 +43,7 @@
         </span>
 
         <RouterLink
-          v-else :to="{ name: 'Index'}" :class="{ 'selected': page === postStore.currentPage }"
+          v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
           class="page-button default-style" @click="goToPage(page)"
         >
           {{ page }}
@@ -51,7 +51,7 @@
       </template>
 
       <RouterLink 
-        :to="{ name: 'Index'}" :disabled="postStore.currentPage === totalPages"
+        :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
         class="default-style" @click="nextPage"
       >
         <component :is="ForwardIcon" class="page-svg-button" />
