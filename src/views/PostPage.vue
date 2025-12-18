@@ -1,7 +1,7 @@
 
 <template>
   <div class="post-wrap">
-    <h1 class="p-0 m-0 router-elem-slide-fadein">{{ post.title }}</h1>
+    <h1 class="post-title router-elem-slide-fadein">{{ post.title }}</h1>
     <div class="post-attribute router-elem-slide-fadein">
       <table class="router-elem-slide-fadein">
         <tbody>
@@ -11,10 +11,10 @@
           </tr>
           <tr v-if="post.tags && post.created_time.trim() !== ''">
             <td>tags:</td>
-            <td class="index-tag-container">
+            <td class="post-tag-container">
               <span 
                 v-for="tag in post.tags" :key="tag" 
-                class="index-tag small"
+                class="post-tag small"
               >
                 {{ tag }}
               </span>

@@ -55,13 +55,6 @@
             "--color-primary-alt": "#496e7d",
             "--color-accent": "#9d4022",
             "--color-accent-alt": "#cfa789"
-        },
-        {
-            "--color-bg": "#746f6f",
-            "--color-primary": "#dcd9d9",
-            "--color-primary-alt": "#afa9a9",
-            "--color-accent": "#bdb1b1",
-            "--color-accent-alt": "#534d4d"
         }
     ]
 }

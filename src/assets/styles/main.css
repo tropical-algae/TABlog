@@ -141,16 +141,14 @@ body::before {
 
 .split-line {
   /* height: 1rem; */
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   padding: 0;
   border-color: var(--color-accent-alt);
   transform-origin: left center;
-  will-change: transform;
 }
 
 .router-elem-slide-fadein,
 .router-elem-fade {
-  will-change: transform, opacity;
   backface-visibility: hidden; 
 }
 

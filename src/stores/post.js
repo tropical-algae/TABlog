@@ -1,6 +1,8 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
+import { marked } from "marked";
+import katexExtension from "@/scripts/mdKatex.js";
 
-export const usePostStore = defineStore('post', {
+export const usePostStore = defineStore("post", {
   state: () => ({
     posts: null,
     sortedPosts: null,
@@ -8,8 +10,7 @@ export const usePostStore = defineStore('post', {
     tags: null,
     selectedTags: [],
     currentPage: 1,
-    currentHtml: '',
-    currentPost: ''
+    currentHtml: ""
   }),
 
   actions: {
@@ -19,8 +20,8 @@ export const usePostStore = defineStore('post', {
         this.posts = (await res.json()).map(p => {
           if (p.created_time) {
             // 补齐日期格式
-            const [y, m, d] = p.created_time.split('-')
-            p.created_time = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
+            const [y, m, d] = p.created_time.split("-")
+            p.created_time = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`
           }
           return p
         })
@@ -41,18 +42,12 @@ export const usePostStore = defineStore('post', {
     },
     async fetchPostAndParse(title) {
       const post = this.getPostByTitle(title);
-      if (!post) throw new Error('Post not found');
+      if (!post) throw new Error("Post not found");
 
       const slugPath = `${post.dir}\\${post.slug}`;
       const res = await fetch(slugPath);
       const mdText = await res.text();
-      
-      // 可以在这里引入 marked 解析，或者只存 mdText 到组件再去解析
-      // 假设这里引入了 marked
-      const { marked } = await import('marked'); 
-      const katexExtension = (await import('@/scripts/mdKatex.js')).default;
       marked.use(katexExtension());
-      
       this.currentHtml = marked.parse(mdText);
     }
   },
@@ -82,7 +77,7 @@ export const usePostStore = defineStore('post', {
       return state.posts.find(p => p.title === title) || null
     },
     getRelatedPosts(state) {
-      return (title = '', limit = 8) => {
+      return (title = "", limit = 8) => {
         const post = this.getPostByTitle(title)
         if (!post) return []
 

@@ -5,8 +5,13 @@
   user-select: text;
 }
 
+.post-title {
+  margin: 0;
+  padding: 0 0 0.5rem 0;
+}
+
 .post-attribute {
-  padding: 0.5rem 0;
+  padding: 0;
 }
 
 .post-attribute table {
@@ -42,9 +47,19 @@
 }
 
 .post-content {
-  padding: 1rem 0;
+  padding: 0 0 1rem 0;
   overflow-x: hidden;
   word-wrap: break-word;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  margin-top: 1.3rem;
+  color: var(--color-accent-alt);
 }
 
 /*********** 代码标 ***********/

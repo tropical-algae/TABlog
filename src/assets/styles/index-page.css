@@ -28,7 +28,6 @@
   line-height: 1.2rem;
   min-width: 1.4rem;
   border-radius: 3px;
-  will-change: transform; 
 }
 
 .page-button:hover {
@@ -44,7 +43,6 @@
   background: none;
   border-radius: 0;
   transition: none;
-  will-change: none;
 }
 
 .page-button.ellipsis:hover {
@@ -128,7 +126,7 @@
   border-radius: 5px;
 }
 
-.index-tag {
+.post-tag {
   display: inline;
   user-select: none;
   padding: 0 0.2rem;
@@ -142,12 +140,12 @@
 
 }
 
-.index-tag.selected {
+.post-tag.selected {
   color: var(--color-accent);
   background-color: var(--color-accent-alt);
 }
 
-.index-tag-container {
+.post-tag-container {
   display: flex;
   flex-wrap: wrap; /* 允许子元素自动换行 */
   max-height: 7.5rem;

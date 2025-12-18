@@ -17,13 +17,13 @@
           <div>
               <span 
                 v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
-                class="index-tag small ms-2"
+                class="post-tag small ms-2"
               >
                 {{ tag }}
               </span>
               <span
                 v-if="post.created_time && post.created_time.trim() !== ''"
-                class="index-tag small ms-2"
+                class="post-tag small ms-2"
               >
                 {{ post.created_time }}
               </span>
