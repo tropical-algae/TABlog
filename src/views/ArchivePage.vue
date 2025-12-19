@@ -2,34 +2,41 @@
 <template>
   <div class="archive-wrap">
     <h1 class="m-0 p-0 router-elem-slide-fadein">ARCHIVE</h1>
-    <div :key="pageKey" class="archive-container py-1 px-2 router-elem-slide-fadein">
-      <ul class="my-3">
-        <li 
-          v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
-          class="d-flex justify-content-between align-items-center"
-        >
-          <RouterLink 
-            :to="{ name: 'Post', params: { title: post.title } }"
-            class="flex-grow-1 text-truncate index-link"
+    <div :key="pageKey" class="archive-container py-1 px-2">
+      <div class="archive-list my-3">
+        <div class="decor-line-wrapper">
+          <div class="dot top router-elem-slide-fadein"></div>
+          <div class="progress-line router-elem-slide-fadein"></div>
+          <div class="dot bottom router-elem-slide-fadein"></div>
+        </div>
+        <ul>
+          <li 
+            v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
+            class="d-flex justify-content-between align-items-center scroll-elem-slide-fadein"
           >
-            {{ post.title }}
-          </RouterLink>
-          <div>
-              <span 
-                v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
-                class="post-tag small ms-2"
-              >
-                {{ tag }}
-              </span>
-              <span
-                v-if="post.created_time && post.created_time.trim() !== ''"
-                class="post-tag small ms-2"
-              >
-                {{ post.created_time }}
-              </span>
-          </div>
-        </li>
-      </ul>
+            <RouterLink 
+              :to="{ name: 'Post', params: { title: post.title } }"
+              class="flex-grow-1 text-truncate post-link"
+            >
+              {{ post.title }}
+            </RouterLink>
+            <div class="flex-shrink-0">
+                <span 
+                  v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag" 
+                  class="post-tag small ms-2"
+                >
+                  {{ tag }}
+                </span>
+                <span
+                  v-if="post.created_time && post.created_time.trim() !== ''"
+                  class="post-tag small ms-2"
+                >
+                  {{ post.created_time }}
+                </span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="archive-pagination router-elem-slide-fadein">
@@ -64,9 +71,11 @@
 </template>
 
 <script setup>
+import gsap from "gsap"
 import { useConfigStore } from "@/stores/config"
 import { usePostStore } from "@/stores/post"
-import { ref, watch, computed, onMounted, onUnmounted } from "vue"
+import { ref, watch, computed, onMounted, onUnmounted, nextTick } from "vue"
+
 import BackIcon from "@/assets/icons/chevron-back.svg?component"
 import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
 import NavBar from '@/components/NavBar.vue'
@@ -148,7 +157,8 @@ const nextPage = () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   updateMaxTags()
   window.addEventListener("resize", updateMaxTags)
 })

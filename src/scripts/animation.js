@@ -98,6 +98,9 @@ export const onEnter = async (el, done, configStore) => {
 
   const fadein = el.querySelectorAll(".router-elem-fade")
   const slideFadein = el.querySelectorAll(".router-elem-slide-fadein")
+  const slideFadeinEles = gsap.utils.toArray(slideFadein);
+  const offsetAnims = slideFadeinEles.filter(el => el.matches('.progress-line, .dot')); 
+  const staggerAnims = slideFadeinEles.filter(el => !el.matches('.progress-line, .dot'));
 
   if (fadein.length === 0 && slideFadein.length === 0) {
     done()
@@ -125,19 +128,23 @@ export const onEnter = async (el, done, configStore) => {
     })
   }
 
-  tl.fromTo(slideFadein, 
-  { 
-    opacity: 0,
-    scaleX: (i, target) => target.tagName === "HR" ? 0 : 1,
-    y: (i, target) => target.tagName === "HR" ? 0 : isMobile ? 0 : 24,
-    willChange: "transform, opacity"
-  },
-  {
-    y: 0,
-    opacity: 1,
-    scaleX: 1,
-    duration: 0.8,
-    stagger: 0.08,
-    ease: "power2.inOut"
-  }, "<0.1")
+  if (staggerAnims.length > 0) {
+    tl.fromTo(staggerAnims, 
+    { 
+      opacity: 0,
+      scaleX: (i, target) => target.matches(".scale-x") ? 0 : 1,
+      y: (i, target) => target.matches(".scale-x") ? 0 : isMobile ? 0 : 24,
+      willChange: "transform, opacity"
+    },
+    { y: 0, opacity: 1, scaleX: 1, duration: 0.8, stagger: 0.08, ease: "power2.inOut"},
+    "<0.1")
+  }
+
+  if (offsetAnims.length > 0) {
+    tl.fromTo(offsetAnims, 
+      { scale: 0, opacity: 0, willChange: "transform, opacity" }, 
+      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.6, ease: "back.inOut" },
+      ">-1"
+    );
+  }
 }

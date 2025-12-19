@@ -23,7 +23,7 @@
         </tbody>
       </table>
     </div>
-    <hr class="split-line router-elem-slide-fadein">
+    <hr class="split-line scale-x router-elem-slide-fadein">
     <PostView :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
     <NavBar/>
   </div>

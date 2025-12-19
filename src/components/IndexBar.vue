@@ -15,16 +15,27 @@ const relatedPosts = postStore.getRelatedPosts(title)
 
 <template>
   <div class="archive-container pb-3">
-    <ul v-for="relatedPost in relatedPosts" :key="relatedPost.tag" class="p-0">
+    <div v-for="relatedPost in relatedPosts" :key="relatedPost.tag" >
       <h5 class="py-2 my-2 fw-bold">{{ relatedPost.tag }}</h5>
-      <li 
-        v-for="postTitle in relatedPost.titles" 
-        class="d-flex justify-content-between align-items-center"
-      >
-        <RouterLink :to="{ name: 'Post', params: {title: postTitle} }" class="index-link small text-truncate w-100">
-          {{ postTitle }}
-        </RouterLink>
-      </li>
-    </ul>
+
+      <div class="archive-list px-2">
+        <div class="decor-line-wrapper">
+          <div class="dot top"></div>
+          <div class="progress-line"></div>
+          <div class="dot bottom"></div>
+        </div>
+        <ul>
+          <li 
+            v-for="postTitle in relatedPost.titles" 
+            class="d-flex justify-content-between align-items-center"
+          >
+            <RouterLink :to="{ name: 'Post', params: {title: postTitle} }" class="post-link small text-truncate w-100">
+              {{ postTitle }}
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
   </div>
 </template>
