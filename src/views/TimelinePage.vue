@@ -23,7 +23,7 @@ const months_map = [
                 <RouterLink 
                   v-for="post in posts"
                   :to="{ name: 'Post', params: { title: post.title } }"
-                  class="timeline-posts "
+                  class="timeline-posts"
                 >
                   {{ post.title }}
                 </RouterLink>

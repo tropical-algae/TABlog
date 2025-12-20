@@ -3,7 +3,7 @@
      <div class="container-md ta-root-container">
       <div class="row align-items-start">
 
-        <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar router-elem-slide-fadein">
+        <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
           <IntroductionBar/>
         </div>
 
@@ -27,11 +27,10 @@
 </template>
 
 <script setup>
-import gsap from "gsap"
 import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useConfigStore } from "@/stores/config"
-import { applyRandomTheme, preloadAllRouteChunks } from "@/scripts/utils"
+import { preloadAllRouteChunks } from "@/scripts/utils"
 import { onLoading, onEnter, onLeave } from "@/scripts/animation"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"

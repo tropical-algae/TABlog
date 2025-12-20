@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue"
+import { ref, watch, onMounted, nextTick } from "vue"
 import { useRoute, onBeforeRouteUpdate } from "vue-router"
 import { marked } from "marked"
 import { usePostStore } from "@/stores/post"
@@ -63,6 +63,7 @@ onBeforeRouteUpdate(async (to, from) => {
 })
 
 onMounted(async () => {
+  await nextTick()
   try {
     if (!post.value) {
       throw new Error(`Post not found for title: ${title}`)

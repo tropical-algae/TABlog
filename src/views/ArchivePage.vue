@@ -12,7 +12,7 @@
         <ul>
           <li 
             v-for="post in postStore.getFilteredPaginatedPosts(configStore.pageSize)" :key="post.slug" 
-            class="d-flex justify-content-between align-items-center scroll-elem-slide-fadein"
+            class="d-flex justify-content-between align-items-center router-elem-slide-fadein"
           >
             <RouterLink 
               :to="{ name: 'Post', params: { title: post.title } }"
@@ -71,7 +71,6 @@
 </template>
 
 <script setup>
-import gsap from "gsap"
 import { useConfigStore } from "@/stores/config"
 import { usePostStore } from "@/stores/post"
 import { ref, watch, computed, onMounted, onUnmounted, nextTick } from "vue"

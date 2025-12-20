@@ -1,8 +1,36 @@
 import gsap from "gsap"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { applyRandomTheme } from "@/scripts/utils"
 
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
 const randomChar = "!@#$%&/TA01XYZ"
+
+export const addSlideFadeinAnimation = (tl, items) => {
+  const slideFadeinEles = gsap.utils.toArray(items);
+  const offsetAnims = slideFadeinEles.filter(el => el.matches('.progress-line, .dot')); 
+  const staggerAnims = slideFadeinEles.filter(el => !el.matches('.progress-line, .dot'));
+
+  if (staggerAnims.length > 0) {
+    tl.fromTo(staggerAnims, 
+      { 
+        opacity: 0,
+        scaleX: (i, target) => target.matches(".scale-x") ? 0 : 1,
+        y: () => isMobile ? 0 : 35,
+        willChange: "transform, opacity"
+      },
+      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.07, ease: "back.inOut"},
+      "<0.1"
+    )
+  }
+
+  if (offsetAnims.length > 0) {
+    tl.fromTo(offsetAnims, 
+      { scale: 0, opacity: 0, willChange: "transform, opacity" }, 
+      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.6, ease: "back.inOut" },
+      "<0.5"
+    );
+  }
+}
 
 export const onLoading = () => {
   window.scrollTo({ top: 0, behavior: "instant" });
@@ -13,11 +41,10 @@ export const onLoading = () => {
   const percent = loader.querySelector(".status-percent");
   const text = loader.querySelector(".status-text");
   const slideFadein = document.querySelectorAll(".router-elem-slide-fadein");
-  const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   const tl = gsap.timeline({
     onComplete: () => {
-      gsap.set([slideFadein, ".loader-container", loader], { clearProps: "will-change" });
+      gsap.set([".loader-container", loader], { clearProps: "will-change" });
       loader.remove();
     }
   });
@@ -46,23 +73,7 @@ export const onLoading = () => {
     ease: "power2.inOut"
   }, ">1.0");
 
-  if (slideFadein.length > 0) {
-		tl.fromTo(slideFadein, 
-		{ 
-			opacity: 0,
-			scaleX: (i, target) => target.tagName === "HR" ? 0 : 1,
-			y: (i, target) => target.tagName === "HR" ? 0 : isMobile ? 0 : 24,
-			willChange: "transform, opacity"
-		},
-		{
-			y: 0,
-			opacity: 1,
-			scaleX: 1,
-			duration: 0.8,
-			stagger: 0.08,
-			ease: "power2.inOut"
-		}, "<0.1")
-  }
+  addSlideFadeinAnimation(tl, slideFadein)
 }
 
 export const onLeave = (el, done) => {
@@ -75,13 +86,11 @@ export const onLeave = (el, done) => {
 
   const tl = gsap.timeline({ 
     onComplete: () => {
-      gsap.set(fadeout, { clearProps: "will-change" });
       done();
     } 
   })
 
   tl.to(fadeout, {
-		willChange: "opacity",
     opacity: 0,
     duration: 0.7,
     stagger: 0,
@@ -98,9 +107,6 @@ export const onEnter = async (el, done, configStore) => {
 
   const fadein = el.querySelectorAll(".router-elem-fade")
   const slideFadein = el.querySelectorAll(".router-elem-slide-fadein")
-  const slideFadeinEles = gsap.utils.toArray(slideFadein);
-  const offsetAnims = slideFadeinEles.filter(el => el.matches('.progress-line, .dot')); 
-  const staggerAnims = slideFadeinEles.filter(el => !el.matches('.progress-line, .dot'));
 
   if (fadein.length === 0 && slideFadein.length === 0) {
     done()
@@ -109,42 +115,52 @@ export const onEnter = async (el, done, configStore) => {
 
   const tl = gsap.timeline({ 
     onComplete: () => {
-      gsap.set([fadein, slideFadein], { clearProps: "will-change" });
       done();
     } 
   })
 
   if (fadein.length > 0) {
     tl.fromTo(fadein, 
-    { 
-      opacity: 0,
-      willChange: "opacity" 
-    },
-    {
-      opacity: 1,
-      duration: 0.6,
-      stagger: 0.06,
-      ease: "power2.out"
-    })
+      { opacity: 0, },
+      { opacity: 1, duration: 0.6, stagger: 0.06, ease: "power2.out" }
+    )
   }
-
-  if (staggerAnims.length > 0) {
-    tl.fromTo(staggerAnims, 
-    { 
-      opacity: 0,
-      scaleX: (i, target) => target.matches(".scale-x") ? 0 : 1,
-      y: (i, target) => target.matches(".scale-x") ? 0 : isMobile ? 0 : 24,
-      willChange: "transform, opacity"
-    },
-    { y: 0, opacity: 1, scaleX: 1, duration: 0.8, stagger: 0.08, ease: "power2.inOut"},
-    "<0.1")
-  }
-
-  if (offsetAnims.length > 0) {
-    tl.fromTo(offsetAnims, 
-      { scale: 0, opacity: 0, willChange: "transform, opacity" }, 
-      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.6, ease: "back.inOut" },
-      ">-1"
-    );
-  }
+  addSlideFadeinAnimation(tl, slideFadein)
 }
+
+// export async function initBasicScrollAnimations(itemClass) {
+//   ScrollTrigger.getAll().forEach(t => t.kill())
+//   const bubbles = gsap.utils.toArray(itemClass)
+//   // gsap.set(bubbles, { opacity: 0 }) 
+
+//   ScrollTrigger.batch(itemClass, {
+//     // markers: true,
+//     start: "top 95%", 
+//     end: "bottom 5%",
+
+//     onEnter: batch => {
+//       gsap.fromTo(batch, 
+//         { y: 30, opacity: 0 },
+//         { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "power3.out", overwrite: true }
+//       )
+//     },
+
+//     // onEnterBack: batch => {
+//     //   gsap.to(batch, {
+//     //     opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: "power3.out", overwrite: true 
+//     //   })
+//     // },
+
+//     onLeaveBack: batch => {
+//       gsap.to(batch, {
+//          opacity: 0, y: 80, duration: 1, ease: "power2.in", overwrite: true 
+//       })
+//     },
+
+//     // onLeave: batch => {
+//     //   gsap.to(batch, { 
+//     //     opacity: 0, y: -80, duration: 1, ease: "power2.in", overwrite: true 
+//     //   })
+//     // }
+//   })
+// }

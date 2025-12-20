@@ -8,9 +8,9 @@ import router from '@/router'
 import { initializeApp } from '@/scripts/utils'
 import { gsap } from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
+gsap.registerPlugin(ScrambleTextPlugin);
 
 const app = createApp(App)
 app.use(createPinia())
