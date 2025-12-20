@@ -116,12 +116,12 @@
 .dot {
   position: absolute;
   left: 50%;
+  z-index: 2;
   width: 10px;
   height: 10px;
   background-color: var(--color-primary);
   border-radius: 50%;
   transform: translateX(-50%);
-  z-index: 2;
 }
 
 .dot.top {

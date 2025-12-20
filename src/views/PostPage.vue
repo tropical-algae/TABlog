@@ -32,13 +32,9 @@
 <script setup>
 import { ref, watch, onMounted, nextTick } from "vue"
 import { useRoute, onBeforeRouteUpdate } from "vue-router"
-import { marked } from "marked"
 import { usePostStore } from "@/stores/post"
-import katexExtension from "@/scripts/mdKatex.js"
 import PostView from "@/components/PostView.vue"
 import NavBar from "@/components/NavBar.vue"
-
-marked.use(katexExtension())
 
 const { title } = defineProps({
   title: {
