@@ -1,9 +1,9 @@
 
 <template>
   <div class="post-wrap">
-    <h1 class="post-title router-elem-slide-fadein">{{ post.title }}</h1>
-    <div class="post-attribute router-elem-slide-fadein">
-      <table class="router-elem-slide-fadein">
+    <h1 class="post-title router-elem-fade anim-slide">{{ post.title }}</h1>
+    <div class="post-attribute router-elem-fade anim-slide">
+      <table>
         <tbody>
           <tr v-if="post.created_time && post.created_time.trim() !== ''">
             <td>created time:</td>
@@ -23,7 +23,7 @@
         </tbody>
       </table>
     </div>
-    <hr class="split-line scale-x router-elem-slide-fadein">
+    <hr class="split-line scale-x router-elem-fade anim-slide">
     <PostView :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
     <NavBar/>
   </div>

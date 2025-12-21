@@ -1,18 +1,18 @@
 <template>
-  <div class="nav-container router-elem-slide-fadein">
-    <hr class="split-line router-elem-slide-fadein"/>
+  <div class="nav-container">
+    <hr class="split-line router-elem-fade anim-slide"/>
     <ul>
-      <li>
+      <li class="router-elem-fade anim-slide">
         <RouterLink :to="{ name: 'Timeline'}">
           Timeline...
         </RouterLink>
       </li>
-      <li>
+      <li class="router-elem-fade anim-slide">
         <RouterLink :to="{ name: 'Archive'}">
           Archive...
         </RouterLink>
       </li>
-      <li>
+      <li class="router-elem-fade anim-slide">
         <RouterLink :to="{ name: 'Home'}">
           Home...
         </RouterLink>

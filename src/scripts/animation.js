@@ -1,38 +1,47 @@
 import gsap from "gsap"
 // import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { applyRandomTheme } from "@/scripts/utils"
 
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
 const randomChar = "!@#$%&/TA01XYZ"
+const slideMod = ".anim-slide";
+const scaleMod = ".anim-scale";
 
-export const addSlideFadeinAnimation = (tl, items) => {
-  const slideFadeinEles = gsap.utils.toArray(items);
-  const offsetAnims = slideFadeinEles.filter(el => el.matches('.progress-line, .dot')); 
-  const staggerAnims = slideFadeinEles.filter(el => !el.matches('.progress-line, .dot'));
+const addFadeinAnimation = (tl, elems) => {
+  if (elems.length > 0) {
+    tl.fromTo(elems, 
+      { opacity: 0, },
+      { opacity: 1, duration: 0.6, stagger: 0.06, ease: "power2.out" },
+      "<"
+    )
+  }
+}
 
-  if (staggerAnims.length > 0) {
-    tl.fromTo(staggerAnims, 
+const addSlideFadeinAnimation = (tl, elems) => {
+  if (elems.length > 0) {
+    tl.fromTo(elems, 
       { 
         opacity: 0,
         scaleX: (i, target) => target.matches(".scale-x") ? 0 : 1,
         y: () => isMobile ? 0 : 35,
         willChange: "transform, opacity"
       },
-      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.07, ease: "back.inOut"},
-      "<0.1"
+      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.07, ease: "back.inOut(1.9)"},
+      "<0.15"
     )
   }
+}
 
-  if (offsetAnims.length > 0) {
-    tl.fromTo(offsetAnims, 
+const addScaleFadeinAnimation = (tl, elems) => {
+  if (elems.length > 0) {
+    tl.fromTo(elems, 
       { scale: 0, opacity: 0, willChange: "transform, opacity" }, 
-      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.6, ease: "back.inOut" },
-      "<0.5"
+      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.45, ease: "back.inOut(1.9)" },
+      "<0.15"
     );
   }
 }
 
-export const onLoading = () => {
+export const onLoading = (animClass) => {
   window.scrollTo({ top: 0, behavior: "instant" });
   const loader = document.getElementById("app-loader");
   if (!loader) return;
@@ -40,7 +49,6 @@ export const onLoading = () => {
   const fill = loader.querySelector(".loader-line-fill");
   const percent = loader.querySelector(".status-percent");
   const text = loader.querySelector(".status-text");
-  const slideFadein = document.querySelectorAll(".router-elem-slide-fadein");
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -73,13 +81,15 @@ export const onLoading = () => {
     ease: "power2.inOut"
   }, ">1.0");
 
-  addSlideFadeinAnimation(tl, slideFadein)
+  addFadeinAnimation(tl, document.querySelectorAll(`${animClass}:not(${slideMod}):not(${scaleMod})`))
+  addSlideFadeinAnimation(tl, document.querySelectorAll(`${animClass}${slideMod}`))
+  addScaleFadeinAnimation(tl, document.querySelectorAll(`${animClass}${scaleMod}`))
 }
 
-export const onLeave = (el, done) => {
-  const fadeout = el.querySelectorAll(".router-elem-fade")
-  
-  if (fadeout.length === 0) {
+export const onLeave = (el, done, animClass) => {
+  const fadeElems = el.querySelectorAll(animClass)
+
+  if (fadeElems.length === 0) {
     done()
     return
   }
@@ -90,25 +100,19 @@ export const onLeave = (el, done) => {
     } 
   })
 
-  tl.to(fadeout, {
-    opacity: 0,
-    duration: 0.7,
-    stagger: 0,
-    ease: "power3.inOut"
-  })
+  tl.to(fadeElems, 
+    { opacity: 0, duration: 0.7, stagger: 0, ease: "power3.inOut" }
+  )
 }
 
-export const onEnter = async (el, done, configStore) => {
+export const onEnter = (el, done, animClass) => {
   window.scrollTo({ top: 0, behavior: "instant" });
 
-  requestAnimationFrame(() => {
-    applyRandomTheme(configStore)
-  })
+  const scaleElems = el.querySelectorAll(`${animClass}${scaleMod}`);
+  const slideElems = el.querySelectorAll(`${animClass}${slideMod}`);
+  const fadeElems = el.querySelectorAll(`${animClass}:not(${slideMod}):not(${scaleMod})`);
 
-  const fadein = el.querySelectorAll(".router-elem-fade")
-  const slideFadein = el.querySelectorAll(".router-elem-slide-fadein")
-
-  if (fadein.length === 0 && slideFadein.length === 0) {
+  if (scaleElems.length + slideElems.length + fadeElems.length === 0) {
     done()
     return
   }
@@ -119,13 +123,9 @@ export const onEnter = async (el, done, configStore) => {
     } 
   })
 
-  if (fadein.length > 0) {
-    tl.fromTo(fadein, 
-      { opacity: 0, },
-      { opacity: 1, duration: 0.6, stagger: 0.06, ease: "power2.out" }
-    )
-  }
-  addSlideFadeinAnimation(tl, slideFadein)
+  addFadeinAnimation(tl, fadeElems)
+  addSlideFadeinAnimation(tl, slideElems)
+  addScaleFadeinAnimation(tl, scaleElems)
 }
 
 // export async function initBasicScrollAnimations(itemClass) {

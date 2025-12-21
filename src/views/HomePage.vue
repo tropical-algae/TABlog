@@ -18,8 +18,8 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h1 class="m-0 p-0 home-title router-elem-slide-fadein">{{ configStore.title }}</h1>
-    <div class="home-sub-title router-elem-slide-fadein">{{ configStore.subTitle }}</div>
+    <h1 class="m-0 p-0 home-title router-elem-fade anim-slide">{{ configStore.title }}</h1>
+    <div class="home-sub-title router-elem-fade anim-slide">{{ configStore.subTitle }}</div>
     <PostView :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml"/>
     <NavBar/>
   </div>

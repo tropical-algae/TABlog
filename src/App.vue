@@ -11,8 +11,8 @@
           <transition 
             :css="false" 
             mode="out-in" 
-            @leave="onLeave" 
-            @enter="(el, done) => onEnter(el, done, configStore)"
+            @leave="onRouterLeave" 
+            @enter="onRouterEnter"
           >
             <component 
               :is="layoutComponent" 
@@ -30,7 +30,7 @@
 import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useConfigStore } from "@/stores/config"
-import { preloadAllRouteChunks } from "@/scripts/utils"
+import { preloadAllRouteChunks, applyRandomTheme } from "@/scripts/utils"
 import { onLoading, onEnter, onLeave } from "@/scripts/animation"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
@@ -38,6 +38,7 @@ import IntroductionBar from "@/components/IntroductionBar.vue"
 
 const route = useRoute()
 const configStore = useConfigStore()
+const routerAnimClass = ".router-elem-fade"
 
 const layoutComponent = computed(() => {
   const layout = route.meta.layout || "default"
@@ -47,10 +48,21 @@ const layoutComponent = computed(() => {
   }
 })
 
+const onRouterEnter = (el, done) => {
+  requestAnimationFrame(() => {
+    applyRandomTheme(configStore)
+  })
+  onEnter(el, done, routerAnimClass);
+}
+
+const onRouterLeave = (el, done) => {
+  onLeave(el, done, routerAnimClass);
+}
+
 onMounted(async () => {
   await nextTick()
   await preloadAllRouteChunks()
-  setTimeout(() => onLoading(), 500);
+  setTimeout(() => onLoading(routerAnimClass), 500);
 })
 
 </script>

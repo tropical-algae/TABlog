@@ -147,7 +147,6 @@ body::before {
   transform-origin: left center;
 }
 
-.router-elem-slide-fadein,
 .router-elem-fade {
   backface-visibility: hidden; 
   will-change: opacity, transform, color

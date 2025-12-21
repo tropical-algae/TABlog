@@ -33,10 +33,14 @@ export const usePostStore = defineStore("post", {
     selectTag(tag) {
       if (!this.selectedTags.includes(tag)) {
         this.selectedTags.push(tag)
+        this.currentPage = 1
       }
     },
     unselectTag(tag) {
-      this.selectedTags = this.selectedTags.filter(_tag => _tag !== tag)
+      if (this.selectedTags.includes(tag)) {
+        this.selectedTags = this.selectedTags.filter(_tag => _tag !== tag)
+        this.currentPage = 1
+      }
     },
     async fetchPostAndParse(title) {
       const post = this.getPostByTitle(title);
