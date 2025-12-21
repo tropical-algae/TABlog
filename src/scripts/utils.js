@@ -43,6 +43,8 @@ export function preloadAllRouteChunks() {
     () => import("@/views/ArchivePage.vue"),
     () => import("@/views/TimelinePage.vue"),
     () => import("@/components/IndexBar.vue"),
+    () => import("@/scripts/mdKatex.js"),
+    () => import("marked")
   ];
   const loadingPromises = preloadModules.map(loader => loader().catch(err => {
       console.error("preload error:", err);

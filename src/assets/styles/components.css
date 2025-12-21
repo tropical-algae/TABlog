@@ -58,16 +58,13 @@
   width: 100%;
   height: 1.5rem;
 
-  /* display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0; */
-
   color: var(--color-accent-alt);
   overflow-x: hidden;
   white-space: nowrap;
   justify-content: left;  /* 水平居中 */
   align-items: center;      /* 垂直居中 */
+  transition: color 0.5s ease;
+  will-change: color;
 }
 
 /*********************** 底部功能组件 ***********************/

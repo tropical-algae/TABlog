@@ -1,9 +1,9 @@
 
 <template>
   <div class="post-wrap">
-    <h1 class="post-title router-elem-slide-fadein">{{ post.title }}</h1>
-    <div class="post-attribute router-elem-slide-fadein">
-      <table class="router-elem-slide-fadein">
+    <h1 class="post-title router-elem-fade anim-slide">{{ post.title }}</h1>
+    <div class="post-attribute router-elem-fade anim-slide">
+      <table>
         <tbody>
           <tr v-if="post.created_time && post.created_time.trim() !== ''">
             <td>created time:</td>
@@ -23,22 +23,18 @@
         </tbody>
       </table>
     </div>
-    <hr class="split-line router-elem-slide-fadein">
+    <hr class="split-line scale-x router-elem-fade anim-slide">
     <PostView :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
     <NavBar/>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue"
+import { ref, watch, onMounted, nextTick } from "vue"
 import { useRoute, onBeforeRouteUpdate } from "vue-router"
-import { marked } from "marked"
 import { usePostStore } from "@/stores/post"
-import katexExtension from "@/scripts/mdKatex.js"
 import PostView from "@/components/PostView.vue"
 import NavBar from "@/components/NavBar.vue"
-
-marked.use(katexExtension())
 
 const { title } = defineProps({
   title: {
@@ -63,6 +59,7 @@ onBeforeRouteUpdate(async (to, from) => {
 })
 
 onMounted(async () => {
+  await nextTick()
   try {
     if (!post.value) {
       throw new Error(`Post not found for title: ${title}`)

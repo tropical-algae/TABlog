@@ -37,3 +37,4 @@ public/config_processed/*
 !public/config_processed/.gitkeep
 
 .env
+stats.html

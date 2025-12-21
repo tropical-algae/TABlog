@@ -8,6 +8,7 @@ import router from '@/router'
 import { initializeApp } from '@/scripts/utils'
 import { gsap } from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrambleTextPlugin);
 

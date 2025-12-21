@@ -3,7 +3,7 @@
      <div class="container-md ta-root-container">
       <div class="row align-items-start">
 
-        <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar router-elem-slide-fadein">
+        <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
           <IntroductionBar/>
         </div>
 
@@ -11,8 +11,8 @@
           <transition 
             :css="false" 
             mode="out-in" 
-            @leave="onLeave" 
-            @enter="(el, done) => onEnter(el, done, configStore)"
+            @leave="onRouterLeave" 
+            @enter="onRouterEnter"
           >
             <component 
               :is="layoutComponent" 
@@ -27,18 +27,18 @@
 </template>
 
 <script setup>
-import gsap from "gsap"
 import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useConfigStore } from "@/stores/config"
-import { applyRandomTheme, preloadAllRouteChunks } from "@/scripts/utils"
-import { onLoading, onEnter, onLeave } from "./scripts/animation"
+import { preloadAllRouteChunks, applyRandomTheme } from "@/scripts/utils"
+import { onLoading, onEnter, onLeave } from "@/scripts/animation"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
 import IntroductionBar from "@/components/IntroductionBar.vue"
 
 const route = useRoute()
 const configStore = useConfigStore()
+const routerAnimClass = ".router-elem-fade"
 
 const layoutComponent = computed(() => {
   const layout = route.meta.layout || "default"
@@ -48,10 +48,21 @@ const layoutComponent = computed(() => {
   }
 })
 
+const onRouterEnter = (el, done) => {
+  requestAnimationFrame(() => {
+    applyRandomTheme(configStore)
+  })
+  onEnter(el, done, routerAnimClass);
+}
+
+const onRouterLeave = (el, done) => {
+  onLeave(el, done, routerAnimClass);
+}
+
 onMounted(async () => {
   await nextTick()
   await preloadAllRouteChunks()
-  setTimeout(() => onLoading(), 500);
+  setTimeout(() => onLoading(routerAnimClass), 500);
 })
 
 </script>
