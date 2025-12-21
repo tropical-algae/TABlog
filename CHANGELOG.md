@@ -1,3 +1,15 @@
+# [2.3.0](https://github.com/tropical-algae/TABlog/compare/v2.2.0...v2.3.0) (2025-12-21)
+
+
+### Features
+
+* Add redirection for routing ([05e6da2](https://github.com/tropical-algae/TABlog/commit/05e6da23e9c0ffd00ca6a4bfc465cfdd07d861a4))
+* optimize animation logic and implement Archive page transitions ([ba3d3b1](https://github.com/tropical-algae/TABlog/commit/ba3d3b1880f6bb74daa751c40801b86acba1d7a1))
+* optimized style and animation for archive page ([73e425d](https://github.com/tropical-algae/TABlog/commit/73e425d92bb311bb2aa1c06afe134dc92cf9e6a7))
+* optimized the animation performance on the PC side ([e570d19](https://github.com/tropical-algae/TABlog/commit/e570d19321320637d98568880016e4b67571280e))
+* update nginx config and improve bundle visualizer setup ([306c017](https://github.com/tropical-algae/TABlog/commit/306c017b2a7521a3e9b1e1ef6fefc37dd20a19e9))
+* using lazy loading for katex.js ([9dade17](https://github.com/tropical-algae/TABlog/commit/9dade17161a411d12be29ea44d214ac560ee6645))
+
 # [2.2.0](https://github.com/tropical-algae/TABlog/compare/v2.1.2...v2.2.0) (2025-12-18)
 
 
