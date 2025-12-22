@@ -1,3 +1,11 @@
+# [2.4.0](https://github.com/tropical-algae/TABlog/compare/v2.3.0...v2.4.0) (2025-12-22)
+
+
+### Features
+
+* optimize the viewport height of mobile terminal ([4da2cfb](https://github.com/tropical-algae/TABlog/commit/4da2cfbdae247505b19fbe034cb0d52984143f1b))
+* optimized the style of two layouts ([1628103](https://github.com/tropical-algae/TABlog/commit/16281031e383a682d120098e10e61062c702e84e))
+
 # [2.3.0](https://github.com/tropical-algae/TABlog/compare/v2.2.0...v2.3.0) (2025-12-21)
 
 
