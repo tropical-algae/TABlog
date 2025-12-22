@@ -70,7 +70,7 @@
 
 .nav-container {
   margin: 0;
-  padding: 0;
+  padding: 0 0 1rem;
 }
 
 .nav-container ul{
