@@ -22,10 +22,10 @@ const addSlideFadeinAnimation = (tl, elems) => {
       { 
         opacity: 0,
         scaleX: (i, target) => isMobile ? 1 : target.matches(".scale-x") ? 0 : 1,
-        y: () => isMobile ? 0 : 35,
+        y: () => isMobile ? 0 : 40,
         willChange: "transform, opacity"
       },
-      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.07, ease: "back.inOut(1.9)"},
+      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.09, ease: "back.inOut(1.8)"},
       "<0.15"
     )
   }
