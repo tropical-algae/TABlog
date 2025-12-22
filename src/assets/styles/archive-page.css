@@ -4,7 +4,13 @@
   padding: 0 0.5rem;
   overflow: visible;
   flex-direction: column;
-  min-height: 90vh; 
+}
+
+.archive-wrap > .v-enter-active,
+.archive-wrap > .v-leave-active {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 /* 选页卡 */

@@ -16,7 +16,7 @@ export default defineConfig(({mode}) => {
       vue(),
       vueDevTools(),
       svgLoader(),
-      visualizer({ open: true, filename: 'stats.html' })
+      visualizer({ open: !isCI, filename: 'stats.html' })
     ],
     server: {
       host: '0.0.0.0',

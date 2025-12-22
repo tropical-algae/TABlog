@@ -11,9 +11,9 @@ const months_map = [
 </script>
 
 <template>
-  <div class="timeline-wrap">
+  <div class="timeline-wrap flex-grow-1 d-flex flex-column">
     <p class="timeline-title router-elem-fade anim-slide">TIMELINE</p>
-    <div class="timeline-container router-elem-fade anim-slide">
+    <div class="timeline-container router-elem-fade flex-grow-1 anim-slide">
       <div class="timeline-inner">
         <div class="timeline-years" v-for="{ year, months } in postStore.timeGroupPosts">
           <div class="title big">{{ year }}</div>

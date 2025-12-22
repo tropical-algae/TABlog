@@ -8,19 +8,19 @@
   <a href="README_CN.md"><img src="https://img.shields.io/badge/Language-简体中文-red.svg"></a>
 </p>
 
-### 🌟 Features:
+## 🌟 Features:
 - A lightweight, responsive static blog with smooth animations
 - Markdown-driven, easy to use, with LaTeX support
 - Easy deployment with built-in one-click startup scripts
 - A reinvented wheel built by someone who doesn’t know much about frontend
 
-### 📷 Preview:
+## 📷 Preview:
 
 ![](assets/blog.png)
 
 ---
 
-### 🚀 Getting Started
+## 🚀 Getting Started
 
 1. Source Code Deployment
 
@@ -48,35 +48,41 @@ tropicalalgae/tablog:latest
 
 ---
 
-### 🛠️ How to Use
+## 🛠️ How to Use
 
-#### 1. Add Your Configuration
+### 1. Add Your Configuration
 
-In the `$CONTAINER_MOUNT/config` folder, add the configuration file [app.json](./public/config/app.json).
+Create an `app.json` file in the `$CONTAINER_MOUNT/config` directory. It is recommended to create it based on the [default configuration file](./public/config/app.json).
 
-In this file:
-- `label_map` defines the keywords that will be recognized as tags. These keywords will be rendered as tags when the blog content is parsed. More details will be introduced later.
-- `colors` defines the theme color palette for the blog. A random theme will be applied on each route navigation.
+| Key          | Description            | Notes |
+|--------------|-------------------------|----------------|
+| title        | Main title on homepage  | The name of your blog or project |
+| sub_title    | Subtitle on homepage    | A short description or slogan |
+| introduction | Sidebar introduction    | Supports plain text or brief bio |
+| label_map    | Label metadata mapping  | When a mapped label appears at the start of a post, it will be rendered as a tag |
+| page_size    | Pagination size         | Number of posts per page in the archive |
+| links        | Social/Friend links     | Supports four types of links |
+| colors       | Theme color pool        | Randomly selected during route transitions |
 
-#### 2. Add Homepage Content
+### 2. Add Homepage Content
 
 The homepage is rendered from a Markdown file.
 
-Place the [home.md](./public/config/home.md) file in the `$CONTAINER_MOUNT/config` folder.
-
-Place `avatar.png` and `favicon.ico` in the `$CONTAINER_MOUNT/images` folder to define your avatar and site icon.
+- Place the [home.md](./public/config/home.md) file in the `$CONTAINER_MOUNT/config` folder.
+- Place `avatar.png` and `favicon.ico` in the `$CONTAINER_MOUNT/images` folder to define your avatar and site icon.
 
 > 📌 There are no strict rules for the content of `home.md`, but we recommend keeping it concise and avoiding complex structures.
 
-#### 3. Update Your Blog
+### 3. Update Your Blog
 
 The update process includes 2 steps:
+
 1. Add or update your blog posts in the `$CONTAINER_MOUNT/markdowns` directory.
 2. Restart your Docker container.
 
 You can organize your blog posts in nested folders under `$CONTAINER_MOUNT/markdowns`, but make sure all local file references in your Markdown files use **relative paths**.
 
-At the beginning of each Markdown file, you can define the tags for that post using a list, separated from the main content by a horizontal line. Here's an example:
+At the beginning of each Markdown file, you can define the tags for that post using a list, separated from the main content by a horizontal line. Here's an example based on default `app.json`:
 
 ```markdown
 - created_time: 2025-6-9
@@ -90,6 +96,27 @@ At the beginning of each Markdown file, you can define the tags for that post us
 ... ...
 ```
 
-The keywords in the list must be defined in `app.json` to be recognized as valid tags, or you can rely on the default configuration.
+---
 
-After parsing, the example will produce the following tags: `2025-6-9`, `markdown`, `css`, `vue`.
+The keywords that are recognized as tags need to be defined in `app.json`. For example, when you configure:
+
+```json
+"label_map": {
+    "created_time": "ct",
+    "tags": "tg"
+}
+```
+
+then your post should be modified to:
+
+```markdown
+- ct: 2025-6-9
+- tg: markdown
+- tg: css
+- tg: vue
+
+---
+
+<content>
+... ...
+```

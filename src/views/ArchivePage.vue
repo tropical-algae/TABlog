@@ -1,6 +1,6 @@
 
 <template>
-  <div class="archive-wrap">
+  <div class="archive-wrap flex-grow-1 d-flex flex-column">
     <h1 class="m-0 p-0 router-elem-fade anim-slide">ARCHIVE</h1>
     <Transition 
       mode="out-in" 
@@ -8,7 +8,7 @@
       @enter="onArchiveEnter"
       @leave="onArchiveLeave"
     >
-      <div :key="archiveKey" class="archive-container py-1 px-2">
+      <div :key="archiveKey" class="archive-container flex-grow-1 py-1 px-2">
         <div class="archive-list my-3">
           <div class="decor-line-wrapper">
             <div class="dot top router-elem-fade anim-scale"></div>
