@@ -50,6 +50,7 @@ body::before {
   display: flex;
   height: auto;
   min-height: 100vh;
+  min-height: 100dvh;
   flex-direction: column;
   opacity: 1;
 }
@@ -136,7 +137,14 @@ body::before {
   width: 100%;
   align-self: flex-start;
   max-height: 100vh;
+  max-height: 100dvh;
   overflow-y: auto;
+}
+
+.min-full-height {
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: auto;
 }
 
 .split-line {

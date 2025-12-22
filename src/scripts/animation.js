@@ -21,7 +21,7 @@ const addSlideFadeinAnimation = (tl, elems) => {
     tl.fromTo(elems, 
       { 
         opacity: 0,
-        scaleX: (i, target) => target.matches(".scale-x") ? 0 : 1,
+        scaleX: (i, target) => isMobile ? 1 : target.matches(".scale-x") ? 0 : 1,
         y: () => isMobile ? 0 : 35,
         willChange: "transform, opacity"
       },

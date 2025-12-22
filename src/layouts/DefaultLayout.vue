@@ -1,7 +1,7 @@
 <template>
   <div class="container-md w-100 m-0 p-0">
     <div class="row align-items-start m-0 p-0">
-      <div class="col-md-9 col-12 pt-4 px-md-4 px-3 m-0 d-flex flex-column min-vh-100 h-auto">
+      <div class="col-md-9 col-12 pt-4 px-md-4 px-3 m-0 d-flex flex-column min-full-height">
         <div class="flex-grow-1 d-flex flex-column router-elem-fade">
           <RouterView v-slot="{ Component }">
             <component :is="Component" :key="$route.fullPath" />
