@@ -36,7 +36,6 @@
   text-decoration: none;
   font-weight: bold;
   border-radius: 7px;
-  will-change: color, background-color;
 }
 
 .home-link-button:hover {
@@ -48,7 +47,6 @@
   color: var(--color-primary);
   text-align: center;
   transition: color 0.5s ease;
-  will-change: color;
 }
 
 /*********************** 页脚 ***********************/
@@ -63,7 +61,6 @@
   justify-content: left;  /* 水平居中 */
   align-items: center;      /* 垂直居中 */
   transition: color 0.5s ease;
-  will-change: color;
 }
 
 /*********************** 底部功能组件 ***********************/

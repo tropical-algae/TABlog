@@ -10,8 +10,17 @@ const addFadeinAnimation = (tl, elems) => {
   if (elems.length > 0) {
     tl.fromTo(elems, 
       { opacity: 0, },
-      { opacity: 1, duration: 0.6, stagger: 0.06, ease: "power2.out" },
-      "<"
+      { opacity: 1, 
+        duration: 2.0, 
+        stagger: 0.1, 
+        ease: "power2.out",
+        onStart: function() {
+          gsap.set(this.targets(), { willChange: "transform, opacity" });
+        },
+        onComplete: function() {
+          gsap.set(this.targets(), { clearProps: "willChange" });
+        }
+      }, "<"
     )
   }
 }
@@ -22,11 +31,24 @@ const addSlideFadeinAnimation = (tl, elems) => {
       { 
         opacity: 0,
         scaleX: (i, target) => isMobile ? 1 : target.matches(".scale-x") ? 0 : 1,
+        scaleY: (i, target) => isMobile ? 1 : target.matches(".scale-y") ? 0 : 1,
         y: () => isMobile ? 0 : 40,
-        willChange: "transform, opacity"
       },
-      { y: 0, opacity: 1, scaleX: 1, duration: 0.7, stagger: 0.09, ease: "back.inOut(1.8)"},
-      "<0.15"
+      { 
+        y: 0, 
+        opacity: 1, 
+        scaleX: 1, 
+        scaleY: 1, 
+        duration: 1.2, 
+        stagger: 0.09, 
+        ease: "back.inOut(1.9)", 
+        onStart: function() {
+          gsap.set(this.targets(), { willChange: "transform, opacity" });
+        },
+        onComplete: function() {
+          gsap.set(this.targets(), { clearProps: "willChange" });
+        }
+      }, "<0.15"
     )
   }
 }
@@ -34,9 +56,23 @@ const addSlideFadeinAnimation = (tl, elems) => {
 const addScaleFadeinAnimation = (tl, elems) => {
   if (elems.length > 0) {
     tl.fromTo(elems, 
-      { scale: 0, opacity: 0, willChange: "transform, opacity" }, 
-      { scale: 1, opacity: 1, duration: 0.7, stagger: 0.45, ease: "back.inOut(1.9)" },
-      "<0.15"
+      { 
+        scale: 0, 
+        opacity: 0
+      }, 
+      { 
+        scale: 1, 
+        opacity: 1, 
+        duration: 1.0, 
+        stagger: 0.45, 
+        ease: "back.inOut(1.9)", 
+        onStart: function() {
+          gsap.set(this.targets(), { willChange: "transform, opacity" });
+        },
+        onComplete: function() {
+          gsap.set(this.targets(), { clearProps: "willChange" });
+        }
+      }, "<0.15"
     );
   }
 }
@@ -98,7 +134,8 @@ export const onLeave = (el, done, animClass) => {
     onComplete: () => {
       done();
     } 
-  })
+  });
+
 
   tl.to(fadeElems, 
     { opacity: 0, duration: 0.7, stagger: 0, ease: "power3.inOut" }
@@ -121,7 +158,7 @@ export const onEnter = (el, done, animClass) => {
     onComplete: () => {
       done();
     } 
-  })
+  });
 
   addFadeinAnimation(tl, fadeElems)
   addSlideFadeinAnimation(tl, slideElems)

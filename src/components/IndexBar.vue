@@ -14,8 +14,8 @@ const relatedPosts = postStore.getRelatedPosts(title)
 </script>
 
 <template>
-  <div class="archive-container pb-3">
-    <div v-for="relatedPost in relatedPosts" :key="relatedPost.tag" >
+  <div class="archive-container pb-3 router-elem-fade">
+    <div v-for="relatedPost in relatedPosts" :key="relatedPost.tag">
       <h5 class="py-2 my-2 fw-bold">{{ relatedPost.tag }}</h5>
 
       <div class="archive-list px-2">

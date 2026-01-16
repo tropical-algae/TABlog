@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { marked } from 'marked'
 
 export const useHomeStore = defineStore('home', {
   state: () => ({
@@ -11,6 +10,9 @@ export const useHomeStore = defineStore('home', {
       if (!this.post) {
         const res = await fetch(sourcePath)
         const mdText = await res.text()
+        const [ { marked } ] = await Promise.all([
+          import("marked"),
+        ]);
         this.post = marked.parse(mdText)
       }
     },

@@ -48,6 +48,8 @@
 
 .post-content {
   padding: 0 0 1rem;
+  content-visibility: auto; 
+  contain: layout paint style;
   overflow-x: hidden;
   word-wrap: break-word;
 }

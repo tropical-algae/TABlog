@@ -157,7 +157,6 @@ body::before {
 
 .router-elem-fade {
   backface-visibility: hidden; 
-  will-change: opacity, transform, color
 }
 
 @media screen and (hover: none) and (pointer: coarse) {
