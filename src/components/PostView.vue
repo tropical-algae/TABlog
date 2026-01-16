@@ -18,7 +18,7 @@ const { title, clz, markdownHtml } = defineProps({
 </script>
 
 <template>
-  <div class="router-elem-fade anim-slide">
+  <div>
     <div v-if="markdownHtml" class="d-flex flex-column" >
       <div
         :class="[clz, ]"
