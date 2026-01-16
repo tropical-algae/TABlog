@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/tropical-algae/TABlog/compare/v2.4.0...v2.5.0) (2026-01-16)
+
+
+### Features
+
+* optimized GSAP animation ([b52c62c](https://github.com/tropical-algae/TABlog/commit/b52c62c0f60a3740569bd7820f177b74e8f393bc))
+
 # [2.4.0](https://github.com/tropical-algae/TABlog/compare/v2.3.0...v2.4.0) (2025-12-22)
 
 
