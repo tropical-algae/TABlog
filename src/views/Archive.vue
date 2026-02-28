@@ -72,7 +72,7 @@
       </RouterLink>
     </div>
 
-    <NavBar/>
+    <TheNavbar/>
   </div>
 
 </template>
@@ -81,11 +81,11 @@
 import { useConfigStore } from "@/stores/config"
 import { usePostStore } from "@/stores/post"
 import { ref, computed, onMounted, onUnmounted, nextTick } from "vue"
-import { onEnter, onLeave } from "@/scripts/animation"
+import { onEnter, onLeave } from "@/utils/animation"
 
 import BackIcon from "@/assets/icons/chevron-back.svg?component"
 import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
-import NavBar from '@/components/NavBar.vue'
+import TheNavbar from '@/components/layout/TheNavbar.vue'
 
 const postStore = usePostStore()
 const configStore = useConfigStore()

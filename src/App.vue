@@ -4,7 +4,7 @@
       <div class="row align-items-start">
 
         <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
-          <IntroductionBar/>
+          <ProfileSidebar/>
         </div>
 
         <div class="col-md-10 col-12 px-0 mx-auto">
@@ -30,11 +30,11 @@
 import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useConfigStore } from "@/stores/config"
-import { preloadAllRouteChunks, applyRandomTheme } from "@/scripts/utils"
-import { onLoading, onEnter, onLeave } from "@/scripts/animation"
+import { preloadAllRouteChunks, applyRandomTheme } from "@/utils/startup"
+import { onLoading, onEnter, onLeave } from "@/utils/animation"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
-import IntroductionBar from "@/components/IntroductionBar.vue"
+import ProfileSidebar from "@/components/layout/ProfileSidebar.vue"
 
 const route = useRoute()
 const configStore = useConfigStore()

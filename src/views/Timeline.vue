@@ -1,6 +1,6 @@
 <script setup>
 import { usePostStore } from "@/stores/post"
-import NavBar from "@/components/NavBar.vue"
+import TheNavbar from "@/components/layout/TheNavbar.vue"
 
 const postStore = usePostStore()
 const months_map = [
@@ -33,7 +33,7 @@ const months_map = [
       </div>
     </div>
 
-    <NavBar />
+    <TheNavbar />
   </div>
 </template>
 

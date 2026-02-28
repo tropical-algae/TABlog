@@ -27,8 +27,8 @@
       <hr class="split-line">
     </div>
 
-    <PostView class="router-elem-fade anim-slide" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
-    <NavBar/>
+    <PostContent class="router-elem-fade anim-slide" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
+    <TheNavbar/>
   </div>
 </template>
 
@@ -36,8 +36,8 @@
 import { ref, watch, onMounted, nextTick } from "vue"
 import { useRoute, onBeforeRouteUpdate } from "vue-router"
 import { usePostStore } from "@/stores/post"
-import PostView from "@/components/PostView.vue"
-import NavBar from "@/components/NavBar.vue"
+import PostContent from "@/components/post/PostContent.vue"
+import TheNavbar from "@/components/layout/TheNavbar.vue"
 
 const { title } = defineProps({
   title: {

@@ -51,7 +51,7 @@ export const usePostStore = defineStore("post", {
       const mdText = await res.text();
       const [ { marked }, { default: katexExt } ] = await Promise.all([
         import("marked"),
-        import("@/scripts/mdKatex.js")
+        import("@/utils/mdKatex.js")
       ]);
       marked.use(katexExt());
       this.currentHtml = marked.parse(mdText);

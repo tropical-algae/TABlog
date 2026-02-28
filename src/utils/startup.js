@@ -38,12 +38,12 @@ export function initializeApp() {
 
 export function preloadAllRouteChunks() {
   const preloadModules = [
-    () => import("@/views/HomePage.vue"),
-    () => import("@/views/PostPage.vue"),
-    () => import("@/views/ArchivePage.vue"),
-    () => import("@/views/TimelinePage.vue"),
-    () => import("@/components/IndexBar.vue"),
-    () => import("@/scripts/mdKatex.js"),
+    () => import("@/views/Home.vue"),
+    () => import("@/views/Post.vue"),
+    () => import("@/views/Archive.vue"),
+    () => import("@/views/Timeline.vue"),
+    () => import("@/components/post/PostNavigator.vue"),
+    () => import("@/utils/mdKatex.js"),
     () => import("marked")
   ];
   const loadingPromises = preloadModules.map(loader => loader().catch(err => {

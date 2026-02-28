@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { initializeApp } from '@/scripts/utils'
+import { initializeApp } from '@/utils/startup'
 import { usePostStore } from '@/stores/post'
 
-const HomePage = () => import("@/views/HomePage.vue")
-const PostPage = () => import("@/views/PostPage.vue")
-const ArchivePage = () => import("@/views/ArchivePage.vue")
-const TimelinePage = () => import("@/views/TimelinePage.vue")
-const IndexBar = () => import("@/components/IndexBar.vue")
+const Home = () => import("@/views/Home.vue")
+const Post = () => import("@/views/Post.vue")
+const Archive = () => import("@/views/Archive.vue")
+const Timeline = () => import("@/views/Timeline.vue")
+const PostNavigator = () => import("@/components/post/PostNavigator.vue")
 
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'My Blog';
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
     path: "/",
     name: "Home",
     components: {
-      default: HomePage,
+      default: Home,
     },
     meta: {
       "layout": "introOnly",
@@ -25,7 +25,7 @@ const routes = [
     path: "/archive",
     name: "Archive",
     components: {
-      default: ArchivePage,
+      default: Archive,
     },
     meta: {
       "layout": "introOnly",
@@ -36,7 +36,7 @@ const routes = [
     path: "/timeline",
     name: "Timeline",
     components: {
-      default: TimelinePage,
+      default: Timeline,
     },
     meta: {
       "layout": "introOnly",
@@ -47,12 +47,12 @@ const routes = [
     path: "/post/:title",
     name: "Post",
     components: {
-      default: PostPage,
-      indexBar: IndexBar
+      default: Post,
+      postNavigator: PostNavigator
     },
     props: {
       default: true,
-      indexBar: true
+      postNavigator: true
     },
     meta: {
       "layout": "default",
