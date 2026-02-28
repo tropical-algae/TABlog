@@ -5,7 +5,7 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
-import { initializeApp } from '@/scripts/utils'
+import { initializeApp } from '@/utils/startup'
 import { gsap } from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";

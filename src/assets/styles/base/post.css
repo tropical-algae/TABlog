@@ -1,4 +1,4 @@
-.post-wrap {
+.post-wrapper {
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;
@@ -67,13 +67,12 @@
 /*********** 代码标 ***********/
 
 .post-content code {
-  padding: 0 0.5rem;
+  padding: 0.05rem 0.5rem;
   color: var(--color-accent-alt);
   white-space: pre-wrap;
   word-wrap: break-word;
   background-color: var(--color-accent);
   border-radius: 2px;
-
 }
 
 /*********** 代码块 ***********/

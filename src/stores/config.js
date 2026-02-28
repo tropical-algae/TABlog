@@ -1,42 +1,53 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-export const useConfigStore = defineStore('config', {
-  state: () => ({
-    config: null,
-  }),
+export const useConfigStore = defineStore('config', () => {
+  const config = ref(null)
 
-  actions: {
-    async load(sourcePath) {
-      if (!this.config) {
-        const res = await fetch(sourcePath)
-        this.config = await res.json()
-      }
-    },
-  },
+  const title = computed(() => config.value?.title ?? 'NONE')
+  const subTitle = computed(() => config.value?.sub_title ?? 'NONE')
+  const introduction = computed(() => config.value?.introduction ?? 'NONE')
+  const copyright = computed(() => config.value?.copyright ?? 
+    '2026 powered by <a href="https://github.com/tropical-algae">tropical algae</a>\'s cat (Mia).'
+  )
+  const colors = computed(() => config.value?.colors ?? [
+    {
+      "--color-bg": "rgb(0, 61, 123)",
+      "--color-primary": "rgb(255, 177, 88)",
+      "--color-primary-alt": "rgb(245, 209, 168)",
+      "--color-accent": "#003f5c",
+      "--color-accent-alt": "#ffffff"
+    }
+  ])
+  const labelMap = computed(() => config.value?.label_map ?? {
+    "created_time": "created_time",
+    "tags": "tags"
+  })
+  const pageSize = computed(() => config.value?.page_size ?? 12)
+  const links = computed(() => config.value?.links ?? {
+    "github": "",
+    "discord": "",
+    "notion": "",
+    "website": ""
+  })
 
-  getters: {
-    title: (state) => state.config?.title ?? 'NONE',
-    subTitle: (state) => state.config?.sub_title ?? 'NONE',
-    introduction: (state) => state.config?.introduction ?? 'NONE',
-    colors: (state) => state.config?.colors ?? [
-        {
-            "--color-bg": "rgb(0, 61, 123)",
-            "--color-primary": "rgb(255, 177, 88)",
-            "--color-primary-alt": "rgb(245, 209, 168)",
-            "--color-accent": "#003f5c",
-            "--color-accent-alt": "#ffffff"
-        }
-    ],
-    labelMap: (state) => state.config?.label_map ?? {
-      "created_time": "created_time",
-      "tags": "tags"
-    },
-    pageSize: (state) => state.config?.page_size ?? 12,
-    links: (state) => state.config?.links ?? {
-      "github": "",
-      "discord": "",
-      "notion": "",
-      "website": ""
-    },
+  const load = async (sourcePath) => {
+    if (!config.value) {
+      const res = await fetch(sourcePath)
+      config.value = await res.json()
+    }
+  }
+
+  return {
+    config,
+    title,
+    subTitle,
+    introduction,
+    copyright,
+    colors,
+    labelMap,
+    pageSize,
+    links,
+    load
   }
 })

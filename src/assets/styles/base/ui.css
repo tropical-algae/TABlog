@@ -1,0 +1,76 @@
+
+.post-list-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto; 
+  overflow: visible;
+}
+
+.post-list-group ul li{
+  list-style-type: none;
+}
+
+.post-list-group ul {
+  flex: 1; 
+  margin: 0;
+  padding: 0;
+  min-width: 0; 
+}
+
+.post-list-group li {
+  position: relative;
+  padding: 0.2rem 0;
+  border-left: none;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+}
+
+.post-link {
+  min-width: 0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 5px;
+}
+
+.post-tag {
+  display: inline;
+  user-select: none;
+  padding: 0 0.2rem;
+  text-decoration: none;
+  line-height: 1.1rem;
+  color: var(--color-accent-alt);
+  white-space: nowrap;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  transition: color 0.5s ease, background-color 0.5s ease;
+
+}
+
+.post-tag.selected {
+  color: var(--color-accent);
+  background-color: var(--color-accent-alt);
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap; /* 允许子元素自动换行 */
+  max-height: 7.5rem;
+  overflow-y: auto;
+  gap: 0.4rem; /* 标签之间的间距 */
+}
+
+.split-line {
+  /* height: 1rem; */
+  margin: 1.5rem 0;
+  padding: 0;
+  border-color: var(--color-accent-alt);
+  transform-origin: left center;
+}
+
+.router-elem-fade {
+  backface-visibility: hidden; 
+}

@@ -1,10 +1,11 @@
-- I actually launched another blog a while back where I used to share tech tutorials <br>and jot down notes on various tools I worked with. <br>Unfortunately, it hasn’t seen an update in a long time, <br>I just haven’t had the time or energy to keep it going.
-- That’s why I decided to start something more lightweight—this site! <br>Here, I’ll mostly be documenting my research journey, <br>(yep, it’s going to be mostly academic stuff) <br>but if you’re curious about my earlier posts, feel free to check out my original blog.
-- If you’d like to get in touch, here’s how you can reach me:
+- Welcome to your new personal blog. <br>This site is powered by a lightweight, responsive system <br>designed for researchers and developers who want to focus on documenting and writing.
+- **Why tablog?** <br>No database, no heavy backend—just your files and a sleek, minimal shell. <br>Native LaTeX support for technical and academic research. <br>A refreshing color palette that changes during navigation.
+- Follow these steps to customize your site:
 
-| Website | https://XXXXXXXXX.com |
+| Task | File Path |
 | --- | --- |
-| Phone | +86 XXXXXXXXXX (CN) |
-| E-mail | XXXXXXXXX@gmail.com<br>XXXXXXXXX@163.com |
+| Modify Global Config | `config/app.json` |
+| Update Homepage Content | `config/home.md` |
+| Import Markdown Posts | `markdowns/*.md` |
 
-- Feel free to reach out, I’ll get back to you ASAP! :)
+- Explore [GitHub Repository](https://github.com/tropical-algae/TABlog) for more details. <br>Now, go ahead and begin sharing your insights and findings!

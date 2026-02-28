@@ -1,24 +1,26 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-export const useHomeStore = defineStore('home', {
-  state: () => ({
-    post: null,
-  }),
+export const useHomeStore = defineStore('home', () => {
+  const post = ref(null)
+  const content = computed(() => post.value ?? 'NONE')
 
-  actions: {
-    async load(sourcePath) {
-      if (!this.post) {
-        const res = await fetch(sourcePath)
-        const mdText = await res.text()
-        const [ { marked } ] = await Promise.all([
-          import("marked"),
-        ]);
-        this.post = marked.parse(mdText)
-      }
-    },
-  },
+  const load = async (sourcePath) => {
+    if (!post.value) {
+      const res = await fetch(sourcePath)
+      const mdText = await res.text()
+      
+      const [{ marked }] = await Promise.all([
+        import("marked"),
+      ])
+      
+      post.value = marked.parse(mdText)
+    }
+  }
 
-  getters: {
-    content: (state) => state.post ?? 'NONE',
+  return {
+    post,
+    content,
+    load
   }
 })

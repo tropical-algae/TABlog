@@ -1,6 +1,6 @@
 
 <template>
-  <div class="archive-wrap flex-grow-1 d-flex flex-column">
+  <div class="flex-grow-1 d-flex flex-column h-auto px-1" style="overflow: visible;">
     <h1 class="m-0 p-0 router-elem-fade anim-slide">ARCHIVE</h1>
     <Transition 
       mode="out-in" 
@@ -8,12 +8,12 @@
       @enter="onArchiveEnter"
       @leave="onArchiveLeave"
     >
-      <div :key="archiveKey" class="archive-container flex-grow-1 py-1 px-2">
-        <div class="archive-list my-3">
-          <div class="decor-line-wrapper">
-            <div class="dot top router-elem-fade anim-scale"></div>
-            <div class="progress-line router-elem-fade anim-scale"></div>
-            <div class="dot bottom router-elem-fade anim-scale"></div>
+      <div :key="archiveKey" class="post-list-group flex-grow-1 py-1 px-2">
+        <div class="post-list my-3">
+          <div class="list-rail">
+            <div class="rail-node top router-elem-fade anim-scale"></div>
+            <div class="rail-line router-elem-fade anim-scale"></div>
+            <div class="rail-node bottom router-elem-fade anim-scale"></div>
           </div>
           <ul>
             <li 
@@ -46,19 +46,19 @@
       </div>
     </Transition>
 
-    <div class="archive-pagination router-elem-fade anim-slide">
-      <RouterLink :to="{ name: 'Archive'}" class="default-style" @click="prevPage">
-        <component :is="BackIcon" class="page-svg-button" />
+    <div class="archive-pager router-elem-fade anim-slide">
+      <RouterLink :to="{ name: 'Archive'}" class="link-raw" @click="prevPage">
+        <component :is="BackIcon" class="pager-icon" />
       </RouterLink>
 
       <template v-for="page in pages" :key="page">
-        <span v-if="page === '...'" class="page-button ellipsis">
+        <span v-if="page === '...'" class="pager-button ellipsis">
           {{ page }}
         </span>
 
         <RouterLink
           v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
-          class="page-button default-style" @click="goToPage(page)"
+          class="pager-button link-raw" @click="goToPage(page)"
         >
           {{ page }}
         </RouterLink>
@@ -66,13 +66,13 @@
 
       <RouterLink 
         :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
-        class="default-style" @click="nextPage"
+        class="link-raw" @click="nextPage"
       >
-        <component :is="ForwardIcon" class="page-svg-button" />
+        <component :is="ForwardIcon" class="pager-icon" />
       </RouterLink>
     </div>
 
-    <NavBar/>
+    <TheNavbar/>
   </div>
 
 </template>
@@ -81,11 +81,11 @@
 import { useConfigStore } from "@/stores/config"
 import { usePostStore } from "@/stores/post"
 import { ref, computed, onMounted, onUnmounted, nextTick } from "vue"
-import { onEnter, onLeave } from "@/scripts/animation"
+import { onEnter, onLeave } from "@/utils/animation"
 
 import BackIcon from "@/assets/icons/chevron-back.svg?component"
 import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
-import NavBar from '@/components/NavBar.vue'
+import TheNavbar from '@/components/layout/TheNavbar.vue'
 
 const postStore = usePostStore()
 const configStore = useConfigStore()
@@ -186,3 +186,73 @@ onUnmounted(() => {
 })
 
 </script>
+
+<style scoped>
+.archive-wrapper > .v-enter-active,
+.archive-wrapper > .v-leave-active {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* 选页卡 */
+.archive-pager {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* 选页按钮 */
+.pager-button {
+  height: 1.4rem;
+  padding: 0.1rem 0.2rem;
+  color: var(--color-accent-alt);
+  background: var(--color-accent);
+  text-align: center;
+  transition: transform 0.3s ease, color 0.6s ease, background-color 0.6s ease;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 1.2rem;
+  min-width: 1.4rem;
+  border-radius: 3px;
+}
+
+.pager-button:hover {
+  transform: rotate(25deg);
+}
+
+.pager-button.selected {
+  color: var(--color-accent);
+  background: var(--color-accent-alt);
+}
+
+.pager-button.ellipsis {
+  background: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.pager-button.ellipsis:hover {
+  transform: none;
+}
+
+.pager-icon {
+  width: auto; 
+  height: 1.4rem;
+  color: var(--color-accent);
+  transition: color 0.5s ease, opacity 0.5s ease;
+  opacity: 0.8;
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
+}
+
+.pager-icon:hover {
+  opacity: 1;
+  fill: var(--color-accent-alt);
+  color: var(--color-accent-alt);
+  stroke: var(--color-accent-alt);
+}
+
+</style>

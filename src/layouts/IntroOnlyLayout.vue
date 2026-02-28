@@ -6,11 +6,11 @@
           <component :is="Component" :key="$route.fullPath" class="flex-grow-1"/>
         </RouterView>
       </div>
-      <FooterBar/>
+      <TheFooter/>
     </div>
   </div>
 </template>
 
 <script setup>
-import FooterBar from "@/components/FooterBar.vue"
+import TheFooter from "@/components/layout/TheFooter.vue"
 </script>

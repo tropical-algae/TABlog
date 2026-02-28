@@ -51,7 +51,7 @@ export const usePostStore = defineStore("post", {
       const mdText = await res.text();
       const [ { marked }, { default: katexExt } ] = await Promise.all([
         import("marked"),
-        import("@/scripts/mdKatex.js")
+        import("@/utils/mdKatex.js")
       ]);
       marked.use(katexExt());
       this.currentHtml = marked.parse(mdText);
@@ -139,3 +139,166 @@ export const usePostStore = defineStore("post", {
   }
 })
 
+// import { defineStore } from "pinia"
+// import { ref, computed } from 'vue'
+
+// export const usePostStore = defineStore("post", () => {
+//   // --- State ---
+//   const posts = ref([]) // 初始化为数组防止报错
+//   const sortedPosts = ref([])
+//   const tags = ref([])
+//   const selectedTags = ref([])
+//   const currentPage = ref(1)
+//   const currentHtml = ref("")
+
+//   // --- Getters (Computed) ---
+//   const getFilteredPosts = computed(() => {
+//     // 增加安全判断
+//     if (!sortedPosts.value) return []
+//     if (selectedTags.value.length === 0) {
+//       return sortedPosts.value
+//     }
+//     return sortedPosts.value.filter(post =>
+//       post.tags?.some(tag => selectedTags.value.includes(tag))
+//     )
+//   })
+
+//   const getFilteredPaginatedPosts = computed(() => (pageSize) => {
+//     const start = (currentPage.value - 1) * pageSize
+//     const end = start + pageSize
+//     return getFilteredPosts.value.slice(start, end)
+//   })
+
+//   const getFilteredPages = computed(() => (pageSize) => {
+//     if (!getFilteredPosts.value.length) return 1
+//     return Math.ceil(getFilteredPosts.value.length / pageSize)
+//   })
+
+//   const getAllTags = computed(() => tags.value)
+
+//   const getPostByTitle = computed(() => (title) => {
+//     return posts.value.find(p => p.title === title) || null
+//   })
+
+//   const getRelatedPosts = computed(() => (title = "", limit = 8) => {
+//     // 内部调用计算属性函数记得加 .value
+//     const post = getPostByTitle.value(title)
+//     if (!post) return []
+
+//     const tagsList = post.tags || []
+//     return tagsList
+//       .map(tag => {
+//         const titles = posts.value
+//           .filter(p => p.tags.includes(tag) && p.title !== title)
+//           .map(p => p.title)
+//           .slice(0, limit)
+
+//         return titles.length > 0 ? { tag, titles } : null
+//       })
+//       .filter(item => item !== null)
+//   })
+
+//   const groupByYearMonth = computed(() => {
+//     if (!sortedPosts.value || sortedPosts.value.length === 0) return []
+
+//     const grouped = {}
+//     sortedPosts.value.forEach(post => {
+//       if (!post.created_time) return
+//       const date = new Date(post.created_time)
+//       const year = date.getFullYear()
+//       const month = date.getMonth() + 1
+
+//       if (!grouped[year]) grouped[year] = {}
+//       if (!grouped[year][month]) grouped[year][month] = []
+//       grouped[year][month].push(post)
+//     })
+
+//     return Object.keys(grouped)
+//       .sort((a, b) => b - a)
+//       .map(year => ({
+//         year: Number(year),
+//         months: Object.keys(grouped[year])
+//           .sort((a, b) => b - a)
+//           .map(month => ({
+//             month: Number(month),
+//             posts: grouped[year][month]
+//           }))
+//       }))
+//   })
+
+//   // --- Actions ---
+//   const load = async (sourcePath) => {
+//     // 注意判断逻辑使用 .value
+//     if (posts.value.length === 0) {
+//       const res = await fetch(sourcePath)
+//       const data = await res.json()
+      
+//       posts.value = data.map(p => {
+//         if (p.created_time) {
+//           const [y, m, d] = p.created_time.split("-")
+//           p.created_time = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`
+//         }
+//         return p
+//       })
+
+//       tags.value = [...new Set(posts.value.flatMap(post => post.tags))].sort()
+      
+//       sortedPosts.value = [...posts.value].sort(
+//         (a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)
+//       )
+//     }
+//   }
+
+//   const selectTag = (tag) => {
+//     if (!selectedTags.value.includes(tag)) {
+//       selectedTags.value.push(tag) // 使用 .value.push
+//       currentPage.value = 1
+//     }
+//   }
+
+//   const unselectTag = (tag) => {
+//     if (selectedTags.value.includes(tag)) {
+//       selectedTags.value = selectedTags.value.filter(_tag => _tag !== tag)
+//       currentPage.value = 1
+//     }
+//   }
+  
+//   const fetchPostAndParse = async (title) => {
+//     const post = getPostByTitle.value(title) // 加 .value
+//     if (!post) throw new Error("Post not found")
+
+//     // 建议使用正斜杠，兼容性更好
+//     const slugPath = `${post.dir}/${post.slug}`
+//     const res = await fetch(slugPath)
+//     const mdText = await res.text()
+    
+//     const [ { marked }, { default: katexExt } ] = await Promise.all([
+//       import("marked"),
+//       import("@/utils/mdKatex.js")
+//     ])
+    
+//     marked.use(katexExt())
+//     currentHtml.value = marked.parse(mdText) // 加 .value
+//   }
+
+//   return {
+//     posts,
+//     sortedPosts,
+//     tags,
+//     selectedTags,
+//     currentPage,
+//     currentHtml,
+//     // 将计算属性暴露出去，UI里访问 timeGroupPosts 就会得到归档数据
+//     timeGroupPosts: groupByYearMonth, 
+//     getFilteredPosts,
+//     getFilteredPaginatedPosts,
+//     getFilteredPages,
+//     getAllTags,
+//     getPostByTitle,
+//     getRelatedPosts,
+//     load,
+//     selectTag,
+//     unselectTag,
+//     fetchPostAndParse
+//   }
+// })
