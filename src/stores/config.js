@@ -4,13 +4,6 @@ import { ref, computed } from 'vue'
 export const useConfigStore = defineStore('config', () => {
   const config = ref(null)
 
-  async function load(sourcePath) {
-    if (!config.value) {
-      const res = await fetch(sourcePath)
-      config.value = await res.json()
-    }
-  }
-
   const title = computed(() => config.value?.title ?? 'NONE')
   const subTitle = computed(() => config.value?.sub_title ?? 'NONE')
   const introduction = computed(() => config.value?.introduction ?? 'NONE')
@@ -38,9 +31,15 @@ export const useConfigStore = defineStore('config', () => {
     "website": ""
   })
 
+  const load = async (sourcePath) => {
+    if (!config.value) {
+      const res = await fetch(sourcePath)
+      config.value = await res.json()
+    }
+  }
+
   return {
     config,
-    load,
     title,
     subTitle,
     introduction,
@@ -48,6 +47,7 @@ export const useConfigStore = defineStore('config', () => {
     colors,
     labelMap,
     pageSize,
-    links
+    links,
+    load
   }
 })
