@@ -29,8 +29,8 @@ coverage
 
 *.tsbuildinfo
 
-public/markdowns/*
-!public/markdowns/.gitkeep
+# public/markdowns/*
+# !public/markdowns/.gitkeep
 public/markdowns_processed/*
 !public/markdowns_processed/.gitkeep
 public/config_processed/*
