@@ -1,3 +1,13 @@
+# [2.6.0](https://github.com/tropical-algae/TABlog/compare/v2.5.0...v2.6.0) (2026-02-28)
+
+
+### Features
+
+* add license ([4798a8a](https://github.com/tropical-algae/TABlog/commit/4798a8a015f3604f1bc8c9a59fc545422b59efd9))
+* add markdown example ([6372009](https://github.com/tropical-algae/TABlog/commit/6372009d6e1a9d1492c4e3f79dd442dada00c374))
+* make copyright configurable and optimize styles ([7463dde](https://github.com/tropical-algae/TABlog/commit/7463dde802eb9d45aa60c95182cc0aea2c70c97c))
+* update auto release rule ([b1ca4fe](https://github.com/tropical-algae/TABlog/commit/b1ca4fe79245e44506d4ec85f220b99d9c38a3dc))
+
 # [2.5.0](https://github.com/tropical-algae/TABlog/compare/v2.4.0...v2.5.0) (2026-01-16)
 
 
