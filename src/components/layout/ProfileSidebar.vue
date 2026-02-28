@@ -6,14 +6,14 @@
     
     <div class="d-flex flex-wrap justify-content-center align-items-center my-1 gap-3">
       <a v-for="(item, index) in socialLink" :key="index" :href="item.link" 
-        class="col-2 col-sm-4 col-md-3 col-lg-2 d-flex raw-link justify-content-center align-items-center"
+        class="col-2 col-sm-4 col-md-3 col-lg-2 d-flex link-raw justify-content-center align-items-center"
       >
         <component :is="item.icon" class="social-link-icon" />
       </a>
     </div>
 
     <div class="my-2">
-      <RouterLink :to="{ name: 'Home'}" class="profile-home-link raw-link w-100">Home</RouterLink>
+      <RouterLink :to="{ name: 'Home'}" class="profile-home-link link-raw w-100">Home</RouterLink>
     </div>
 
     <hr class="split-line my-2"/>
@@ -24,7 +24,7 @@
       <RouterLink 
         :to="{ name: 'Archive'}"
         v-for="tag in tags" :key="tag" 
-        class="post-tag raw-link small"
+        class="post-tag link-raw small"
         :class="{ 'selected': isSelected(tag) }"
         @click="switchSelectStatus(tag)"
       >

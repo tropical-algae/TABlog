@@ -90,7 +90,7 @@ body::before {
   font-size: 1.1rem;
 }
 
-.app-main-layout a:not(.raw-link) {
+.app-main-layout a:not(.link-raw, .link-raw *) {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -101,7 +101,7 @@ body::before {
   text-decoration: none;
 }
 
-.app-main-layout a:not(.raw-link)::before {
+.app-main-layout a:not(.link-raw, .link-raw *)::before {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -112,15 +112,15 @@ body::before {
   content: '';
 }
 
-.app-main-layout a:not(.raw-link):hover {
+.app-main-layout a:not(.link-raw, .link-raw *):hover {
   color: var(--color-accent-alt);
 }
 
-.app-main-layout a:not(.raw-link):active {
+.app-main-layout a:not(.link-raw, .link-raw *):active {
   color: var(--color-primary);
 }
 
-.app-main-layout a:not(.raw-link):hover::before {
+.app-main-layout a:not(.link-raw, .link-raw *):hover::before {
   opacity: 0.91;
 }
 

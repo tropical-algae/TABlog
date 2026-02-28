@@ -47,7 +47,7 @@
     </Transition>
 
     <div class="archive-pager router-elem-fade anim-slide">
-      <RouterLink :to="{ name: 'Archive'}" class="raw-link" @click="prevPage">
+      <RouterLink :to="{ name: 'Archive'}" class="link-raw" @click="prevPage">
         <component :is="BackIcon" class="pager-icon" />
       </RouterLink>
 
@@ -58,7 +58,7 @@
 
         <RouterLink
           v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
-          class="pager-button raw-link" @click="goToPage(page)"
+          class="pager-button link-raw" @click="goToPage(page)"
         >
           {{ page }}
         </RouterLink>
@@ -66,7 +66,7 @@
 
       <RouterLink 
         :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
-        class="raw-link" @click="nextPage"
+        class="link-raw" @click="nextPage"
       >
         <component :is="ForwardIcon" class="pager-icon" />
       </RouterLink>
