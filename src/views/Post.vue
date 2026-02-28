@@ -1,6 +1,6 @@
 
 <template>
-  <div class="post-wrap">
+  <div class="d-flex flex-column px-1" style="user-select: text;">
     <div class="router-elem-fade anim-slide">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-attribute">
@@ -12,7 +12,7 @@
             </tr>
             <tr v-if="post.tags && post.created_time.trim() !== ''">
               <td>tags:</td>
-              <td class="post-tag-container">
+              <td class="post-tags">
                 <span 
                   v-for="tag in post.tags" :key="tag" 
                   class="post-tag small"

@@ -1,28 +1,13 @@
-<script setup>
-import { usePostStore } from '@/stores/post'
-const postStore = usePostStore()
-
-const { title } = defineProps({
-  title: {
-    type: String,
-    required: false
-  }
-})
-
-const relatedPosts = postStore.getRelatedPosts(title)
-
-</script>
-
 <template>
-  <div class="archive-container pb-3 router-elem-fade">
+  <div class="post-list-group pb-3 router-elem-fade">
     <div v-for="relatedPost in relatedPosts" :key="relatedPost.tag">
-      <h5 class="py-2 my-2 fw-bold">{{ relatedPost.tag }}</h5>
+      <div class="py-2 my-2 fw-bold" style="font-size: 1.2rem;">{{ relatedPost.tag }}</div>
 
-      <div class="archive-list px-2">
-        <div class="decor-line-wrapper">
-          <div class="dot top"></div>
-          <div class="progress-line"></div>
-          <div class="dot bottom"></div>
+      <div class="post-list px-2">
+        <div class="list-rail">
+          <div class="rail-node top"></div>
+          <div class="rail-line"></div>
+          <div class="rail-node bottom"></div>
         </div>
         <ul>
           <li 
@@ -39,3 +24,17 @@ const relatedPosts = postStore.getRelatedPosts(title)
     
   </div>
 </template>
+
+<script setup>
+import { usePostStore } from '@/stores/post'
+const postStore = usePostStore()
+
+const { title } = defineProps({
+  title: {
+    type: String,
+    required: false
+  }
+})
+
+const relatedPosts = postStore.getRelatedPosts(title)
+</script>

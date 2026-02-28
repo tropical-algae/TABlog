@@ -1,6 +1,6 @@
 <template>
-  <div class="ta-root-wrap">
-     <div class="container-md ta-root-container">
+  <div class="app-shell">
+     <div class="container-md app-main-layout">
       <div class="row align-items-start">
 
         <div class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">

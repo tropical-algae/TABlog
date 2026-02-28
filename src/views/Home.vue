@@ -24,6 +24,3 @@ onMounted(async () => {
     <TheNavbar/>
   </div>
 </template>
-
-<style scoped>
-</style>
