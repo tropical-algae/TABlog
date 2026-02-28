@@ -8,7 +8,7 @@ export const useConfigStore = defineStore('config', () => {
   const subTitle = computed(() => config.value?.sub_title ?? 'NONE')
   const introduction = computed(() => config.value?.introduction ?? 'NONE')
   const copyright = computed(() => config.value?.copyright ?? 
-    '2025 powered by <a href="https://github.com/tropical-algae">tropical algae</a>\'s cat (Mia).'
+    '2026 powered by <a href="https://github.com/tropical-algae">tropical algae</a>\'s cat (Mia).'
   )
   const colors = computed(() => config.value?.colors ?? [
     {
