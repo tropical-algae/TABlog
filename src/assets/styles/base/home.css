@@ -13,6 +13,15 @@
   padding: 0 2rem;
 }
 
+.home-content code {
+  padding: 0.05rem 0.5rem;
+  color: var(--color-accent-alt);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
 .home-content ul{
   margin: 0;
   padding: 0;
