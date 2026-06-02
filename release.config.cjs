@@ -6,9 +6,11 @@ module.exports = {
       "@semantic-release/commit-analyzer",
       {
         releaseRules: [
+          { type: "update", release: "major" },
           { type: "refactor", release: "patch" },
           { type: "docs", release: "patch" },
-          { type: "chore", release: "patch" }
+          { type: "chore", release: "patch" },
+          { type: "style", release: "patch" }
         ]
       }
     ],
@@ -21,7 +23,8 @@ module.exports = {
             { type: "fix", section: "Bug Fixes" },
             { type: "refactor", section: "Code Refactoring", hidden: false },
             { type: "docs", release: "Update Docs", hidden: false },
-            { type: "chore", section: "Performance Improvements", hidden: false }
+            { type: "chore", section: "Performance Improvements", hidden: false },
+            { type: "style", section: "Style", hidden: false }
           ]
         }
       }

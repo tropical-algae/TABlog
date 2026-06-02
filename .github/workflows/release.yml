@@ -1,50 +1,122 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: release
+
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref_name }}
+      cancel-in-progress: false
+
+    outputs:
+      released: ${{ steps.semantic.outputs.new_release_published }}
+      tag: ${{ steps.semantic.outputs.new_release_version }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Setup | Checkout Repository
+        uses: actions/checkout@v6
         with:
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup | Force Branch to Workflow SHA
+        run: |
+          git reset --hard ${{ github.sha }}
+
+      - name: Setup | Node.js Environment
+        uses: actions/setup-node@v6
         with:
-          node-version: 20.13.1
-          check-latest: true
+          node-version: 24
+          # check-latest: true
 
-      - name: npm install
-        run: npm install -g npm@10.5.2
+      - name: Setup | NPM Upgrade
+        run: npm install -g npm@11.12.1
 
-      - run: npm ci
+      - name: Dependencies | Install Dependencies
+        run: npm ci
 
-      - name: Code Release
+      - name: Release | Version Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
 
-      - name: Docker login
-        run: |
-          echo "IMAGE_NAME=tropicalalgae/tablog" >> $GITHUB_ENV
-          echo "IMAGE_VERSION=v$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
-      - name: Docker Release
+      - name: Build | Compile Web and Prepare Files
+        if: steps.semantic.outputs.new_release_published == 'true'
         env:
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          IMAGE_VERSION: ${{ env.IMAGE_VERSION }}
           VITE_SITE_TITLE: Reef Flats
         run: |
-          bash ./scripts/build.sh
-          docker tag $IMAGE_NAME:$IMAGE_VERSION $IMAGE_NAME:$IMAGE_VERSION 
-          docker tag $IMAGE_NAME:$IMAGE_VERSION $IMAGE_NAME
+          npm run build
+          chmod +x ./dist/scripts/run.sh
+          rm -rf dist/config_processed/* dist/markdowns/* dist/markdowns_processed/*
 
-          docker push $IMAGE_NAME:$IMAGE_VERSION
-          docker push $IMAGE_NAME
+      - name: Upload | Save Build Artifacts for Docker
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: dist/
+          retention-days: 1
+
+  publish:
+    runs-on: ubuntu-latest
+    environment: release
+    needs: release
+    if: needs.release.outputs.released == 'true'
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup | Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          ref: v${{ needs.release.outputs.tag }}
+
+      - name: Download | Retrieve Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: dist/
+
+      - name: Pack | Archive Static Files
+        run: |
+          cd dist
+          zip -r ../axionara-web-dist.zip ./*
+          cd ..
+
+      - name: Publish | Upload Assets to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="v${{ needs.release.outputs.tag }}"
+          gh release upload "$TAG_NAME" axionara-web-dist.zip --clobber
+
+      - name: Setup | Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login | Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Publish | Extract Docker Metadata
+        id: docker_meta
+        uses: docker/metadata-action@v6
+        with:
+          images: tropicalalgae/tablog 
+          tags: |
+            type=raw,value=v${{ needs.release.outputs.tag }}
+            type=raw,value=latest
+
+      - name: Publish | Build and Push Docker Image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
