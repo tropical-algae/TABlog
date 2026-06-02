@@ -6,11 +6,11 @@ import path from 'path'
  * markdown与引用文件全部迁移至新路径且要在前端渲染，故要替换新的（前端资源）路径
  * @param {*} mdText markdown文本
  * @param {*} originFile 原始文件路径
- * @param {*} sourcePath （前端中）文件的资源父路径
+ * @param {*} publicDir public目录路径
  * @param {*} fileMap 全部新旧文件的绝对路径映射
  * @returns 修复后的markdown文本
  */
-export function fixMdAssetsRef(mdText, originFile, sourcePath, fileMap) {
+export function fixMdAssetsRef(mdText, originFile, publicDir, fileMap) {
   // 获取前端访问的资源路径
   return mdText.replace(/(!\[.*?\]\()([^\)]+)(\))/g, (match, prefix, imgPath, suffix) => {
     if (/^(https?:)?\/\//.test(imgPath)) return match
@@ -28,8 +28,8 @@ export function fixMdAssetsRef(mdText, originFile, sourcePath, fileMap) {
     if (!newAbsPath) {
       return match
     }
-    let relativeToProcessed = path.join(sourcePath, path.basename(newAbsPath))
-    return `${prefix}${relativeToProcessed}${suffix}`
+    const publicPath = "/" + path.relative(publicDir, newAbsPath).replace(/\\/g, "/")
+    return `${prefix}${publicPath}${suffix}`
   })
 }
 

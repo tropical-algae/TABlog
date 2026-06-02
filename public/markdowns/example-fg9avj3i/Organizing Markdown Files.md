@@ -55,6 +55,8 @@ Then the correct reference would be:
 
 Example rendering:
 
+![Project File Tree](../assets/file-tree.png)
+
 ## Cloud Image Example
 
 You can also insert remote images:

@@ -184,7 +184,7 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
     if (isMarkdown) {
       mdId += 1
       const sourceDir = "/" + path.relative(publicDir, newParentDir).replace(/\\/g, "/")
-      const fixedContent = fixMdAssetsRef(content, originFile, sourceDir, fileMap)
+      const fixedContent = fixMdAssetsRef(content, originFile, publicDir, fileMap)
       const finalContent = removeMdMetadata(fixedContent, mdLabelName)
     
       fs.writeFileSync(newFile, finalContent, "utf-8")
