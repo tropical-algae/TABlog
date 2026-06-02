@@ -6,6 +6,7 @@ const Home = () => import("@/views/Home.vue")
 const Post = () => import("@/views/Post.vue")
 const Archive = () => import("@/views/Archive.vue")
 const Timeline = () => import("@/views/Timeline.vue")
+const NotFound = () => import("@/views/NotFound.vue")
 const PostNavigator = () => import("@/components/post/PostNavigator.vue")
 
 const siteTitle = import.meta.env.VITE_SITE_TITLE || 'My Blog';
@@ -58,20 +59,32 @@ const routes = [
       "layout": "default",
       "title": 'Post - ' + siteTitle
     },
-    beforeEnter: async (to, from, next) => {
+    beforeEnter: async (to) => {
       const postStore = usePostStore()
+      if (!postStore.getPostByTitle(to.params.title)) {
+        return { name: "NotFound", query: { from: to.fullPath } }
+      }
+
       try {
         await postStore.fetchPostAndParse(to.params.title)
-        next()
       } catch (err) {
-        console.error(err)
-        next()
+        console.error("[post load error]", err)
+        return { name: "NotFound", query: { from: to.fullPath } }
       }
     },
   },
   {
-    path: '/:pathMatch(.*)*', 
-    redirect: '/' 
+    path: '/404',
+    name: 'NotFound',
+    component: NotFound,
+    meta: {
+      "layout": "fullScreen",
+      "title": '404 - ' + siteTitle
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: to => ({ name: 'NotFound', query: { from: to.fullPath } })
   }
 ]
 
@@ -81,7 +94,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  document.title = to.meta.title
+  document.title = to.meta.title || siteTitle
   await initializeApp()
   next()
 })

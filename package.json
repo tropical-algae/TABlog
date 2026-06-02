@@ -8,10 +8,12 @@
     "dev": "vite",
     "prebuild": "node public/scripts/buildPost.js",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
+    "dompurify": "^3.4.7",
     "gsap": "^3.14.2",
     "katex": "^0.16.22",
     "marked": "^15.0.12",

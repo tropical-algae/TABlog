@@ -25,13 +25,24 @@ export function initializeApp() {
     const configStore = useConfigStore()
     const postStore = usePostStore()
 
-    initPromise = mapStore.load().then(() => {
-      return Promise.all([
-        homeStore.load(mapStore.getValue("home")),
-        configStore.load(mapStore.getValue("app")),
-        postStore.load(mapStore.getValue("index"))
-      ])
-    })
+    initPromise = mapStore.load()
+      .then(async () => {
+        const results = await Promise.allSettled([
+          homeStore.load(mapStore.getValue("home")),
+          configStore.load(mapStore.getValue("app")),
+          postStore.load(mapStore.getValue("index"))
+        ])
+        const rejected = results.find(result => result.status === "rejected")
+        if (rejected) throw rejected.reason
+      })
+      .catch(err => {
+        mapStore.reset()
+        homeStore.reset()
+        configStore.reset()
+        postStore.$reset()
+        initPromise = null
+        throw err
+      })
   }
   return initPromise
 }

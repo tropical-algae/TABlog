@@ -1,7 +1,7 @@
 
 <template>
   <div class="d-flex flex-column px-1" style="user-select: text;">
-    <div class="router-elem-fade anim-slide">
+    <div v-if="post" class="router-elem-fade anim-slide">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-attribute">
         <table>
@@ -10,7 +10,7 @@
               <td>created time:</td>
               <td><span>{{ post.created_time }}</span></td>
             </tr>
-            <tr v-if="post.tags && post.created_time.trim() !== ''">
+            <tr v-if="post.tags?.length">
               <td>tags:</td>
               <td class="post-tags">
                 <span 
@@ -27,7 +27,7 @@
       <hr class="split-line">
     </div>
 
-    <PostContent class="router-elem-fade anim-slide" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" /> 
+    <PostContent v-if="post" class="router-elem-fade anim-slide" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" />
     <TheNavbar/>
   </div>
 </template>
@@ -72,11 +72,16 @@ const preloadImagesFromHtml = (htmlStr) => {
 
 onBeforeRouteUpdate(async (to, from) => {
   if (to.params.title !== from.params.title) {
+    if (!postStore.getPostByTitle(to.params.title)) {
+      return { name: "NotFound", query: { from: to.fullPath } }
+    }
+
     try {
       await postStore.fetchPostAndParse(to.params.title)
       preloadImagesFromHtml(postStore.currentHtml)
     } catch (err) {
       console.error(err)
+      return { name: "NotFound", query: { from: to.fullPath } }
     }
   }
 })

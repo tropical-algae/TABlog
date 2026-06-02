@@ -1,4 +1,6 @@
 import { defineStore } from "pinia"
+import { fetchOk } from "@/utils/http"
+import { sanitizeHtml } from "@/utils/sanitizeHtml"
 
 export const usePostStore = defineStore("post", {
   state: () => ({
@@ -14,7 +16,7 @@ export const usePostStore = defineStore("post", {
   actions: {
     async load(sourcePath) {
       if (!this.posts) {
-        const res = await fetch(sourcePath)
+        const res = await fetchOk(sourcePath)
         this.posts = (await res.json()).map(p => {
           if (p.created_time) {
             // 补齐日期格式
@@ -46,15 +48,15 @@ export const usePostStore = defineStore("post", {
       const post = this.getPostByTitle(title);
       if (!post) throw new Error("Post not found");
 
-      const slugPath = `${post.dir}\\${post.slug}`;
-      const res = await fetch(slugPath);
+      const slugPath = `${post.dir}/${post.slug}`;
+      const res = await fetchOk(slugPath);
       const mdText = await res.text();
       const [ { marked }, { default: katexExt } ] = await Promise.all([
         import("marked"),
         import("@/utils/mdKatex.js")
       ]);
       marked.use(katexExt());
-      this.currentHtml = marked.parse(mdText);
+      this.currentHtml = sanitizeHtml(marked.parse(mdText));
     }
   },
 

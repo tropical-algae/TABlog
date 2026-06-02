@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { fetchOk } from '@/utils/http'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 export const useConfigStore = defineStore('config', () => {
   const config = ref(null)
@@ -7,9 +9,10 @@ export const useConfigStore = defineStore('config', () => {
   const title = computed(() => config.value?.title ?? 'NONE')
   const subTitle = computed(() => config.value?.sub_title ?? 'NONE')
   const introduction = computed(() => config.value?.introduction ?? 'NONE')
-  const copyright = computed(() => config.value?.copyright ?? 
-    '2026 powered by <a href="https://github.com/tropical-algae">tropical algae</a>\'s cat (Mia).'
-  )
+  const copyright = computed(() => sanitizeHtml(
+    config.value?.copyright ??
+      '2026 powered by <a href="https://github.com/tropical-algae">tropical algae</a>\'s cat (Mia).'
+  ))
   const colors = computed(() => config.value?.colors ?? [
     {
       "--color-bg": "rgb(0, 61, 123)",
@@ -33,9 +36,13 @@ export const useConfigStore = defineStore('config', () => {
 
   const load = async (sourcePath) => {
     if (!config.value) {
-      const res = await fetch(sourcePath)
+      const res = await fetchOk(sourcePath)
       config.value = await res.json()
     }
+  }
+
+  const reset = () => {
+    config.value = null
   }
 
   return {
@@ -48,6 +55,7 @@ export const useConfigStore = defineStore('config', () => {
     labelMap,
     pageSize,
     links,
-    load
+    load,
+    reset
   }
 })
