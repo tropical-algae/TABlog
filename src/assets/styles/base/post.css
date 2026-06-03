@@ -50,7 +50,6 @@
   padding: 0 0 1rem;
   content-visibility: auto; 
   contain: layout paint style;
-  overflow-x: hidden;
   word-wrap: break-word;
 }
 
@@ -67,7 +66,8 @@
 /*********** 代码标 ***********/
 
 .post-content code {
-  padding: 0.05rem 0.5rem;
+  font-size: 14px;
+  padding: 0.05rem 0.25rem;
   color: var(--color-accent-alt);
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -164,8 +164,11 @@
 }
 
 .post-content table {
-  width: 100%;
+  display: block;
+  width: max-content;
+  max-width: 100%;
   margin: 1em 0;
+  overflow-x: auto;
   border-collapse: collapse;
 }
 

@@ -149,6 +149,39 @@ export function getFileRealName(filename, suffixes) {
 }
 
 /**
+ * 为同名文章添加稳定的序号，避免仅按标题查找时路由冲突
+ * @param {*} posts 全部markdown的元信息
+ * @returns 标题唯一的markdown元信息
+ */
+export function makePostTitlesUnique(posts) {
+  const titleCounts = posts.reduce((counts, post) => {
+    counts.set(post.title, (counts.get(post.title) || 0) + 1)
+    return counts
+  }, new Map())
+  const reservedTitles = new Set(titleCounts.keys())
+  const usedTitles = new Set()
+  const nextSuffixes = new Map()
+
+  return posts.map(post => {
+    if (titleCounts.get(post.title) === 1) {
+      usedTitles.add(post.title)
+      return post
+    }
+
+    let suffix = nextSuffixes.get(post.title) || 1
+    let title
+    do {
+      title = `${post.title} #${suffix}`
+      suffix += 1
+    } while (reservedTitles.has(title) || usedTitles.has(title))
+
+    nextSuffixes.set(post.title, suffix)
+    usedTitles.add(title)
+    return { ...post, title }
+  })
+}
+
+/**
  * 将路径下的全部markdown文件添加hash，标准化并迁移到新路径下存储
  * @param {*} config 服务配置
  * @param {*} sortedFiles 排序后的（md文件在后）文件列表（含md与其他资源文件）
@@ -203,7 +236,7 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
 
     fileMap[path.resolve(originFile)] = path.resolve(newFile)
   }
-  return indexData
+  return makePostTitlesUnique(indexData)
 }
 
 /**

@@ -41,7 +41,10 @@
 }
 
 .home-content table {
+  display: block;
   width: auto;
+  max-width: 100%;
+  overflow-x: auto;
   table-layout: auto;
   border-collapse: collapse;
 }

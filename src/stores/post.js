@@ -1,5 +1,6 @@
 import { defineStore } from "pinia"
 import { fetchOk } from "@/utils/http"
+import { getMarkedWithKatex } from "@/utils/markdown"
 import { sanitizeHtml } from "@/utils/sanitizeHtml"
 
 export const usePostStore = defineStore("post", {
@@ -51,11 +52,7 @@ export const usePostStore = defineStore("post", {
       const slugPath = `${post.dir}/${post.slug}`;
       const res = await fetchOk(slugPath);
       const mdText = await res.text();
-      const [ { marked }, { default: katexExt } ] = await Promise.all([
-        import("marked"),
-        import("@/utils/mdKatex.js")
-      ]);
-      marked.use(katexExt());
+      const marked = await getMarkedWithKatex();
       this.currentHtml = sanitizeHtml(marked.parse(mdText));
     }
   },

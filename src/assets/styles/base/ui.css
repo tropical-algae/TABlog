@@ -37,17 +37,18 @@
 }
 
 .post-tag {
-  display: inline;
-  user-select: none;
+  display: inline-flex;
+  height: 1.1rem;
   padding: 0 0.2rem;
-  text-decoration: none;
-  line-height: 1.1rem;
   color: var(--color-accent-alt);
+  transition: color 0.5s ease, background-color 0.5s ease;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  text-decoration: none;
   white-space: nowrap;
   background-color: var(--color-accent);
   border-radius: 2px;
-  transition: color 0.5s ease, background-color 0.5s ease;
-
 }
 
 .post-tag.selected {
