@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/tropical-algae/TABlog/compare/v2.6.0...v2.6.1) (2026-06-04)
+
+
+### Bug Fixes
+
+* **asset-path:** fix assets path process failed error in markdown file ([aedba4d](https://github.com/tropical-algae/TABlog/commit/aedba4db3e356d22a6acc380e815cfbaf8ad6f9c))
+
 # [2.6.0](https://github.com/tropical-algae/TABlog/compare/v2.5.0...v2.6.0) (2026-02-28)
 
 
