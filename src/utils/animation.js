@@ -1,203 +1,527 @@
-import gsap from "gsap"
-// import { ScrollTrigger } from "gsap/ScrollTrigger"
+const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+const coarsePointerQuery = window.matchMedia("(hover: none) and (pointer: coarse)")
 
-const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 768
-const randomChar = "!@#$%&/TA01XYZ"
-const slideMod = ".anim-slide";
-const scaleMod = ".anim-scale";
+export const MOTION_SCOPES = {
+  route: "route",
+  archiveList: "archive-list"
+}
 
-const addFadeinAnimation = (tl, elems) => {
-  if (elems.length > 0) {
-    tl.fromTo(elems, 
-      { opacity: 0, },
-      { opacity: 1, 
-        duration: 2.0, 
-        stagger: 0.1, 
-        ease: "power2.out",
-        onStart: function() {
-          gsap.set(this.targets(), { willChange: "transform, opacity" });
-        },
-        onComplete: function() {
-          gsap.set(this.targets(), { clearProps: "willChange" });
-        }
-      }, "<"
-    )
+export const MOTION_CANCEL = {
+  preserve: "preserve",
+  cleanup: "cleanup"
+}
+
+const baseEase = {
+  enter: "cubic-bezier(0.34, 1.28, 0.64, 1)",
+  fade: "cubic-bezier(0.22, 1, 0.36, 1)",
+  leave: "cubic-bezier(0.65, 0, 0.35, 1)"
+}
+
+const defaultTransition = {
+  enter: {
+    duration: 650,
+    stagger: 80,
+    easing: baseEase.enter
+  },
+  leave: {
+    duration: 260,
+    stagger: 0,
+    easing: baseEase.leave
   }
 }
 
-const addSlideFadeinAnimation = (tl, elems) => {
-  if (elems.length > 0) {
-    tl.fromTo(elems, 
-      { 
-        opacity: 0,
-        scaleX: (i, target) => isMobile ? 1 : target.matches(".scale-x") ? 0 : 1,
-        scaleY: (i, target) => isMobile ? 1 : target.matches(".scale-y") ? 0 : 1,
-        y: () => isMobile ? 0 : 40,
-      },
-      { 
-        y: 0, 
-        opacity: 1, 
-        scaleX: 1, 
-        scaleY: 1, 
-        duration: 1.2, 
-        stagger: 0.09, 
-        ease: "back.inOut(1.9)", 
-        onStart: function() {
-          gsap.set(this.targets(), { willChange: "transform, opacity" });
-        },
-        onComplete: function() {
-          gsap.set(this.targets(), { clearProps: "willChange" });
-        }
-      }, "<0.15"
-    )
+const presets = {
+  fade: {
+    enterFrom: () => ({ opacity: 0 }),
+    enterTo: base => ({ opacity: base.opacity }),
+    enterEasing: baseEase.fade
+  },
+  slide: {
+    enterFrom: base => ({
+      opacity: 0,
+      transform: composeTransform(base.transform, getSlideTransform(base.elem))
+    }),
+    enterTo: base => ({
+      opacity: base.opacity,
+      transform: composeTransform(base.transform, "translate3d(0, 0, 0)")
+    })
+  },
+  scale: {
+    enterFrom: base => ({
+      opacity: 0,
+      transform: composeTransform(base.transform, "scale3d(0, 0, 1)")
+    }),
+    enterTo: base => ({
+      opacity: base.opacity,
+      transform: composeTransform(base.transform, "scale3d(1, 1, 1)")
+    })
   }
 }
 
-const addScaleFadeinAnimation = (tl, elems) => {
-  if (elems.length > 0) {
-    tl.fromTo(elems, 
-      { 
-        scale: 0, 
-        opacity: 0
-      }, 
-      { 
-        scale: 1, 
-        opacity: 1, 
-        duration: 1.0, 
-        stagger: 0.45, 
-        ease: "back.inOut(1.9)", 
-        onStart: function() {
-          gsap.set(this.targets(), { willChange: "transform, opacity" });
-        },
-        onComplete: function() {
-          gsap.set(this.targets(), { clearProps: "willChange" });
-        }
-      }, "<0.15"
-    );
+const running = new WeakMap()
+const rootRuns = new WeakMap()
+
+function shouldReduceMotion() {
+  return reduceMotionQuery.matches
+}
+
+function nextAnimationFrame() {
+  return new Promise(resolve => {
+    requestAnimationFrame(resolve)
+  })
+}
+
+function getSlideDistance() {
+  return coarsePointerQuery.matches || window.innerWidth < 768 ? 0 : 40
+}
+
+function getSlideTransform(elem) {
+  const x = toNumber(elem?.dataset.motionX, 0)
+  const y = toNumber(elem?.dataset.motionY, getSlideDistance())
+
+  return `translate3d(${x}px, ${y}px, 0)`
+}
+
+function composeTransform(baseTransform, motionTransform) {
+  return baseTransform
+    ? `${baseTransform} ${motionTransform}`
+    : motionTransform
+}
+
+function normalizeTransform(transform) {
+  return transform && transform !== "none" ? transform : ""
+}
+
+function toNumber(value, fallback) {
+  const number = Number(value)
+  return Number.isFinite(number) ? number : fallback
+}
+
+function escapeScope(scope) {
+  return String(scope).replace(/["\\]/g, "\\$&")
+}
+
+function getScopeSelector(scope) {
+  return `[data-motion-scope~="${escapeScope(scope)}"][data-motion]`
+}
+
+function readComputedFrame(elem) {
+  const style = getComputedStyle(elem)
+  return createFrame({
+    elem,
+    opacity: style.opacity || "1",
+    transform: normalizeTransform(style.transform)
+  })
+}
+
+function createFrame(frame) {
+  const normalized = {}
+
+  if ("opacity" in frame) {
+    normalized.opacity = frame.opacity
   }
+
+  if (frame.transform) {
+    normalized.transform = frame.transform
+  }
+
+  return normalized
 }
 
-export const onLoading = (animClass) => {
-  window.scrollTo({ top: 0, behavior: "instant" });
-  const loader = document.getElementById("app-loader");
-  if (!loader) return;
+function getBaseFrame(elem, refresh = false) {
+  const state = running.get(elem)
+  if (!refresh && state?.baseFrame) return state.baseFrame
 
-  const fill = loader.querySelector(".loader-line-fill");
-  const percent = loader.querySelector(".status-percent");
-  const text = loader.querySelector(".status-text");
-
-  const tl = gsap.timeline({
-    onComplete: () => {
-      gsap.set([".loader-container", loader], { clearProps: "will-change" });
-      loader.remove();
-    }
-  });
-
-  tl.to(fill, {
-    width: "100%",
-    duration: 0.8,
-    ease: "power3.inOut",
-    onUpdate: function() {
-      const p = Math.round(this.progress() * 100);
-      if (percent) percent.innerText = p < 100 ? `0${p}%`.slice(-3) : "OK";
-    }
-  });
-
-  tl.to(text, {
-    duration: 0.5,
-    scrambleText: { text: "DONE.", chars: randomChar, speed: 1, revealDelay: 0.05 },
-    ease: "none"
-  }, ">0.5");
-
-  tl.to([".loader-container", loader], {
-    willChange: "opacity",
-    opacity: 0,
-    duration: 0.6,
-    stagger: 0.2,
-    ease: "power2.inOut"
-  }, ">1.0");
-
-  addFadeinAnimation(tl, document.querySelectorAll(`${animClass}:not(${slideMod}):not(${scaleMod})`))
-  addSlideFadeinAnimation(tl, document.querySelectorAll(`${animClass}${slideMod}`))
-  addScaleFadeinAnimation(tl, document.querySelectorAll(`${animClass}${scaleMod}`))
+  return readComputedFrame(elem)
 }
 
-export const onLeave = (el, done, animClass) => {
-  const fadeElems = el.querySelectorAll(animClass)
+function beginRootRun(root) {
+  const previous = rootRuns.get(root)
+  if (previous) previous.cancelled = true
 
-  if (fadeElems.length === 0) {
-    done()
+  const run = { cancelled: false }
+  rootRuns.set(root, run)
+  return run
+}
+
+function normalizeCancelMode(options = MOTION_CANCEL.preserve) {
+  if (typeof options === "boolean") {
+    return options ? MOTION_CANCEL.cleanup : MOTION_CANCEL.preserve
+  }
+
+  const mode = typeof options === "string" ? options : options.mode
+  return Object.values(MOTION_CANCEL).includes(mode) ? mode : MOTION_CANCEL.preserve
+}
+
+function cancelMotionElement(elem, options = MOTION_CANCEL.preserve) {
+  const mode = normalizeCancelMode(options)
+  const state = running.get(elem)
+  if (!state?.animation) {
+    if (mode === MOTION_CANCEL.cleanup) clearMotionStyles(elem)
     return
   }
 
-  const tl = gsap.timeline({ 
-    onComplete: () => {
-      done();
-    } 
-  });
+  const currentFrame = readComputedFrame(elem)
+  state.animation.cancel()
+  running.delete(elem)
 
+  if (mode === MOTION_CANCEL.cleanup) {
+    clearMotionStyles(elem)
+  } else {
+    applyFrame(elem, currentFrame)
+    elem.style.willChange = ""
+  }
+}
 
-  tl.to(fadeElems, 
-    { opacity: 0, duration: 0.7, stagger: 0, ease: "power3.inOut" }
+function cancelTargets(root, scope, options = MOTION_CANCEL.preserve) {
+  beginRootRun(root)
+  getTargets(root, scope).forEach(elem => cancelMotionElement(elem, options))
+}
+
+function applyFrame(elem, frame) {
+  if ("opacity" in frame) {
+    elem.style.opacity = String(frame.opacity)
+  }
+
+  if ("transform" in frame) {
+    elem.style.transform = frame.transform || ""
+  }
+}
+
+function clearMotionStyles(elem) {
+  elem.style.opacity = ""
+  elem.style.transform = ""
+  elem.style.willChange = ""
+}
+
+function getPreset(elem) {
+  return presets[elem.dataset.motion] || presets.fade
+}
+
+function getTargets(root, scope) {
+  const selector = getScopeSelector(scope)
+  const targets = root.matches?.(selector)
+    ? [root, ...root.querySelectorAll(selector)]
+    : Array.from(root.querySelectorAll(selector))
+
+  return targets.sort((a, b) => {
+    const aOrder = toNumber(a.dataset.motionOrder, Number.NaN)
+    const bOrder = toNumber(b.dataset.motionOrder, Number.NaN)
+
+    if (Number.isNaN(aOrder) && Number.isNaN(bOrder)) return 0
+    if (Number.isNaN(aOrder)) return 1
+    if (Number.isNaN(bOrder)) return -1
+    return aOrder - bOrder
+  })
+}
+
+function getTiming(elem, phase, index, options) {
+  const preset = getPreset(elem)
+  const defaults = defaultTransition[phase]
+  const phaseOptions = options[phase] || {}
+  const stagger = phaseOptions.stagger ?? defaults.stagger
+  const maxStaggerItems = phaseOptions.maxStaggerItems ?? Number.POSITIVE_INFINITY
+  const order = toNumber(elem.dataset.motionOrder, index)
+  const staggerIndex = Math.min(order, maxStaggerItems)
+
+  return {
+    duration: toNumber(elem.dataset.motionDuration, phaseOptions.duration ?? defaults.duration),
+    delay: toNumber(elem.dataset.motionDelay, staggerIndex * stagger),
+    easing: elem.dataset.motionEase || phaseOptions.easing || preset.enterEasing || defaults.easing,
+    fill: "both"
+  }
+}
+
+function hasTransform(frames) {
+  return frames.some(frame => "transform" in frame)
+}
+
+function startAnimation(elem, frames, timing, baseFrame, cleanup) {
+  if (!elem.animate || shouldReduceMotion()) {
+    if (cleanup) clearMotionStyles(elem)
+    return Promise.resolve()
+  }
+
+  const previous = running.get(elem)
+  const currentFrame = previous?.animation
+    ? readComputedFrame(elem)
+    : frames[0]
+
+  previous?.animation?.cancel()
+  applyFrame(elem, currentFrame)
+  elem.style.willChange = hasTransform(frames) ? "transform, opacity" : "opacity"
+
+  const animation = elem.animate([currentFrame, frames[1]], timing)
+  running.set(elem, { animation, baseFrame })
+
+  return animation.finished
+    .catch(() => {})
+    .finally(() => {
+      if (running.get(elem)?.animation !== animation) return
+      running.delete(elem)
+      if (cleanup) clearMotionStyles(elem)
+    })
+}
+
+function buildEnterFrames(elem, refreshBaseFrame = false) {
+  const baseFrame = {
+    elem,
+    ...getBaseFrame(elem, refreshBaseFrame)
+  }
+  const preset = getPreset(elem)
+  const fromFrame = running.get(elem)?.animation
+    ? readComputedFrame(elem)
+    : preset.enterFrom(baseFrame)
+
+  return {
+    baseFrame,
+    frames: [
+      fromFrame,
+      preset.enterTo(baseFrame)
+    ]
+  }
+}
+
+function buildLeaveFrames(elem) {
+  const baseFrame = {
+    elem,
+    ...getBaseFrame(elem)
+  }
+  const currentFrame = readComputedFrame(elem)
+
+  return {
+    baseFrame,
+    frames: [
+      currentFrame,
+      createFrame({
+        opacity: 0,
+        transform: currentFrame.transform
+      })
+    ]
+  }
+}
+
+function primeEnter(targets, options = {}) {
+  const prepared = targets.map(elem => {
+    const item = buildEnterFrames(elem, options.refreshBaseFrame)
+    return { elem, ...item }
+  })
+
+  for (const { elem, frames, baseFrame } of prepared) {
+    applyFrame(elem, frames[0])
+    running.set(elem, { ...running.get(elem), baseFrame })
+  }
+
+  return prepared
+}
+
+function runPrepared(prepared, phase, options, cleanup) {
+  return Promise.all(
+    prepared.map(({ elem, frames, baseFrame }, index) =>
+      startAnimation(elem, frames, getTiming(elem, phase, index, options), baseFrame, cleanup)
+    )
   )
 }
 
-export const onEnter = (el, done, animClass) => {
-  window.scrollTo({ top: 0, behavior: "instant" });
-
-  const scaleElems = el.querySelectorAll(`${animClass}${scaleMod}`);
-  const slideElems = el.querySelectorAll(`${animClass}${slideMod}`);
-  const fadeElems = el.querySelectorAll(`${animClass}:not(${slideMod}):not(${scaleMod})`);
-
-  if (scaleElems.length + slideElems.length + fadeElems.length === 0) {
-    done()
-    return
-  }
-
-  const tl = gsap.timeline({ 
-    onComplete: () => {
-      done();
-    } 
-  });
-
-  addFadeinAnimation(tl, fadeElems)
-  addSlideFadeinAnimation(tl, slideElems)
-  addScaleFadeinAnimation(tl, scaleElems)
+function prepareLeave(targets) {
+  return targets.map(elem => ({ elem, ...buildLeaveFrames(elem) }))
 }
 
-// export async function initBasicScrollAnimations(itemClass) {
-//   ScrollTrigger.getAll().forEach(t => t.kill())
-//   const bubbles = gsap.utils.toArray(itemClass)
-//   // gsap.set(bubbles, { opacity: 0 }) 
+export function createMotionTransition(options = {}) {
+  const config = {
+    ...defaultTransition,
+    ...options,
+    enter: {
+      ...defaultTransition.enter,
+      ...options.enter
+    },
+    leave: {
+      ...defaultTransition.leave,
+      ...options.leave
+    }
+  }
 
-//   ScrollTrigger.batch(itemClass, {
-//     // markers: true,
-//     start: "top 95%", 
-//     end: "bottom 5%",
+  return {
+    enter(root, done, runtime = {}) {
+      const run = beginRootRun(root)
 
-//     onEnter: batch => {
-//       gsap.fromTo(batch, 
-//         { y: 30, opacity: 0 },
-//         { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "power3.out", overwrite: true }
-//       )
-//     },
+      if (config.scrollToTop) {
+        window.scrollTo({ top: 0, behavior: "instant" })
+      }
 
-//     // onEnterBack: batch => {
-//     //   gsap.to(batch, {
-//     //     opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: "power3.out", overwrite: true 
-//     //   })
-//     // },
+      const targets = getTargets(root, config.scope)
+      if (targets.length === 0 || shouldReduceMotion()) {
+        targets.forEach(clearMotionStyles)
+        done()
+        return
+      }
 
-//     onLeaveBack: batch => {
-//       gsap.to(batch, {
-//          opacity: 0, y: 80, duration: 1, ease: "power2.in", overwrite: true 
-//       })
-//     },
+      const prepared = primeEnter(targets)
 
-//     // onLeave: batch => {
-//     //   gsap.to(batch, { 
-//     //     opacity: 0, y: -80, duration: 1, ease: "power2.in", overwrite: true 
-//     //   })
-//     // }
-//   })
-// }
+      Promise.resolve(runtime.ready)
+        .catch(err => {
+          console.error("[motion ready error]", err)
+        })
+        .then(() => {
+          if (run.cancelled) return Promise.resolve()
+          return runPrepared(prepared, "enter", config, true)
+        })
+        .then(done)
+    },
+
+    leave(root, done) {
+      beginRootRun(root)
+
+      const targets = getTargets(root, config.scope)
+      if (targets.length === 0 || shouldReduceMotion()) {
+        done()
+        return
+      }
+
+      runPrepared(prepareLeave(targets), "leave", config, false).then(done)
+    },
+
+    enterElement(elem, done, runtime = {}) {
+      const prepared = primeEnter([elem])
+
+      Promise.resolve(runtime.ready)
+        .catch(err => {
+          console.error("[motion ready error]", err)
+        })
+        .then(() => runPrepared(prepared, "enter", config, true))
+        .then(done)
+    },
+
+    leaveElement(elem, done) {
+      runPrepared(prepareLeave([elem]), "leave", config, false).then(done)
+    },
+
+    enterTargets(root, done = () => {}, runtime = {}) {
+      const run = beginRootRun(root)
+      const targets = getTargets(root, config.scope)
+      targets.forEach(elem => cancelMotionElement(elem, MOTION_CANCEL.preserve))
+
+      if (targets.length === 0 || shouldReduceMotion()) {
+        targets.forEach(clearMotionStyles)
+        done()
+        return Promise.resolve()
+      }
+
+      const prepared = primeEnter(targets, { refreshBaseFrame: true })
+
+      return Promise.resolve(runtime.ready)
+        .catch(err => {
+          console.error("[motion ready error]", err)
+        })
+        .then(async () => {
+          if (run.cancelled) return Promise.resolve()
+          if (runtime.deferStart) {
+            await nextAnimationFrame()
+          }
+          return runPrepared(prepared, "enter", config, true)
+        })
+        .then(done)
+    },
+
+    cancel(root, options = MOTION_CANCEL.preserve) {
+      cancelTargets(root, config.scope, options)
+    },
+
+    cancelElement(elem, options = MOTION_CANCEL.preserve) {
+      cancelMotionElement(elem, options)
+    }
+  }
+}
+
+function animateProgress(duration, onUpdate) {
+  if (shouldReduceMotion()) {
+    onUpdate(1)
+    return Promise.resolve()
+  }
+
+  return new Promise(resolve => {
+    const start = performance.now()
+
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1)
+      onUpdate(progress)
+
+      if (progress < 1) {
+        requestAnimationFrame(update)
+      } else {
+        resolve()
+      }
+    }
+
+    requestAnimationFrame(update)
+  })
+}
+
+export async function runInitialLoadMotion(scope, runtime = {}) {
+  window.scrollTo({ top: 0, behavior: "instant" })
+
+  const loader = document.getElementById("app-loader")
+  if (!loader) return
+
+  const container = loader.querySelector(".loader-container")
+  const fill = loader.querySelector(".loader-line-fill")
+  const percent = loader.querySelector(".status-percent")
+  const text = loader.querySelector(".status-text")
+  const fillDuration = 650
+
+  if (fill?.animate && !shouldReduceMotion()) {
+    fill.animate(
+      [{ width: "0%" }, { width: "100%" }],
+      { duration: fillDuration, easing: baseEase.leave, fill: "forwards" }
+    )
+  }
+
+  await animateProgress(fillDuration, progress => {
+    const value = Math.round(progress * 100)
+    if (percent) percent.innerText = value < 100 ? `0${value}%`.slice(-3) : "OK"
+  })
+
+  if (fill) fill.style.width = "100%"
+  if (text) text.textContent = "DONE."
+
+  await Promise.resolve(runtime.ready).catch(err => {
+    console.error("[initial motion ready error]", err)
+  })
+
+  const pageMotion = createMotionTransition({
+    scope,
+    enter: {
+      duration: 650,
+      stagger: 70,
+      maxStaggerItems: 8
+    }
+  })
+
+  const leaveLoader = Promise.all(
+    [container, loader].filter(Boolean).map((elem, index) => {
+      const frame = readComputedFrame(elem)
+
+      return startAnimation(
+        elem,
+        [
+          frame,
+          createFrame({ opacity: 0, transform: frame.transform })
+        ],
+        {
+          duration: 420,
+          delay: index * 80,
+          easing: baseEase.leave,
+          fill: "both"
+        },
+        frame,
+        false
+      )
+    })
+  ).then(() => loader.remove())
+
+  const enterPage = new Promise(resolve => {
+    pageMotion.enter(document, resolve)
+  })
+
+  await Promise.all([leaveLoader, enterPage])
+}

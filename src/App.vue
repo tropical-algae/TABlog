@@ -8,15 +8,17 @@
         </div>
 
         <div :class="contentColumnClass">
-          <transition 
-            :css="false" 
-            mode="out-in" 
-            @leave="onRouterLeave" 
+          <transition
+            :css="false"
+            mode="out-in"
+            @leave="onRouterLeave"
             @enter="onRouterEnter"
+            @enter-cancelled="onRouterCancel"
+            @leave-cancelled="onRouterCancel"
           >
-            <component 
-              :is="layoutComponent" 
-              :key="route.fullPath" 
+            <component
+              :is="layoutComponent"
+              :key="route.fullPath"
             />
           </transition>
         </div>
@@ -29,17 +31,27 @@
 <script setup>
 import { onMounted, nextTick, computed } from "vue"
 import { useRoute } from "vue-router"
-import { useConfigStore } from "@/stores/config"
-import { preloadAllRouteChunks, applyRandomTheme } from "@/utils/startup"
-import { onLoading, onEnter, onLeave } from "@/utils/animation"
+import { preloadRouteChunksWhenIdle } from "@/utils/startup"
+import { MOTION_CANCEL, MOTION_SCOPES, createMotionTransition, runInitialLoadMotion } from "@/utils/animation"
+import { consumePageReady } from "@/utils/pageReady"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import FullScreenLayout from "@/layouts/FullScreenLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
 import ProfileSidebar from "@/components/layout/ProfileSidebar.vue"
 
 const route = useRoute()
-const configStore = useConfigStore()
-const routerAnimClass = ".router-elem-fade"
+const routeMotion = createMotionTransition({
+  scope: MOTION_SCOPES.route,
+  scrollToTop: true,
+  enter: {
+    duration: 800,
+    stagger: 110,
+    maxStaggerItems: 8
+  },
+  leave: {
+    duration: 280
+  }
+})
 const isFullScreenLayout = computed(() => route.meta.layout === "fullScreen")
 const appContainerClass = computed(() => [
   "app-main-layout",
@@ -62,20 +74,21 @@ const layoutComponent = computed(() => {
 })
 
 const onRouterEnter = (el, done) => {
-  requestAnimationFrame(() => {
-    applyRandomTheme(configStore)
-  })
-  onEnter(el, done, routerAnimClass);
+  routeMotion.enter(el, done, { ready: consumePageReady(route.fullPath) })
 }
 
 const onRouterLeave = (el, done) => {
-  onLeave(el, done, routerAnimClass);
+  routeMotion.leave(el, done)
+}
+
+const onRouterCancel = (el) => {
+  routeMotion.cancel(el, { mode: MOTION_CANCEL.preserve })
 }
 
 onMounted(async () => {
   await nextTick()
-  await preloadAllRouteChunks()
-  setTimeout(() => onLoading(routerAnimClass), 500);
+  await runInitialLoadMotion(MOTION_SCOPES.route, { ready: consumePageReady(route.fullPath) })
+  preloadRouteChunksWhenIdle()
 })
 
 </script>

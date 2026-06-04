@@ -1,5 +1,5 @@
 <template>
-  <div class="post-list-group pb-3 router-elem-fade">
+  <div class="post-list-group pb-3" data-motion-scope="route" data-motion="fade">
     <div v-for="relatedPost in relatedPosts" :key="relatedPost.tag">
       <div class="py-2 my-2 fw-bold" style="font-size: 1.2rem;">{{ relatedPost.tag }}</div>
 

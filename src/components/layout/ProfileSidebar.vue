@@ -94,19 +94,44 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
 .profile-home-link {
   display: inline-block;
+  position: relative;
+  overflow: hidden;
   padding: 0.15rem 0;
   color: var(--color-accent-alt);
-  background: var(--color-accent);
+  isolation: isolate;
   text-align: center;
-  transition: color 0.5s ease, background-color 0.5s ease;
+  transition: color 0.5s ease;
   text-decoration: none;
   font-weight: bold;
   border-radius: 7px;
 }
 
+.profile-home-link::before,
+.profile-home-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.profile-home-link::before {
+  background: var(--color-accent);
+}
+
+.profile-home-link::after {
+  background: var(--color-accent-alt);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
 .profile-home-link:hover {
   color: var(--color-accent);
-  background: var(--color-accent-alt);
+}
+
+.profile-home-link:hover::after {
+  opacity: 1;
 }
 
 .profile-bio {

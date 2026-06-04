@@ -12,8 +12,8 @@ const months_map = [
 
 <template>
   <div class="flex-grow-1 d-flex flex-column h-auto px-1" style="overflow: hidden auto;">
-    <p class="timeline-title router-elem-fade anim-slide">TIMELINE</p>
-    <div class="timeline-container router-elem-fade flex-grow-1 anim-slide">
+    <p class="timeline-title" data-motion-scope="route" data-motion="slide">TIMELINE</p>
+    <div class="timeline-container flex-grow-1" data-motion-scope="route" data-motion="fade">
       <div class="timeline-content">
         <div class="timeline-years-group" v-for="{ year, months } in postStore.timeGroupPosts">
           <div class="timeline-label primary">{{ year }}</div>

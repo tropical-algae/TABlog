@@ -3,6 +3,12 @@ import { fetchOk } from "@/utils/http"
 import { getMarkedWithKatex } from "@/utils/markdown"
 import { sanitizeHtml } from "@/utils/sanitizeHtml"
 
+function throwIfAborted(signal) {
+  if (signal?.aborted) {
+    throw signal.reason || new DOMException("Post loading aborted", "AbortError")
+  }
+}
+
 export const usePostStore = defineStore("post", {
   state: () => ({
     posts: null,
@@ -11,7 +17,7 @@ export const usePostStore = defineStore("post", {
     tags: null,
     selectedTags: [],
     currentPage: 1,
-    currentHtml: ""
+    postHtmlCache: {}
   }),
 
   actions: {
@@ -45,15 +51,25 @@ export const usePostStore = defineStore("post", {
         this.currentPage = 1
       }
     },
-    async fetchPostAndParse(title) {
-      const post = this.getPostByTitle(title);
-      if (!post) throw new Error("Post not found");
+    async fetchPostHtml(title, options = {}) {
+      const post = this.getPostByTitle(title)
+      if (!post) throw new Error("Post not found")
 
-      const slugPath = `${post.dir}/${post.slug}`;
-      const res = await fetchOk(slugPath);
-      const mdText = await res.text();
-      const marked = await getMarkedWithKatex();
-      this.currentHtml = sanitizeHtml(marked.parse(mdText));
+      if (this.postHtmlCache[title]) {
+        return this.postHtmlCache[title]
+      }
+
+      const slugPath = `${post.dir}/${post.slug}`
+      throwIfAborted(options.signal)
+      const res = await fetchOk(slugPath, options)
+      const mdText = await res.text()
+      throwIfAborted(options.signal)
+      const marked = await getMarkedWithKatex()
+      const html = sanitizeHtml(marked.parse(mdText))
+      throwIfAborted(options.signal)
+
+      this.postHtmlCache[title] = html
+      return html
     }
   },
 

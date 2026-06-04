@@ -1,7 +1,7 @@
 
 <template>
   <div class="d-flex flex-column px-1" style="user-select: text;">
-    <div v-if="post" class="router-elem-fade anim-slide">
+    <div v-if="post" data-motion-scope="route" data-motion="slide">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-attribute">
         <table>
@@ -27,15 +27,16 @@
       <hr class="split-line">
     </div>
 
-    <PostContent v-if="post" class="router-elem-fade anim-slide" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" />
+    <PostContent v-if="post" data-motion-scope="route" data-motion="fade" :title="post.title" :clz="'post-content'" :markdownHtml="markdownHtml" />
     <TheNavbar/>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, nextTick } from "vue"
-import { useRoute, onBeforeRouteUpdate } from "vue-router"
+import { nextTick, ref, watch, onUnmounted } from "vue"
+import { useRoute, useRouter } from "vue-router"
 import { usePostStore } from "@/stores/post"
+import { cancelPageReady, registerPageReady } from "@/utils/pageReady"
 import PostContent from "@/components/post/PostContent.vue"
 import TheNavbar from "@/components/layout/TheNavbar.vue"
 
@@ -47,75 +48,126 @@ const { title } = defineProps({
 })
 
 const route = useRoute()
+const router = useRouter()
 const markdownHtml = ref("")
 const postStore = usePostStore()
 const post = ref(postStore.getPostByTitle(title))
+const imageReadyTimeoutMs = 3000
+const readyKeys = new Set()
+let loadTaskId = 0
 
-const preloadImagesFromHtml = (htmlStr) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlStr, "text/html");
-  const imgs = doc.querySelectorAll("img");
-  
-  const promises = Array.from(imgs).map(img => {
-    return new Promise((resolve) => {
-      const image = new Image();
-      image.src = img.src;
-      
-      image.onload = () => resolve();
-      image.onerror = () => resolve();
-    });
-  });
+function isAbortError(err) {
+  return err?.name === "AbortError"
+}
 
-  return Promise.all(promises);
-};
+function getAbortError(signal) {
+  return signal?.reason || new DOMException("Post loading aborted", "AbortError")
+}
 
+function isCurrentTask(taskId, signal) {
+  return taskId === loadTaskId && !signal?.aborted
+}
 
-onBeforeRouteUpdate(async (to, from) => {
-  if (to.params.title !== from.params.title) {
-    if (!postStore.getPostByTitle(to.params.title)) {
-      return { name: "NotFound", query: { from: to.fullPath } }
+function waitForImage(src, signal) {
+  if (!src) return Promise.resolve()
+  if (signal?.aborted) return Promise.reject(getAbortError(signal))
+
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    let settled = false
+
+    const cleanup = () => {
+      window.clearTimeout(timer)
+      signal?.removeEventListener("abort", abort)
+      image.onload = null
+      image.onerror = null
     }
 
-    try {
-      await postStore.fetchPostAndParse(to.params.title)
-      preloadImagesFromHtml(postStore.currentHtml)
-    } catch (err) {
-      console.error(err)
-      return { name: "NotFound", query: { from: to.fullPath } }
+    const finish = (resolveImage = true) => {
+      if (settled) return
+      settled = true
+      cleanup()
+      if (resolveImage) {
+        resolve()
+      } else {
+        reject(getAbortError(signal))
+      }
     }
+
+    const abort = () => {
+      finish(false)
+    }
+
+    const timer = window.setTimeout(() => finish(), imageReadyTimeoutMs)
+    signal?.addEventListener("abort", abort, { once: true })
+    image.onload = () => finish()
+    image.onerror = () => finish()
+    image.src = src
+
+    if (image.complete) {
+      finish()
+    }
+  })
+}
+
+const preloadImagesFromHtml = (htmlStr, signal) => {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(htmlStr, "text/html")
+  const imgs = doc.querySelectorAll("img")
+
+  return Promise.all(Array.from(imgs).map(img => waitForImage(img.src, signal)))
+}
+
+async function loadPost(titleToLoad, signal) {
+  const taskId = ++loadTaskId
+  const nextPost = postStore.getPostByTitle(titleToLoad)
+
+  if (!nextPost) {
+    if (!signal?.aborted) {
+      router.replace({ name: "NotFound", query: { from: route.fullPath } })
+    }
+    return
   }
-})
 
-onMounted(async () => {
-  await nextTick()
+  post.value = nextPost
+  markdownHtml.value = ""
+
   try {
-    if (!post.value) {
-      throw new Error(`Post not found for title: ${title}`)
-    }
-    // await updatePost()
-    markdownHtml.value = postStore.currentHtml
+    const html = await postStore.fetchPostHtml(titleToLoad, { signal })
+    if (!isCurrentTask(taskId, signal)) return
+
+    markdownHtml.value = html
+    await nextTick()
+    if (!isCurrentTask(taskId, signal)) return
+
+    await preloadImagesFromHtml(html, signal)
   } catch (err) {
-    console.log("[onMounted error]", err)
+    if (!isCurrentTask(taskId, signal) || isAbortError(err)) return
+    console.error("[post load error]", err)
+    router.replace({ name: "NotFound", query: { from: route.fullPath } })
   }
-});
+}
+
+function registerPostReady(titleToLoad, readyKey) {
+  readyKeys.add(readyKey)
+  registerPageReady(signal => loadPost(titleToLoad, signal), readyKey)
+}
+
+registerPostReady(title, route.fullPath)
 
 watch(
   () => route.params.title,
-  async (newTitle, oldTitle) => {
+  (newTitle, oldTitle) => {
     if (newTitle !== oldTitle) {
-      try {
-        const newPost = postStore.getPostByTitle(newTitle)
-        if (!newPost) {
-          throw new Error(`Post not found for title: ${newTitle}`)
-        }
-        post.value = newPost
-        markdownHtml.value = postStore.currentHtml
-
-      } catch (err) {
-        console.error("[watch error]", err)
-      }
+      registerPostReady(newTitle, route.fullPath)
     }
   }
 )
+
+onUnmounted(() => {
+  loadTaskId += 1
+  readyKeys.forEach(cancelPageReady)
+  readyKeys.clear()
+})
 
 </script>

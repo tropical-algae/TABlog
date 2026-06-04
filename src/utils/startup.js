@@ -5,19 +5,6 @@ import { usePostStore } from "@/stores/post"
 
 let initPromise = null
 
-export function applyRandomTheme(config) {
-  const themes = config.colors
-  if (!themes || themes.length === 0) return
-  const theme = themes[Math.floor(Math.random() * themes.length)]
-
-  for (const key in theme) {
-    if (key.startsWith("--")) {
-      document.documentElement.style.setProperty(key, theme[key])
-      // document.querySelector("html").style.setProperty(key, theme[key])
-    }
-  }
-}
-
 export function initializeApp() {
   if (!initPromise) {
     const mapStore = useMapStore()
@@ -58,7 +45,20 @@ export function preloadAllRouteChunks() {
     () => import("marked")
   ];
   const loadingPromises = preloadModules.map(loader => loader().catch(err => {
-      console.error("preload error:", err);
+    console.error("preload error:", err);
   }));
   return Promise.all(loadingPromises);
+}
+
+export function preloadRouteChunksWhenIdle() {
+  const preload = () => {
+    preloadAllRouteChunks()
+  }
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(preload, { timeout: 3000 })
+    return
+  }
+
+  window.setTimeout(preload, 1000)
 }

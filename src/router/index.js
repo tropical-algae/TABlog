@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import { initializeApp } from '@/utils/startup'
 import { usePostStore } from '@/stores/post'
+import { beginPageReady } from "@/utils/pageReady"
 
 const Home = () => import("@/views/Home.vue")
 const Post = () => import("@/views/Post.vue")
@@ -65,12 +66,7 @@ const routes = [
         return { name: "NotFound", query: { from: to.fullPath } }
       }
 
-      try {
-        await postStore.fetchPostAndParse(to.params.title)
-      } catch (err) {
-        console.error("[post load error]", err)
-        return { name: "NotFound", query: { from: to.fullPath } }
-      }
+      return true
     },
   },
   {
@@ -94,6 +90,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  beginPageReady(to.fullPath)
   document.title = to.meta.title || siteTitle
   await initializeApp()
   next()
