@@ -43,7 +43,7 @@ const presets = {
     }),
     enterTo: base => ({
       opacity: base.opacity,
-      transform: composeTransform(base.transform, "translate3d(0, 0, 0)")
+      transform: composeTransform(base.transform, "translate(0, 0)")
     })
   },
   scale: {
@@ -79,7 +79,7 @@ function getSlideTransform(elem) {
   const x = toNumber(elem?.dataset.motionX, 0)
   const y = toNumber(elem?.dataset.motionY, getSlideDistance())
 
-  return `translate3d(${x}px, ${y}px, 0)`
+  return `translate(${x}px, ${y}px)`
 }
 
 function composeTransform(baseTransform, motionTransform) {
@@ -169,7 +169,6 @@ function cancelMotionElement(elem, options = MOTION_CANCEL.preserve) {
     clearMotionStyles(elem)
   } else {
     applyFrame(elem, currentFrame)
-    elem.style.willChange = ""
   }
 }
 
@@ -191,7 +190,6 @@ function applyFrame(elem, frame) {
 function clearMotionStyles(elem) {
   elem.style.opacity = ""
   elem.style.transform = ""
-  elem.style.willChange = ""
 }
 
 function getPreset(elem) {
@@ -236,9 +234,22 @@ function hasTransform(frames) {
   return frames.some(frame => "transform" in frame)
 }
 
+function finishMotionStyles(elem, frames, cleanup) {
+  if (!cleanup) return
+
+  if (hasTransform(frames)) {
+    const finalFrame = frames[frames.length - 1]
+    elem.style.opacity = ""
+    elem.style.transform = finalFrame.transform || ""
+    return
+  }
+
+  clearMotionStyles(elem)
+}
+
 function startAnimation(elem, frames, timing, baseFrame, cleanup) {
   if (!elem.animate || shouldReduceMotion()) {
-    if (cleanup) clearMotionStyles(elem)
+    finishMotionStyles(elem, frames, cleanup)
     return Promise.resolve()
   }
 
@@ -249,7 +260,6 @@ function startAnimation(elem, frames, timing, baseFrame, cleanup) {
 
   previous?.animation?.cancel()
   applyFrame(elem, currentFrame)
-  elem.style.willChange = hasTransform(frames) ? "transform, opacity" : "opacity"
 
   const animation = elem.animate([currentFrame, frames[1]], timing)
   running.set(elem, { animation, baseFrame })
@@ -259,7 +269,7 @@ function startAnimation(elem, frames, timing, baseFrame, cleanup) {
     .finally(() => {
       if (running.get(elem)?.animation !== animation) return
       running.delete(elem)
-      if (cleanup) clearMotionStyles(elem)
+      finishMotionStyles(elem, frames, cleanup)
     })
 }
 

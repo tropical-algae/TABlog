@@ -1,5 +1,5 @@
 <template>
-  <main class="not-found-page" data-motion-scope="route" data-motion="slide">
+  <main class="not-found-page motion-slide-layer" data-motion-scope="route" data-motion="slide">
     <section>
       <div class="not-found-status">
         <span class="post-tag small">HTTP 404</span>

@@ -18,9 +18,9 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h1 class="m-0 p-0 home-title" data-motion-scope="route" data-motion="slide">{{ configStore.title }}</h1>
-    <div class="home-sub-title" data-motion-scope="route" data-motion="slide">{{ configStore.subTitle }}</div>
-    <PostContent data-motion-scope="route" data-motion="slide" :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml"/>
+    <h1 class="m-0 p-0 home-title motion-slide-layer" data-motion-scope="route" data-motion="slide">{{ configStore.title }}</h1>
+    <div class="home-sub-title motion-slide-layer" data-motion-scope="route" data-motion="slide">{{ configStore.subTitle }}</div>
+    <PostContent class="motion-slide-layer" data-motion-scope="route" data-motion="slide" :title="'home-page'" :clz="'home-content'" :markdownHtml="markdownHtml"/>
     <TheNavbar/>
   </div>
 </template>

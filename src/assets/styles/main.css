@@ -34,6 +34,9 @@ body {
   overflow-y: scroll !important;
   user-select: none;
   transition: background-color 0.7s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
 }
 
 body::before {
@@ -93,35 +96,21 @@ body::before {
 .app-main-layout a:not(.link-raw, .link-raw *) {
   display: inline-block;
   position: relative;
-  z-index: 1;
   padding: 0.15rem 0.5rem;
-  color: var(--color-primary-alt);
-  transition: color 0.5s ease;
+  color: var(--color-accent-alt);
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+  border-radius: 5px;
   font-weight: bold;
   text-decoration: none;
 }
 
-.app-main-layout a:not(.link-raw, .link-raw *)::before {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-color: var(--color-accent);
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  content: '';
-}
-
 .app-main-layout a:not(.link-raw, .link-raw *):hover {
-  color: var(--color-accent-alt);
+  background-color: var(--color-accent);
 }
 
 .app-main-layout a:not(.link-raw, .link-raw *):active {
   color: var(--color-primary);
-}
-
-.app-main-layout a:not(.link-raw, .link-raw *):hover::before {
-  opacity: 0.91;
 }
 
 @media screen and (hover: none) and (pointer: coarse) {

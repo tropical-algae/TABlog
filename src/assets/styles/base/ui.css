@@ -38,47 +38,22 @@
 
 .post-tag {
   display: inline-flex;
-  position: relative;
   height: 1.1rem;
   padding: 0 0.2rem;
   color: var(--color-accent-alt);
-  overflow: hidden;
-  isolation: isolate;
-  transition: color 0.5s ease;
+  background-color: var(--color-accent);
+  transition: background-color 0.5s ease;
   align-items: center;
   justify-content: center;
   user-select: none;
   text-decoration: none;
   white-space: nowrap;
-  border-radius: 2px;
-}
-
-.post-tag::before,
-.post-tag::after {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  content: "";
-  pointer-events: none;
-}
-
-.post-tag::before {
-  background-color: var(--color-accent);
-}
-
-.post-tag::after {
-  background-color: var(--color-accent-alt);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  border-radius: 3px;
 }
 
 .post-tag.selected {
   color: var(--color-accent);
-}
-
-.post-tag.selected::after {
-  opacity: 1;
+  background-color: var(--color-accent-alt);
 }
 
 .post-tags {
@@ -99,4 +74,8 @@
 
 [data-motion] {
   backface-visibility: hidden; 
+}
+
+.motion-slide-layer {
+  will-change: transform, opacity;
 }

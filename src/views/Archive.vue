@@ -1,7 +1,7 @@
 
 <template>
   <div class="flex-grow-1 d-flex flex-column h-auto px-1" style="overflow: visible;">
-    <h1 class="m-0 p-0" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
+    <h1 class="m-0 p-0 motion-slide-layer" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
     <div ref="archiveListRoot" class="post-list-group flex-grow-1 py-1 px-2" data-motion-scope="route" data-motion="fade">
       <div class="post-list my-3">
         <div class="list-rail">
@@ -13,10 +13,10 @@
           <li
             v-for="(post, index) in visiblePosts"
             :key="post.slug"
-            class="d-flex justify-content-between align-items-center"
+            class="d-flex justify-content-between align-items-center motion-slide-layer"
             data-motion-scope="archive-list"
             data-motion="slide"
-            data-motion-x="-28"
+            data-motion-x="28"
             data-motion-y="0"
             :data-motion-order="index"
           >
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="archive-pager" data-motion-scope="route" data-motion="slide">
+    <div class="archive-pager motion-slide-layer" data-motion-scope="route" data-motion="slide">
       <RouterLink :to="{ name: 'Archive'}" class="link-raw" @click="prevPage">
         <component :is="BackIcon" class="pager-icon" />
       </RouterLink>
@@ -221,39 +221,17 @@ onUnmounted(() => {
 
 /* 选页按钮 */
 .pager-button {
-  position: relative;
-  overflow: hidden;
   height: 1.4rem;
   padding: 0.1rem 0.2rem;
   color: var(--color-accent-alt);
-  isolation: isolate;
+  background: var(--color-accent);
   text-align: center;
-  transition: transform 0.3s ease, color 0.6s ease;
+  transition: transform 0.3s ease, color 0.6s ease, background-color 0.6s ease;
   font-weight: bold;
   text-decoration: none;
   line-height: 1.2rem;
   min-width: 1.4rem;
   border-radius: 3px;
-}
-
-.pager-button::before,
-.pager-button::after {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  content: "";
-  pointer-events: none;
-}
-
-.pager-button::before {
-  background: var(--color-accent);
-}
-
-.pager-button::after {
-  background: var(--color-accent-alt);
-  opacity: 0;
-  transition: opacity 0.6s ease;
 }
 
 .pager-button:hover {
@@ -262,24 +240,13 @@ onUnmounted(() => {
 
 .pager-button.selected {
   color: var(--color-accent);
-}
-
-.pager-button.selected::after {
-  opacity: 1;
+  background: var(--color-accent-alt);
 }
 
 .pager-button.ellipsis {
+  background: none;
   border-radius: 0;
   transition: none;
-}
-
-.pager-button.ellipsis::before,
-.pager-button.ellipsis::after {
-  content: none;
-}
-
-.pager-button.ellipsis:hover {
-  transform: none;
 }
 
 .pager-icon {
