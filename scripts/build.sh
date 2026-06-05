@@ -4,7 +4,6 @@ set -a
 set +a
 
 npm run build
-chmod +x ./dist/scripts/run.sh
 echo "✅ Successfully built web, get ready to build Docker Image!"
 
 rm -rf dist/config_processed/* dist/markdowns/* dist/markdowns_processed/*

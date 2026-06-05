@@ -7,5 +7,7 @@ WORKDIR /app
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY dist .
 
+RUN chmod +x /app/scripts/run.sh
+
 ENTRYPOINT ["/app/scripts/run.sh"]
 CMD ["nginx", "-g", "daemon off;"]
