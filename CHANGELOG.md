@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/tropical-algae/TABlog/compare/v3.0.0...v3.0.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* **docker:** fix Docker startup script permission issue ([bea8e80](https://github.com/tropical-algae/TABlog/commit/bea8e8004add07968c0127b299ef853b2e2781fe))
+
 # [3.0.0](https://github.com/tropical-algae/TABlog/compare/v2.6.1...v3.0.0) (2026-06-05)
 
 
