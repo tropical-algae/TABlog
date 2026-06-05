@@ -111,6 +111,11 @@ export function ensureDirExists(filepath) {
 }
 
 export function clearDirectory(dir) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true })
+    return
+  }
+
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     if (entry.name.startsWith('.')) continue; // 跳过隐藏文件/目录

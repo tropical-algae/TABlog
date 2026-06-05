@@ -50,8 +50,7 @@ jobs:
           VITE_SITE_TITLE: Reef Flats
         run: |
           npm run build
-          chmod +x ./dist/scripts/run.sh
-          rm -rf dist/config_processed/* dist/markdowns/* dist/markdowns_processed/*
+          rm -rf dist/config_processed/* dist/markdowns_processed/*
 
       - name: Upload | Save Build Artifacts for Docker
         if: steps.semantic.outputs.new_release_published == 'true'
