@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { fetchOk } from '@/utils/http'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { applyInitialTheme } from '@/utils/theme'
 
 export const useConfigStore = defineStore('config', () => {
   const config = ref(null)
@@ -38,6 +39,7 @@ export const useConfigStore = defineStore('config', () => {
     if (!config.value) {
       const res = await fetchOk(sourcePath)
       config.value = await res.json()
+      applyInitialTheme(colors.value)
     }
   }
 

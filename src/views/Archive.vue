@@ -238,7 +238,7 @@ onUnmounted(() => {
   height: 1.4rem;
   padding: 0.1rem 0.2rem;
   color: var(--color-accent-alt);
-  background: var(--color-accent);
+  background-color: var(--color-accent);
   text-align: center;
   transition: transform 0.3s ease, color 0.6s ease, background-color 0.6s ease;
   font-weight: bold;
@@ -254,11 +254,11 @@ onUnmounted(() => {
 
 .pager-button.selected {
   color: var(--color-accent);
-  background: var(--color-accent-alt);
+  background-color: var(--color-accent-alt);
 }
 
 .pager-button.ellipsis {
-  background: none;
+  background-color: none;
   border-radius: 0;
   transition: none;
 }

@@ -96,7 +96,7 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
   display: inline-block;
   padding: 0.15rem 0;
   color: var(--color-accent-alt);
-  background: var(--color-accent);
+  background-color: var(--color-accent);
   text-align: center;
   transition: color 0.5s ease, background-color 0.5s ease;
   text-decoration: none;
@@ -106,7 +106,8 @@ const isSelected = (tag) => postStore.selectedTags.includes(tag)
 
 .profile-home-link:hover {
   color: var(--color-accent);
-  background: var(--color-accent-alt);
+  background-color: var(--color-accent-alt);
+  outline: none;
 }
 
 .profile-bio {

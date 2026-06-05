@@ -12,9 +12,9 @@ export const MOTION_CANCEL = {
 }
 
 const baseEase = {
-  enter: "cubic-bezier(0.34, 1.28, 0.64, 1)",
-  fade: "cubic-bezier(0.22, 1, 0.36, 1)",
-  leave: "cubic-bezier(0.65, 0, 0.35, 1)"
+  enter: "cubic-bezier(0.34, 1, 0.64, 1)",
+  fade: "cubic-bezier(0.24, 1, 0.34, 1)",
+  leave: "cubic-bezier(0.64, 0, 0.34, 1)"
 }
 
 const defaultTransition = {
