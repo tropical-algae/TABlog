@@ -337,6 +337,14 @@ function prepareLeave(targets) {
   return targets.map(elem => ({ elem, ...buildLeaveFrames(elem) }))
 }
 
+function notifyEnterStart(runtime) {
+  try {
+    runtime.onEnterStart?.()
+  } catch (err) {
+    console.error("[motion enter start error]", err)
+  }
+}
+
 export function createMotionTransition(options = {}) {
   const config = {
     ...defaultTransition,
@@ -362,6 +370,7 @@ export function createMotionTransition(options = {}) {
       const targets = getTargets(root, config.scope)
       if (targets.length === 0 || shouldReduceMotion()) {
         targets.forEach(clearMotionStyles)
+        notifyEnterStart(runtime)
         done()
         return
       }
@@ -374,6 +383,7 @@ export function createMotionTransition(options = {}) {
         })
         .then(() => {
           if (run.cancelled) return Promise.resolve()
+          notifyEnterStart(runtime)
           return runPrepared(prepared, "enter", config, true)
         })
         .then(done)
@@ -398,7 +408,10 @@ export function createMotionTransition(options = {}) {
         .catch(err => {
           console.error("[motion ready error]", err)
         })
-        .then(() => runPrepared(prepared, "enter", config, true))
+        .then(() => {
+          notifyEnterStart(runtime)
+          return runPrepared(prepared, "enter", config, true)
+        })
         .then(done)
     },
 
@@ -413,6 +426,7 @@ export function createMotionTransition(options = {}) {
 
       if (targets.length === 0 || shouldReduceMotion()) {
         targets.forEach(clearMotionStyles)
+        notifyEnterStart(runtime)
         done()
         return Promise.resolve()
       }
@@ -428,6 +442,7 @@ export function createMotionTransition(options = {}) {
           if (runtime.deferStart) {
             await nextAnimationFrame()
           }
+          notifyEnterStart(runtime)
           return runPrepared(prepared, "enter", config, true)
         })
         .then(done)
@@ -471,7 +486,10 @@ export async function runInitialLoadMotion(scope, runtime = {}) {
   window.scrollTo({ top: 0, behavior: "instant" })
 
   const loader = document.getElementById("app-loader")
-  if (!loader) return
+  if (!loader) {
+    notifyEnterStart(runtime)
+    return
+  }
 
   const container = loader.querySelector(".loader-container")
   const fill = loader.querySelector(".loader-line-fill")
@@ -497,6 +515,8 @@ export async function runInitialLoadMotion(scope, runtime = {}) {
   await Promise.resolve(runtime.ready).catch(err => {
     console.error("[initial motion ready error]", err)
   })
+
+  notifyEnterStart(runtime)
 
   const pageMotion = createMotionTransition({
     scope,

@@ -34,6 +34,7 @@ import { useRoute } from "vue-router"
 import { preloadRouteChunksWhenIdle } from "@/utils/startup"
 import { MOTION_CANCEL, MOTION_SCOPES, createMotionTransition, runInitialLoadMotion } from "@/utils/animation"
 import { consumePageReady } from "@/utils/pageReady"
+import { startPageMotion } from "@/utils/pageMotion"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import FullScreenLayout from "@/layouts/FullScreenLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
@@ -74,7 +75,15 @@ const layoutComponent = computed(() => {
 })
 
 const onRouterEnter = (el, done) => {
-  routeMotion.enter(el, done, { ready: consumePageReady(route.fullPath) })
+  const motionKey = route.fullPath
+  routeMotion.enter(
+    el,
+    done,
+    {
+      ready: consumePageReady(motionKey),
+      onEnterStart: () => startPageMotion(motionKey)
+    }
+  )
 }
 
 const onRouterLeave = (el, done) => {
@@ -87,7 +96,15 @@ const onRouterCancel = (el) => {
 
 onMounted(async () => {
   await nextTick()
-  await runInitialLoadMotion(MOTION_SCOPES.route, { ready: consumePageReady(route.fullPath) })
+  const motionKey = route.fullPath
+  try {
+    await runInitialLoadMotion(MOTION_SCOPES.route, {
+      ready: consumePageReady(motionKey),
+      onEnterStart: () => startPageMotion(motionKey)
+    })
+  } finally {
+    startPageMotion(motionKey)
+  }
   preloadRouteChunksWhenIdle()
 })
 

@@ -29,13 +29,12 @@
 .not-found-page {
   display: flex;
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+
   padding: 2rem;
   overflow: hidden;
   isolation: isolate;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
 .not-found-grid {

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 import { initializeApp } from '@/utils/startup'
 import { usePostStore } from '@/stores/post'
 import { beginPageReady } from "@/utils/pageReady"
+import { beginPageMotion } from "@/utils/pageMotion"
 
 const Home = () => import("@/views/Home.vue")
 const Post = () => import("@/views/Post.vue")
@@ -74,7 +75,7 @@ const routes = [
     name: 'NotFound',
     component: NotFound,
     meta: {
-      "layout": "fullScreen",
+      "layout": "introOnly",
       "title": '404 - ' + siteTitle
     }
   },
@@ -91,6 +92,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   beginPageReady(to.fullPath)
+  beginPageMotion(to.fullPath)
   document.title = to.meta.title || siteTitle
   await initializeApp()
   next()

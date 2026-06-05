@@ -80,7 +80,9 @@
 import { useConfigStore } from "@/stores/config"
 import { usePostStore } from "@/stores/post"
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue"
+import { useRoute } from "vue-router"
 import { MOTION_CANCEL, MOTION_SCOPES, createMotionTransition } from "@/utils/animation"
+import { waitForPageMotionStart } from "@/utils/pageMotion"
 
 import BackIcon from "@/assets/icons/chevron-back.svg?component"
 import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
@@ -88,9 +90,11 @@ import TheNavbar from '@/components/layout/TheNavbar.vue'
 
 const postStore = usePostStore()
 const configStore = useConfigStore()
+const route = useRoute()
 // post tag 预览数量
 const postTagMaxNum = ref(3)
 const archiveListRoot = ref(null)
+let archiveMotionRunId = 0
 // 页码左侧的存留页数
 const frontDetain = ref(2)
 // 页码右侧的存留页数
@@ -181,13 +185,22 @@ const nextPage = () => {
 
 function runArchiveListMotion() {
   if (!archiveListRoot.value) return
-  return archiveListMotion.enterTargets(archiveListRoot.value, undefined, { deferStart: true })
+  return archiveListMotion.enterTargets(archiveListRoot.value)
+}
+
+async function runArchiveListMotionAtPageMotionStart() {
+  const runId = ++archiveMotionRunId
+  await waitForPageMotionStart(route.fullPath)
+  await nextTick()
+
+  if (runId !== archiveMotionRunId || !archiveListRoot.value) return
+  return runArchiveListMotion()
 }
 
 onMounted(async () => {
   await nextTick()
   updateMaxTags()
-  runArchiveListMotion()
+  runArchiveListMotionAtPageMotionStart()
   window.addEventListener("resize", updateMaxTags)
 })
 
@@ -195,12 +208,13 @@ watch(
   archiveListSignature,
   async () => {
     await nextTick()
-    runArchiveListMotion()
+    runArchiveListMotionAtPageMotionStart()
   },
   { flush: "post" }
 )
 
 onUnmounted(() => {
+  archiveMotionRunId++
   if (archiveListRoot.value) {
     archiveListMotion.cancel(archiveListRoot.value, { mode: MOTION_CANCEL.cleanup })
   }
