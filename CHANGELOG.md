@@ -1,3 +1,17 @@
+# [3.0.0](https://github.com/tropical-algae/TABlog/compare/v2.6.1...v3.0.0) (2026-06-05)
+
+
+### Bug Fixes
+
+* **markdown:** stabilize rendering and post routing ([f1e1e51](https://github.com/tropical-algae/TABlog/commit/f1e1e51beebff4cf3355d1170f37ee84f60c6c99))
+* **motion:** stabilize text rendering during transitions ([5e88bf1](https://github.com/tropical-algae/TABlog/commit/5e88bf111cd12368c24d59004ba1b9edc6f628ca))
+
+
+### Features
+
+* **motion:** replace gsap with native transitions ([8b33912](https://github.com/tropical-algae/TABlog/commit/8b33912531cd6d134d515c0aad10a80ab7ac736a))
+* **reliability:** add resilient startup and full-screen 404 page ([ce23fe6](https://github.com/tropical-algae/TABlog/commit/ce23fe6bc14a74a5f627479dfe1d8a02e0b64905))
+
 ## [2.6.1](https://github.com/tropical-algae/TABlog/compare/v2.6.0...v2.6.1) (2026-06-04)
 
 
