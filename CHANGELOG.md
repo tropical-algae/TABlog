@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/tropical-algae/TABlog/compare/v3.0.1...v3.0.2) (2026-06-05)
+
+
+### Bug Fixes
+
+* **docker:** fix missing folder issue ([11c713c](https://github.com/tropical-algae/TABlog/commit/11c713c5605df205f3674cec4f33b0c80d32f58c))
+
 ## [3.0.1](https://github.com/tropical-algae/TABlog/compare/v3.0.0...v3.0.1) (2026-06-05)
 
 
