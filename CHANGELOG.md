@@ -1,3 +1,14 @@
+## [3.0.3](https://github.com/tropical-algae/TABlog/compare/v3.0.2...v3.0.3) (2026-06-09)
+
+### Bug Fixes
+
+* **ui:** improve visual design and color palette ([1def507](https://github.com/tropical-algae/TABlog/commit/1def5079bca37f4d01741ab8e453e00965b8d002))
+
+### Chores
+
+* **deps:** update dependencies and optimize workflows ([15c5bac](https://github.com/tropical-algae/TABlog/commit/15c5baca66bcd07a7861151107d1bc6e173a7689))
+* **release:** add conventional changelog preset ([18ddcd6](https://github.com/tropical-algae/TABlog/commit/18ddcd6e684fa5fe1fc509f4cb8cdfcf9b387fdc))
+
 ## [3.0.2](https://github.com/tropical-algae/TABlog/compare/v3.0.1...v3.0.2) (2026-06-05)
 
 
