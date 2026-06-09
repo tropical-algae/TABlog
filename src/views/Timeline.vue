@@ -44,7 +44,7 @@ const months_map = [
   color: var(--color-accent-alt);
   text-align: center;
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .timeline-container {
@@ -107,7 +107,7 @@ const months_map = [
   font-size: clamp(1.1rem, 0.5vw + 1.1rem, 1.3rem);
   font-weight: bold;
   position: relative;
-  color: var(--color-accent-alt);
+  color: var(--color-accent);
   overflow-wrap: break-word;
 }
 

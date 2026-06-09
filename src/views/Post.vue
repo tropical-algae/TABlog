@@ -140,7 +140,7 @@ async function loadPost(titleToLoad, signal) {
     await nextTick()
     if (!isCurrentTask(taskId, signal)) return
 
-    await preloadImagesFromHtml(html, signal)
+    // await preloadImagesFromHtml(html, signal)
   } catch (err) {
     if (!isCurrentTask(taskId, signal) || isAbortError(err)) return
     console.error("[post load error]", err)

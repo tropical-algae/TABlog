@@ -7,6 +7,7 @@
 
 .post-title {
   margin: 0;
+  font-weight: 700;
   padding: 0 0 0.5rem;
 }
 
@@ -35,7 +36,7 @@
 .post-attribute table tr th:first-child {
   white-space: nowrap;
   color: var(--color-primary);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .post-attribute table tr td:not(:first-child),
@@ -103,7 +104,7 @@
   font-size: 0.875rem;
   white-space: pre-wrap;
 
-  /* border-left: 4px solid var(--color-accent); */
+  border-left: 5px solid var(--color-accent);
   background-color: rgb(0 0 0 / 8%);
   border-radius: 5px;
 

@@ -1,12 +1,12 @@
 .home-title {
   color: var(--color-accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .home-sub-title {
   padding: 0 2rem;
   color: var(--color-accent-alt);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .home-content {

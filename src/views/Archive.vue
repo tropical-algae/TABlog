@@ -1,7 +1,7 @@
 
 <template>
   <div class="flex-grow-1 d-flex flex-column h-auto px-1" style="overflow: visible;">
-    <h1 class="m-0 p-0 motion-slide-layer" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
+    <h1 class="archive-title motion-slide-layer" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
     <div ref="archiveListRoot" class="post-list-group flex-grow-1 py-1 px-2" data-motion-scope="route" data-motion="fade">
       <div class="post-list my-3">
         <div class="list-rail">
@@ -224,6 +224,14 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+
+.archive-title {
+  margin: 0;
+  padding: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
 /* 选页卡 */
 .archive-pager {
   padding-top: 1rem;
@@ -240,7 +248,7 @@ onUnmounted(() => {
   color: var(--color-accent-alt);
   background-color: var(--color-accent);
   text-align: center;
-  transition: transform 0.3s ease, color 0.6s ease, background-color 0.6s ease;
+  transition: transform 0.3s ease, color 0.4s ease, background-color 0.4s ease;
   font-weight: bold;
   text-decoration: none;
   line-height: 1.2rem;
@@ -267,7 +275,8 @@ onUnmounted(() => {
   width: auto; 
   height: 1.4rem;
   color: var(--color-accent);
-  transition: color 0.5s ease, opacity 0.5s ease;
+  transition: color 0.4s ease, opacity 0.4s ease,
+    fill 0.4s ease, stroke 0.4s ease;
   opacity: 0.8;
   fill: var(--color-accent);
   stroke: var(--color-accent);
@@ -278,6 +287,54 @@ onUnmounted(() => {
   fill: var(--color-accent-alt);
   color: var(--color-accent-alt);
   stroke: var(--color-accent-alt);
+}
+
+@media screen and (hover: none) and (pointer: coarse) {
+  .pager-button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pager-button:hover {
+    transform: none;
+  }
+
+  .pager-button:active {
+    transform: scale(0.96);
+  }
+
+  .pager-button.selected {
+    color: var(--color-accent);
+    background-color: var(--color-accent-alt);
+  }
+
+  .pager-button.ellipsis {
+    background-color: transparent;
+    border-radius: 0;
+    transition: none;
+  }
+
+  .pager-button.ellipsis:hover,
+  .pager-button.ellipsis:active {
+    transform: none;
+  }
+
+  .pager-icon {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pager-icon:hover {
+    opacity: 0.8;
+    fill: var(--color-accent);
+    color: var(--color-accent);
+    stroke: var(--color-accent);
+  }
+
+  .pager-icon:active {
+    opacity: 1;
+    fill: var(--color-accent-alt);
+    color: var(--color-accent-alt);
+    stroke: var(--color-accent-alt);
+  }
 }
 
 </style>

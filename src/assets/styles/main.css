@@ -93,13 +93,22 @@ body::before {
   font-size: 1.1rem;
 }
 
+.app-main-layout h1,
+.app-main-layout h2,
+.app-main-layout h3,
+.app-main-layout h4,
+.app-main-layout h5,
+.app-main-layout h6 {
+  font-weight: 700;
+}
+
 .app-main-layout a:not(.link-raw, .link-raw *) {
   display: inline-block;
   position: relative;
   padding: 0.15rem 0.5rem;
   color: var(--color-accent-alt);
   background-color: transparent;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.4s ease, color 0.2s ease;
   border-radius: 5px;
   font-weight: bold;
   text-decoration: none;
@@ -116,6 +125,19 @@ body::before {
 @media screen and (hover: none) and (pointer: coarse) {
   body::before {
     display: none;
+  }
+
+  .app-main-layout a:not(.link-raw, .link-raw *) {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .app-main-layout a:not(.link-raw, .link-raw *):hover {
+    background-color: transparent;
+  }
+
+  .app-main-layout a:not(.link-raw, .link-raw *):active {
+    color: var(--color-primary);
+    background-color: var(--color-accent);
   }
 
 }
