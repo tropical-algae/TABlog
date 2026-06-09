@@ -17,14 +17,16 @@ module.exports = {
     [
       "@semantic-release/release-notes-generator",
       {
+        preset: "conventionalcommits",
         presetConfig: {
           types: [
             { type: "feat", section: "Features" },
             { type: "fix", section: "Bug Fixes" },
             { type: "refactor", section: "Code Refactoring", hidden: false },
-            { type: "docs", release: "Update Docs", hidden: false },
-            { type: "chore", section: "Performance Improvements", hidden: false },
-            { type: "style", section: "Style", hidden: false }
+            { type: "docs", section: "Documentation", hidden: false },
+            { type: "chore", section: "Chores", hidden: false },
+            { type: "style", section: "Style", hidden: false },
+            { type: "update", section: "Major Updates", hidden: false }
           ]
         }
       }

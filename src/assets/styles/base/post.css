@@ -103,7 +103,6 @@
   /* font-style: italic; */
   font-size: 0.875rem;
   white-space: pre-wrap;
-
   border-left: 5px solid var(--color-accent);
   background-color: rgb(0 0 0 / 8%);
   border-radius: 5px;

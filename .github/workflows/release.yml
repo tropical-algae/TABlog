@@ -29,7 +29,7 @@ jobs:
       - name: Setup | Node.js Environment
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.15.0
           # check-latest: true
 
       - name: Setup | NPM Upgrade
@@ -41,6 +41,8 @@ jobs:
       - name: Release | Version Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v6
+        with:
+          semantic_version: 25
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,7 +56,7 @@ jobs:
 
       - name: Upload | Save Build Artifacts for Docker
         if: steps.semantic.outputs.new_release_published == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: web-dist
           path: dist/
@@ -76,7 +78,7 @@ jobs:
           ref: v${{ needs.release.outputs.tag }}
 
       - name: Download | Retrieve Build Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: web-dist
           path: dist/
