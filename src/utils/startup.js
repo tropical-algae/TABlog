@@ -26,7 +26,7 @@ export function initializeApp() {
         mapStore.reset()
         homeStore.reset()
         configStore.reset()
-        postStore.$reset()
+        postStore.reset()
         initPromise = null
         throw err
       })

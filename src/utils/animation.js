@@ -130,7 +130,7 @@ function createFrame(frame) {
 
 function getBaseFrame(elem, refresh = false) {
   const state = running.get(elem)
-  if (!refresh && state?.baseFrame) return state.baseFrame
+  if (state?.baseFrame) return state.baseFrame
 
   return readComputedFrame(elem)
 }
@@ -158,6 +158,7 @@ function cancelMotionElement(elem, options = MOTION_CANCEL.preserve) {
   const state = running.get(elem)
   if (!state?.animation) {
     if (mode === MOTION_CANCEL.cleanup) clearMotionStyles(elem)
+    running.delete(elem)
     return
   }
 
@@ -274,12 +275,13 @@ function startAnimation(elem, frames, timing, baseFrame, cleanup) {
 }
 
 function buildEnterFrames(elem, refreshBaseFrame = false) {
+  const state = running.get(elem)
   const baseFrame = {
     elem,
     ...getBaseFrame(elem, refreshBaseFrame)
   }
   const preset = getPreset(elem)
-  const fromFrame = running.get(elem)?.animation
+  const fromFrame = state
     ? readComputedFrame(elem)
     : preset.enterFrom(baseFrame)
 
@@ -422,7 +424,6 @@ export function createMotionTransition(options = {}) {
     enterTargets(root, done = () => {}, runtime = {}) {
       const run = beginRootRun(root)
       const targets = getTargets(root, config.scope)
-      targets.forEach(elem => cancelMotionElement(elem, MOTION_CANCEL.preserve))
 
       if (targets.length === 0 || shouldReduceMotion()) {
         targets.forEach(clearMotionStyles)
