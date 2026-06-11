@@ -1,13 +1,16 @@
 <template>
   <footer class="copyright-area">
-    <span 
-      class="text-center small link-raw" 
-      v-html="'&copy; ' + configStore.copyright"
-    ></span>
+    <LinkStyleScope variant="normal">
+      <span 
+        class="text-center small" 
+        v-html="'&copy; ' + configStore.copyright"
+      ></span>
+    </LinkStyleScope>
   </footer>
 </template>
 
 <script setup>
+import LinkStyleScope from '@/components/common/LinkStyleScope.vue'
 import { useConfigStore } from '@/stores/config';
 const configStore = useConfigStore()
 
@@ -26,20 +29,6 @@ const configStore = useConfigStore()
   transition: color 0.5s ease;
 }
 
-.copyright-area :deep(a) {
-  /* all: initial !important; */
-  /* font-weight: bold; */
-  text-decoration: none;
-  color: var(--color-primary-alt);
-  transition: color 0.5s ease;
-}
 
-.copyright-area :deep(a:hover) {
-  color: var(--color-accent-alt);
-}
-
-.copyright-area :deep(a:active) {
-  color: var(--color-primary);
-}
 
 </style>

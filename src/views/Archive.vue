@@ -1,6 +1,6 @@
 
 <template>
-  <div class="flex-grow-1 d-flex flex-column h-auto px-1" style="overflow: visible;">
+  <div class="flex-grow-1 d-flex flex-column h-auto" style="overflow: visible;">
     <h1 class="archive-title motion-slide-layer" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
     <div ref="archiveListRoot" class="post-list-group flex-grow-1 py-1 px-2" data-motion-scope="route" data-motion="fade">
       <div class="post-list my-3">
@@ -22,9 +22,11 @@
           >
             <RouterLink
               :to="{ name: 'Post', params: { title: post.title } }"
-              class="flex-grow-1 text-truncate post-link"
+              class="flex-grow-1 post-link"
             >
-              {{ post.title }}
+              <div class="text-truncate">
+                {{ post.title }}
+              </div>
             </RouterLink>
             <div class="flex-shrink-0">
               <span
@@ -46,29 +48,37 @@
     </div>
 
     <div class="archive-pager motion-slide-layer" data-motion-scope="route" data-motion="slide">
-      <RouterLink :to="{ name: 'Archive'}" class="link-raw" @click="prevPage">
-        <component :is="BackIcon" class="pager-icon" />
-      </RouterLink>
+      <LinkStyleScope variant="normal">
 
-      <template v-for="page in pages" :key="page">
-        <span v-if="page === '...'" class="pager-button ellipsis">
-          {{ page }}
-        </span>
-
-        <RouterLink
-          v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
-          class="pager-button link-raw" @click="goToPage(page)"
-        >
-          {{ page }}
+        <RouterLink :to="{ name: 'Archive'}" @click="prevPage">
+          <component :is="BackIcon" class="pagination-icon" />
         </RouterLink>
-      </template>
 
-      <RouterLink 
-        :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
-        class="link-raw" @click="nextPage"
-      >
-        <component :is="ForwardIcon" class="pager-icon" />
-      </RouterLink>
+        <LinkStyleScope variant="default" selectable>
+
+          <template v-for="page in pages" :key="page">
+            <span v-if="page === '...'" class="pagination-item ellipsis">
+              . . .
+            </span>
+
+            <RouterLink
+              v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
+              class="pagination-item" @click="goToPage(page)"
+            >
+              {{ page }}
+            </RouterLink>
+          </template>
+
+        </LinkStyleScope>
+
+        <RouterLink 
+          :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
+          @click="nextPage"
+        >
+          <component :is="ForwardIcon" class="pagination-icon" />
+        </RouterLink>
+
+      </LinkStyleScope>
     </div>
 
     <TheNavbar/>
@@ -87,6 +97,7 @@ import { waitForPageMotionStart } from "@/utils/pageMotion"
 import BackIcon from "@/assets/icons/chevron-back.svg?component"
 import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
 import TheNavbar from '@/components/layout/TheNavbar.vue'
+import LinkStyleScope from '@/components/common/LinkStyleScope.vue'
 
 const postStore = usePostStore()
 const configStore = useConfigStore()
@@ -242,99 +253,29 @@ onUnmounted(() => {
 }
 
 /* 选页按钮 */
-.pager-button {
-  height: 1.4rem;
-  padding: 0.1rem 0.2rem;
+.pagination-item {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 1.7rem;
+  min-width: 1.7rem;
+  padding: 0;
+}
+
+.pagination-item.ellipsis {
   color: var(--color-accent-alt);
-  background-color: var(--color-accent);
-  text-align: center;
-  transition: transform 0.3s ease, color 0.4s ease, background-color 0.4s ease;
-  font-weight: bold;
-  text-decoration: none;
-  line-height: 1.2rem;
-  min-width: 1.4rem;
-  border-radius: 3px;
+  font-weight: 700;
+  background-color: none !important;
+  border-radius: 0 !important;
+  transition: none !important;
 }
 
-.pager-button:hover {
-  transform: rotate(25deg);
-}
-
-.pager-button.selected {
-  color: var(--color-accent);
-  background-color: var(--color-accent-alt);
-}
-
-.pager-button.ellipsis {
-  background-color: none;
-  border-radius: 0;
-  transition: none;
-}
-
-.pager-icon {
+.pagination-icon {
   width: auto; 
-  height: 1.4rem;
-  color: var(--color-accent);
-  transition: color 0.4s ease, opacity 0.4s ease,
-    fill 0.4s ease, stroke 0.4s ease;
-  opacity: 0.8;
-  fill: var(--color-accent);
-  stroke: var(--color-accent);
-}
-
-.pager-icon:hover {
-  opacity: 1;
-  fill: var(--color-accent-alt);
-  color: var(--color-accent-alt);
-  stroke: var(--color-accent-alt);
-}
-
-@media screen and (hover: none) and (pointer: coarse) {
-  .pager-button {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .pager-button:hover {
-    transform: none;
-  }
-
-  .pager-button:active {
-    transform: scale(0.96);
-  }
-
-  .pager-button.selected {
-    color: var(--color-accent);
-    background-color: var(--color-accent-alt);
-  }
-
-  .pager-button.ellipsis {
-    background-color: transparent;
-    border-radius: 0;
-    transition: none;
-  }
-
-  .pager-button.ellipsis:hover,
-  .pager-button.ellipsis:active {
-    transform: none;
-  }
-
-  .pager-icon {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .pager-icon:hover {
-    opacity: 0.8;
-    fill: var(--color-accent);
-    color: var(--color-accent);
-    stroke: var(--color-accent);
-  }
-
-  .pager-icon:active {
-    opacity: 1;
-    fill: var(--color-accent-alt);
-    color: var(--color-accent-alt);
-    stroke: var(--color-accent-alt);
-  }
+  height: 1.7rem;
+  /* display: block; */
 }
 
 </style>

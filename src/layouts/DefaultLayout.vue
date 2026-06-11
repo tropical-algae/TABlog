@@ -1,7 +1,7 @@
 <template>
   <div class="container-md w-100 m-0 p-0">
     <div class="row align-items-start m-0 p-0">
-      <div class="col-md-9 col-12 pt-4 px-md-4 px-3 m-0 d-flex flex-column min-full-height">
+      <div class="col-md-9 col-12 pt-4 px-md-3 px-4 m-0 d-flex flex-column min-full-height">
         <div class="flex-grow-1 d-flex flex-column">
           <RouterView v-slot="{ Component }">
             <component :is="Component" :key="$route.fullPath" class="flex-grow-1" />
@@ -9,7 +9,7 @@
         </div>
         <TheFooter/>
       </div>
-      <div class="col-md-3 col-0 py-4 px-0 d-none d-md-block m-0 sticky-sidebar">
+      <div class="col-md-3 col-0 py-4 px-0 m-0 d-none d-md-block sticky-sidebar">
         <RouterView v-slot="{ Component }" name="postNavigator">
           <component :is="Component" :key="$route.fullPath" />
         </RouterView>

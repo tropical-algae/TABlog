@@ -49,8 +49,9 @@
 
 .post-content {
   padding: 0 0 1rem;
-  content-visibility: auto; 
-  contain: layout paint style;
+
+  /* content-visibility: auto; 
+  contain: layout paint style; */
   word-wrap: break-word;
 }
 
@@ -60,15 +61,16 @@
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  margin-top: 1.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
   color: var(--color-accent-alt);
 }
 
 /*********** 代码标 ***********/
 
 .post-content code {
-  font-size: 14px;
-  padding: 0.05rem 0.25rem;
+  /* font-size: 14px; */
+  padding: 0.05rem 0.35rem;
   color: var(--color-accent-alt);
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -118,13 +120,6 @@
 
 /*********** 链接 ***********/
 
-.post-content a, 
-.post-content a:visited, 
-.post-content a:hover {
-  color: var(--color-primary-alt);
-  text-decoration: none;
-}
-
 .post-content img {
   display: block;
   max-width: 100%;
@@ -150,24 +145,24 @@
   list-style-type: decimal;
 }
 
-.post-content ul {
+/* .post-content ul {
   display: block;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-left: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
 
-  /* list-style-type: circle; */
+  list-style-type: circle;
 }
 
 .post-content li {
   display: list-item;
-}
+} */
 
 .post-content table {
   display: block;
   width: max-content;
   max-width: 100%;
-  margin: 1em 0;
+  margin: 0 0 1rem;
   overflow-x: auto;
   border-collapse: collapse;
 }

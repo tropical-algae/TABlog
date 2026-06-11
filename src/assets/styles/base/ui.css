@@ -38,8 +38,10 @@
 
 .post-tag {
   display: inline-flex;
-  height: 1.1rem;
-  padding: 0 0.2rem;
+
+  /* height: 1.1rem; */
+  padding: 0 0.3rem !important;
+  font-weight: 400 !important;
   color: var(--color-accent-alt);
   background-color: var(--color-accent);
   transition: background-color 0.5s ease;
@@ -48,20 +50,17 @@
   user-select: none;
   text-decoration: none;
   white-space: nowrap;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
-.post-tag.selected {
-  color: var(--color-accent);
-  background-color: var(--color-accent-alt);
-}
 
 .post-tags {
   display: flex;
-  flex-wrap: wrap; /* 允许子元素自动换行 */
+  flex-wrap: wrap;
   max-height: 7.5rem;
-  overflow-y: auto;
-  gap: 0.4rem; /* 标签之间的间距 */
+
+  /* overflow-y: auto; */
+  gap: 0.4rem;
 }
 
 .split-line {

@@ -1,31 +1,33 @@
 <template>
-  <div class="app-shell">
-     <div :class="appContainerClass">
-      <div class="row align-items-start">
+  <LinkStyleScope>
+    <div class="app-shell">
+       <div :class="appContainerClass">
+        <div class="row align-items-start">
 
-        <div v-if="!isFullScreenLayout" class="col-md-2 col-0 py-4 px-0 d-none d-md-block mx-auto sticky-sidebar">
-          <ProfileSidebar/>
+          <div v-if="!isFullScreenLayout" class="col-md-2 col-0 py-4 px-3 d-none d-md-block mx-auto sticky-sidebar">
+            <ProfileSidebar/>
+          </div>
+
+          <div :class="contentColumnClass">
+            <transition
+              :css="false"
+              mode="out-in"
+              @leave="onRouterLeave"
+              @enter="onRouterEnter"
+              @enter-cancelled="onRouterCancel"
+              @leave-cancelled="onRouterCancel"
+            >
+              <component
+                :is="layoutComponent"
+                :key="route.fullPath"
+              />
+            </transition>
+          </div>
+
         </div>
-
-        <div :class="contentColumnClass">
-          <transition
-            :css="false"
-            mode="out-in"
-            @leave="onRouterLeave"
-            @enter="onRouterEnter"
-            @enter-cancelled="onRouterCancel"
-            @leave-cancelled="onRouterCancel"
-          >
-            <component
-              :is="layoutComponent"
-              :key="route.fullPath"
-            />
-          </transition>
-        </div>
-
       </div>
     </div>
-  </div>
+  </LinkStyleScope>
 </template>
 
 <script setup>
@@ -38,6 +40,7 @@ import { startPageMotion } from "@/utils/pageMotion"
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
 import FullScreenLayout from "@/layouts/FullScreenLayout.vue"
 import IntroOnlyLayout from "@/layouts/IntroOnlyLayout.vue"
+import LinkStyleScope from "@/components/common/LinkStyleScope.vue"
 import ProfileSidebar from "@/components/layout/ProfileSidebar.vue"
 
 const route = useRoute()

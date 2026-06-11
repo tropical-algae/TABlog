@@ -102,42 +102,8 @@ body::before {
   font-weight: 700;
 }
 
-.app-main-layout a:not(.link-raw, .link-raw *) {
-  display: inline-block;
-  position: relative;
-  padding: 0.15rem 0.5rem;
-  color: var(--color-accent-alt);
-  background-color: transparent;
-  transition: background-color 0.4s ease, color 0.2s ease;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.app-main-layout a:not(.link-raw, .link-raw *):hover {
-  background-color: var(--color-accent);
-}
-
-.app-main-layout a:not(.link-raw, .link-raw *):active {
-  color: var(--color-primary);
-}
-
 @media screen and (hover: none) and (pointer: coarse) {
   body::before {
     display: none;
   }
-
-  .app-main-layout a:not(.link-raw, .link-raw *) {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .app-main-layout a:not(.link-raw, .link-raw *):hover {
-    background-color: transparent;
-  }
-
-  .app-main-layout a:not(.link-raw, .link-raw *):active {
-    color: var(--color-primary);
-    background-color: var(--color-accent);
-  }
-
 }

@@ -14,12 +14,12 @@
 }
 
 .home-content code {
-  padding: 0.05rem 0.5rem;
+  padding: 0.05rem 0.35rem;
   color: var(--color-accent-alt);
   white-space: pre-wrap;
   word-wrap: break-word;
   background-color: var(--color-accent);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .home-content ul{

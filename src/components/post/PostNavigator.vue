@@ -14,8 +14,10 @@
             v-for="postTitle in relatedPost.titles" 
             class="d-flex justify-content-between align-items-center"
           >
-            <RouterLink :to="{ name: 'Post', params: {title: postTitle} }" class="post-link small text-truncate w-100">
-              {{ postTitle }}
+            <RouterLink :to="{ name: 'Post', params: {title: postTitle} }" class="post-link small w-100">
+              <div class="text-truncate">
+                {{ postTitle }}
+              </div>
             </RouterLink>
           </li>
         </ul>

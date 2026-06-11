@@ -1,6 +1,6 @@
 
 <template>
-  <div class="d-flex flex-column px-1" style="user-select: text;">
+  <div class="d-flex flex-column" style="user-select: text;">
     <div v-if="post" class="motion-slide-layer" data-motion-scope="route" data-motion="slide">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-attribute">
