@@ -1,3 +1,17 @@
+## [3.1.0](https://github.com/tropical-algae/TABlog/compare/v3.0.3...v3.1.0) (2026-06-11)
+
+### Features
+
+* **ui:** optimize the button animation ([9ae25e2](https://github.com/tropical-algae/TABlog/commit/9ae25e2f598ec2b401580a74e9c2c1c059c39db6))
+
+### Bug Fixes
+
+* **animation:** prevent animation interruption from causing display errors ([18b6f51](https://github.com/tropical-algae/TABlog/commit/18b6f51a2bfff2a5062d5ce26e5d89403f54191f))
+
+### Chores
+
+* **nginx:** tune static asset caching and update example markdown ([511a294](https://github.com/tropical-algae/TABlog/commit/511a29496856260592fdd3d1d66951227379a848))
+
 ## [3.0.3](https://github.com/tropical-algae/TABlog/compare/v3.0.2...v3.0.3) (2026-06-09)
 
 ### Bug Fixes
