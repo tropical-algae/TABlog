@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup | Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Setup | Node.js Environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.15.0
+          cache: npm
+
+      - name: Dependencies | Install Dependencies
+        run: npm ci
+
+      - name: Check | Lint, Test and Build
+        run: npm run check

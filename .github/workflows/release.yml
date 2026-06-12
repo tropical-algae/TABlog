@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24.15.0
+          cache: npm
           # check-latest: true
 
       - name: Setup | NPM Upgrade
@@ -37,6 +38,9 @@ jobs:
 
       - name: Dependencies | Install Dependencies
         run: npm ci
+
+      - name: Check | Lint, Test and Build
+        run: npm run check
 
       - name: Release | Version Release
         id: semantic
@@ -109,7 +113,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v6
         with:
-          images: tropicalalgae/tablog 
+          images: tropicalalgae/tablog
           tags: |
             type=raw,value=v${{ needs.release.outputs.tag }}
             type=raw,value=latest

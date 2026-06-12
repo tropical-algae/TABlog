@@ -12,14 +12,14 @@
 
 参考[.env.example](.env.example)，创建一份属于你的 `.env` 文件，示例配置如下：
 
-| 名称 | 介绍 |
-| --- | --- |
-| VITE_SITE_TITLE | 网页标题 |
-| VITE_WEB_PORT | Dev阶段绑定的端口 |
-| IMAGE_NAME | 打包的镜像名 |
-| IMAGE_VERSION | 打包的镜像版本 |
-| CONTAINER_PORT | 容器开放的端口 |
-| CONTAINER_MOUNT | 容器挂载的目录 |
+| 名称            | 介绍              |
+| --------------- | ----------------- |
+| VITE_SITE_TITLE | 网页标题          |
+| VITE_WEB_PORT   | Dev阶段绑定的端口 |
+| IMAGE_NAME      | 打包的镜像名      |
+| IMAGE_VERSION   | 打包的镜像版本    |
+| CONTAINER_PORT  | 容器开放的端口    |
+| CONTAINER_MOUNT | 容器挂载的目录    |
 
 #### 2. 一键构建与启动
 
