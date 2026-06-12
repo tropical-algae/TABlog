@@ -10,9 +10,9 @@ All blog content in this project lives inside the `markdowns/` directory. There 
 ## Option 1: Flat Structure
 
 ```
-markdowns/  
-├── first-post.md  
-├── second-post.md  
+markdowns/
+├── first-post.md
+├── second-post.md
 `── third-post.md
 ```
 
@@ -21,11 +21,11 @@ This works well for small projects with fewer articles.
 ## Option 2: Nested Structure
 
 ```
-markdowns/  
-├── tutorials/  
-│   ├── docker-intro.md  
-│   `── kubernetes-basics.md  
-`── research/  
+markdowns/
+├── tutorials/
+│   ├── docker-intro.md
+│   `── kubernetes-basics.md
+`── research/
     `── distributed-systems.md
 ```
 

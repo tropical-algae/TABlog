@@ -34,6 +34,7 @@ $$
 ```
 
 where:
+
 - $X$ is the design matrix
 - $y$ is the target vector
 - $\hat{\beta}$ is the estimated parameter vector
@@ -59,6 +60,7 @@ The expectation of a random variable $X$ is defined as:
 $$
 \mathbb{E}[X] = \int_{-\infty}^{\infty} x f(x) dx
 $$
+
 ```
 $$
 \mathbb{E}[X] = \int_{-\infty}^{\infty} x f(x) dx

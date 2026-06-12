@@ -14,6 +14,7 @@
     "lint:style:fix": "stylelint \"src/**/*.{css,vue}\" --fix",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
+    "fix": "npm run lint:fix && npm run format:fix",
     "check": "npm run lint && npm run format && npm test"
   },
   "dependencies": {

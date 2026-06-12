@@ -23,37 +23,37 @@ Markdown supports much more than plain paragraphs. This article demonstrates lis
 ## Nested List
 
 - Backend
-    - Node.js
-    - Python
+  - Node.js
+  - Python
 - Frontend
-    - React
-    - Vue
+  - React
+  - Vue
 - DevOps
-    - Docker
-    - Kubernetes
+  - Docker
+  - Kubernetes
 
 ## Task List
 
--  Design layout
--  Implement parser
--  Add search feature
--  Improve performance
+- Design layout
+- Implement parser
+- Add search feature
+- Improve performance
 
 ## Table Example
 
-|Feature|Supported|Notes|
-|---|---|---|
-|Headings|Yes|Up to 6 levels|
-|Tables|Yes|GFM compatible|
-|LaTeX|Yes|Requires renderer plugin|
-|Code Blocks|Yes|Syntax highlighting|
+| Feature     | Supported | Notes                    |
+| ----------- | --------- | ------------------------ |
+| Headings    | Yes       | Up to 6 levels           |
+| Tables      | Yes       | GFM compatible           |
+| LaTeX       | Yes       | Requires renderer plugin |
+| Code Blocks | Yes       | Syntax highlighting      |
 
 ## Code Block
 
 ```
-def fibonacci(n):  
-    if n <= 1:  
-        return n  
+def fibonacci(n):
+    if n <= 1:
+        return n
     return fibonacci(n-1) + fibonacci(n-2)
 ```
 
@@ -73,13 +73,19 @@ Here are some useful references:
 ## Header
 
 # Header 1
+
 ## Header 2
+
 ### Header 3
+
 #### Header 4
+
 ##### Header 5
+
 ###### Header 6
 
 ## Horizontal Rule
+
 ---
 
 Combining these features allows authors to create structured, expressive, and visually appealing articles without leaving a simple text editor.
