@@ -1,12 +1,12 @@
 const readyEntries = new Map()
-let activeReadyKey = ""
+let activeReadyKey = ''
 
 function normalizeKey(key) {
-  return key || activeReadyKey || "__default__"
+  return key || activeReadyKey || '__default__'
 }
 
 function createAbortError() {
-  return new DOMException("Page ready task aborted", "AbortError")
+  return new DOMException('Page ready task aborted', 'AbortError')
 }
 
 function ensureReadyEntry(key) {
@@ -47,10 +47,10 @@ export function beginPageReady(key) {
 
 export function registerPageReady(task, key) {
   const { readyKey, entry } = ensureReadyEntry(key)
-  const readyTask = typeof task === "function" ? task(entry.signal) : task
-  const readyPromise = Promise.resolve(readyTask).catch(err => {
-    if (err?.name !== "AbortError") {
-      console.error("[page ready error]", err)
+  const readyTask = typeof task === 'function' ? task(entry.signal) : task
+  const readyPromise = Promise.resolve(readyTask).catch((err) => {
+    if (err?.name !== 'AbortError') {
+      console.error('[page ready error]', err)
     }
   })
 

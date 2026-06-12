@@ -1,9 +1,12 @@
 {
   "extends": ["stylelint-config-standard"],
-  "plugins": [
-    "stylelint-order",
-    "@stylistic/stylelint-plugin"
+  "overrides": [
+    {
+      "files": ["**/*.vue"],
+      "customSyntax": "postcss-html"
+    }
   ],
+  "plugins": ["stylelint-order", "@stylistic/stylelint-plugin"],
   "rules": {
     "property-no-vendor-prefix": null,
     "@stylistic/indentation": 2,

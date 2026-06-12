@@ -9,12 +9,9 @@
       <div class="not-found-code" aria-label="404">404</div>
 
       <h1>Page not found.</h1>
-      <p>
-        The requested address is unavailable. It may have moved,
-        or it may never have existed.
-      </p>
+      <p>The requested address is unavailable. It may have moved, or it may never have existed.</p>
 
-      <hr class="split-line">
+      <hr class="split-line" />
 
       <nav class="not-found-actions" aria-label="Recovery links">
         <RouterLink :to="{ name: 'Home' }">Home...</RouterLink>
@@ -29,11 +26,12 @@
 .not-found-page {
   display: flex;
   position: relative;
-
   padding: 2rem;
   overflow: hidden;
   isolation: isolate;
+
   /* align-items: center; */
+
   /* justify-content: center; */
 }
 
@@ -60,6 +58,7 @@
   color: var(--color-accent-alt);
   font-size: 15rem;
   font-weight: bold;
+
   /* letter-spacing: -0.18em; */
   line-height: 0.85;
 }

@@ -1,54 +1,54 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory } from 'vue-router'
 import { initializeApp } from '@/utils/startup'
 import { usePostStore } from '@/stores/post'
-import { beginPageReady } from "@/utils/pageReady"
-import { beginPageMotion } from "@/utils/pageMotion"
+import { beginPageReady } from '@/utils/pageReady'
+import { beginPageMotion } from '@/utils/pageMotion'
 
-const Home = () => import("@/views/Home.vue")
-const Post = () => import("@/views/Post.vue")
-const Archive = () => import("@/views/Archive.vue")
-const Timeline = () => import("@/views/Timeline.vue")
-const NotFound = () => import("@/views/NotFound.vue")
-const PostNavigator = () => import("@/components/post/PostNavigator.vue")
+const Home = () => import('@/views/Home.vue')
+const Post = () => import('@/views/Post.vue')
+const Archive = () => import('@/views/Archive.vue')
+const Timeline = () => import('@/views/Timeline.vue')
+const NotFound = () => import('@/views/NotFound.vue')
+const PostNavigator = () => import('@/components/post/PostNavigator.vue')
 
-const siteTitle = import.meta.env.VITE_SITE_TITLE || 'My Blog';
+const siteTitle = import.meta.env.VITE_SITE_TITLE || 'My Blog'
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     components: {
-      default: Home,
+      default: Home
     },
     meta: {
-      "layout": "introOnly",
-      "title": siteTitle
+      layout: 'introOnly',
+      title: siteTitle
     }
   },
   {
-    path: "/archive",
-    name: "Archive",
+    path: '/archive',
+    name: 'Archive',
     components: {
-      default: Archive,
+      default: Archive
     },
     meta: {
-      "layout": "introOnly",
-      "title": 'Archive - ' + siteTitle
+      layout: 'introOnly',
+      title: 'Archive - ' + siteTitle
     }
   },
   {
-    path: "/timeline",
-    name: "Timeline",
+    path: '/timeline',
+    name: 'Timeline',
     components: {
-      default: Timeline,
+      default: Timeline
     },
     meta: {
-      "layout": "introOnly",
-      "title": 'Timeline - ' + siteTitle
+      layout: 'introOnly',
+      title: 'Timeline - ' + siteTitle
     }
   },
   {
-    path: "/post/:title",
-    name: "Post",
+    path: '/post/:title',
+    name: 'Post',
     components: {
       default: Post,
       postNavigator: PostNavigator
@@ -58,30 +58,30 @@ const routes = [
       postNavigator: true
     },
     meta: {
-      "layout": "default",
-      "title": 'Post - ' + siteTitle
+      layout: 'default',
+      title: 'Post - ' + siteTitle
     },
     beforeEnter: async (to) => {
       const postStore = usePostStore()
       if (!postStore.getPostByTitle(to.params.title)) {
-        return { name: "NotFound", query: { from: to.fullPath } }
+        return { name: 'NotFound', query: { from: to.fullPath } }
       }
 
       return true
-    },
+    }
   },
   {
     path: '/404',
     name: 'NotFound',
     component: NotFound,
     meta: {
-      "layout": "introOnly",
-      "title": '404 - ' + siteTitle
+      layout: 'introOnly',
+      title: '404 - ' + siteTitle
     }
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: to => ({ name: 'NotFound', query: { from: to.fullPath } })
+    redirect: (to) => ({ name: 'NotFound', query: { from: to.fullPath } })
   }
 ]
 

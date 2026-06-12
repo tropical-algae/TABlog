@@ -1,8 +1,14 @@
-
 <template>
-  <div class="flex-grow-1 d-flex flex-column h-auto" style="overflow: visible;">
-    <h1 class="archive-title motion-slide-layer" data-motion-scope="route" data-motion="slide">ARCHIVE</h1>
-    <div ref="archiveListRoot" class="post-list-group flex-grow-1 py-1 px-2" data-motion-scope="route" data-motion="fade">
+  <div class="flex-grow-1 d-flex flex-column h-auto" style="overflow: visible">
+    <h1 class="archive-title motion-slide-layer" data-motion-scope="route" data-motion="slide">
+      ARCHIVE
+    </h1>
+    <div
+      ref="archiveListRoot"
+      class="post-list-group flex-grow-1 py-1 px-2"
+      data-motion-scope="route"
+      data-motion="fade"
+    >
       <div class="post-list my-3">
         <div class="list-rail">
           <div class="rail-node top"></div>
@@ -30,7 +36,8 @@
             </RouterLink>
             <div class="flex-shrink-0">
               <span
-                v-for="tag in post.tags.slice(0, postTagMaxNum)" :key="tag"
+                v-for="tag in post.tags.slice(0, postTagMaxNum)"
+                :key="tag"
                 class="post-tag small ms-2"
               >
                 {{ tag }}
@@ -49,53 +56,50 @@
 
     <div class="archive-pager motion-slide-layer" data-motion-scope="route" data-motion="slide">
       <LinkStyleScope variant="normal">
-
-        <RouterLink :to="{ name: 'Archive'}" @click="prevPage">
+        <RouterLink :to="{ name: 'Archive' }" @click="prevPage">
           <component :is="BackIcon" class="pagination-icon" />
         </RouterLink>
 
         <LinkStyleScope variant="default" selectable>
-
           <template v-for="page in pages" :key="page">
-            <span v-if="page === '...'" class="pagination-item ellipsis">
-              . . .
-            </span>
+            <span v-if="page === '...'" class="pagination-item ellipsis"> . . . </span>
 
             <RouterLink
-              v-else :to="{ name: 'Archive'}" :class="{ 'selected': page === postStore.currentPage }"
-              class="pagination-item" @click="goToPage(page)"
+              v-else
+              :to="{ name: 'Archive' }"
+              :class="{ selected: page === postStore.currentPage }"
+              class="pagination-item"
+              @click="goToPage(page)"
             >
               {{ page }}
             </RouterLink>
           </template>
-
         </LinkStyleScope>
 
-        <RouterLink 
-          :to="{ name: 'Archive'}" :disabled="postStore.currentPage === totalPages"
+        <RouterLink
+          :to="{ name: 'Archive' }"
+          :disabled="postStore.currentPage === totalPages"
           @click="nextPage"
         >
           <component :is="ForwardIcon" class="pagination-icon" />
         </RouterLink>
-
       </LinkStyleScope>
     </div>
 
-    <TheNavbar/>
+    <TheNavbar />
   </div>
-
 </template>
 
 <script setup>
-import { useConfigStore } from "@/stores/config"
-import { usePostStore } from "@/stores/post"
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue"
-import { useRoute } from "vue-router"
-import { MOTION_CANCEL, MOTION_SCOPES, createMotionTransition } from "@/utils/animation"
-import { waitForPageMotionStart } from "@/utils/pageMotion"
+import { useConfigStore } from '@/stores/config'
+import { usePostStore } from '@/stores/post'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { MOTION_CANCEL, MOTION_SCOPES, createMotionTransition } from '@/utils/animation'
+import { waitForPageMotionStart } from '@/utils/pageMotion'
 
-import BackIcon from "@/assets/icons/chevron-back.svg?component"
-import ForwardIcon from "@/assets/icons/chevron-forward.svg?component"
+import BackIcon from '@/assets/icons/chevron-back.svg?component'
+import ForwardIcon from '@/assets/icons/chevron-forward.svg?component'
 import TheNavbar from '@/components/layout/TheNavbar.vue'
 import LinkStyleScope from '@/components/common/LinkStyleScope.vue'
 
@@ -125,11 +129,13 @@ const archiveListMotion = createMotionTransition({
 
 const totalPages = computed(() => postStore.getFilteredPages(configStore.pageSize))
 const visiblePosts = computed(() => postStore.getFilteredPaginatedPosts(configStore.pageSize))
-const archiveListSignature = computed(() => [
-  postStore.currentPage,
-  postStore.selectedTags.slice().sort().join(","),
-  visiblePosts.value.map(post => post.slug).join("|")
-].join("::"))
+const archiveListSignature = computed(() =>
+  [
+    postStore.currentPage,
+    postStore.selectedTags.slice().sort().join(','),
+    visiblePosts.value.map((post) => post.slug).join('|')
+  ].join('::')
+)
 
 function updateMaxTags() {
   const width = window.innerWidth
@@ -159,15 +165,16 @@ const pages = computed(() => {
 
   let frontStart = Math.max(1, postStore.currentPage - frontDetain.value)
   let frontEnd = Math.max(
-    frontStart, Math.min(totalPages.value - endDetain.value, postStore.currentPage + frontDetain.value)
+    frontStart,
+    Math.min(totalPages.value - endDetain.value, postStore.currentPage + frontDetain.value)
   )
   let rightStart = Math.max(frontEnd, totalPages.value - endDetain.value + 1)
 
   for (let i = frontStart; i <= frontEnd; i++) out.push(i)
   if (frontEnd < rightStart - 1) {
-    out.push("...")
+    out.push('...')
   } else if (frontStart > 1) {
-    out.unshift("...")
+    out.unshift('...')
   }
   for (let i = rightStart; i <= totalPages.value; i++) {
     if (!out.includes(i)) {
@@ -178,7 +185,7 @@ const pages = computed(() => {
 })
 
 const goToPage = (page) => {
-  if (page === "...") return
+  if (page === '...') return
   postStore.currentPage = page
 }
 
@@ -212,7 +219,7 @@ onMounted(async () => {
   await nextTick()
   updateMaxTags()
   runArchiveListMotionAtPageMotionStart()
-  window.addEventListener("resize", updateMaxTags)
+  window.addEventListener('resize', updateMaxTags)
 })
 
 watch(
@@ -221,7 +228,7 @@ watch(
     await nextTick()
     runArchiveListMotionAtPageMotionStart()
   },
-  { flush: "post" }
+  { flush: 'post' }
 )
 
 onUnmounted(() => {
@@ -229,13 +236,11 @@ onUnmounted(() => {
   if (archiveListRoot.value) {
     archiveListMotion.cancel(archiveListRoot.value, { mode: MOTION_CANCEL.cleanup })
   }
-  window.removeEventListener("resize", updateMaxTags)
+  window.removeEventListener('resize', updateMaxTags)
 })
-
 </script>
 
 <style scoped>
-
 .archive-title {
   margin: 0;
   padding: 0;
@@ -258,7 +263,6 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   height: 1.7rem;
   min-width: 1.7rem;
   padding: 0;
@@ -267,15 +271,15 @@ onUnmounted(() => {
 .pagination-item.ellipsis {
   color: var(--color-accent-alt);
   font-weight: 700;
-  background-color: none !important;
+  background-color: transparent !important;
   border-radius: 0 !important;
   transition: none !important;
 }
 
 .pagination-icon {
-  width: auto; 
+  width: auto;
   height: 1.7rem;
+
   /* display: block; */
 }
-
 </style>

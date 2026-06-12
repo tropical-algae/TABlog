@@ -1,22 +1,22 @@
-import { defineStore } from "pinia"
-import { computed, ref } from "vue"
-import { fetchOk } from "@/utils/http"
-import { getMarkedWithKatex } from "@/utils/markdown"
-import { sanitizeHtml } from "@/utils/sanitizeHtml"
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+import { fetchOk } from '@/utils/http'
+import { getMarkedWithKatex } from '@/utils/markdown'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 function throwIfAborted(signal) {
   if (signal?.aborted) {
-    throw signal.reason || new DOMException("Post loading aborted", "AbortError")
+    throw signal.reason || new DOMException('Post loading aborted', 'AbortError')
   }
 }
 
 function normalizeCreatedTime(value) {
-  if (!value) return ""
+  if (!value) return ''
 
-  const [year, month, day] = String(value).split("-")
+  const [year, month, day] = String(value).split('-')
   if (!year || !month || !day) return value
 
-  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }
 
 function normalizePost(post) {
@@ -28,9 +28,7 @@ function normalizePost(post) {
 }
 
 function sortPostsByCreatedTime(posts) {
-  return [...posts].sort(
-    (a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0)
-  )
+  return [...posts].sort((a, b) => new Date(b.created_time || 0) - new Date(a.created_time || 0))
 }
 
 function groupPostsByYearMonth(posts) {
@@ -74,7 +72,7 @@ function normalizePageSize(pageSize) {
   return Number.isFinite(size) && size > 0 ? size : 1
 }
 
-export const usePostStore = defineStore("post", () => {
+export const usePostStore = defineStore('post', () => {
   const posts = ref(null)
   const selectedTags = ref([])
   const currentPage = ref(1)
@@ -82,7 +80,7 @@ export const usePostStore = defineStore("post", () => {
 
   const postList = computed(() => posts.value ?? [])
   const sortedPosts = computed(() => sortPostsByCreatedTime(postList.value))
-  const tags = computed(() => [...new Set(postList.value.flatMap(post => post.tags))].sort())
+  const tags = computed(() => [...new Set(postList.value.flatMap((post) => post.tags))].sort())
   const getAllTags = computed(() => tags.value)
 
   const getFilteredPosts = computed(() => {
@@ -91,9 +89,7 @@ export const usePostStore = defineStore("post", () => {
     }
 
     const selected = new Set(selectedTags.value)
-    return sortedPosts.value.filter(post =>
-      post.tags.some(tag => selected.has(tag))
-    )
+    return sortedPosts.value.filter((post) => post.tags.some((tag) => selected.has(tag)))
   })
 
   const timeGroupPosts = computed(() => groupPostsByYearMonth(sortedPosts.value))
@@ -116,7 +112,7 @@ export const usePostStore = defineStore("post", () => {
   function unselectTag(tag) {
     if (!selectedTags.value.includes(tag)) return
 
-    selectedTags.value = selectedTags.value.filter(selectedTag => selectedTag !== tag)
+    selectedTags.value = selectedTags.value.filter((selectedTag) => selectedTag !== tag)
     currentPage.value = 1
   }
 
@@ -133,18 +129,18 @@ export const usePostStore = defineStore("post", () => {
   }
 
   function getPostByTitle(title) {
-    return postList.value.find(post => post.title === title) || null
+    return postList.value.find((post) => post.title === title) || null
   }
 
-  function getRelatedPosts(title = "", limit = 8) {
+  function getRelatedPosts(title = '', limit = 8) {
     const post = getPostByTitle(title)
     if (!post) return []
 
     return post.tags
-      .map(tag => {
+      .map((tag) => {
         const titles = postList.value
-          .filter(candidate => candidate.tags.includes(tag) && candidate.title !== title)
-          .map(candidate => candidate.title)
+          .filter((candidate) => candidate.tags.includes(tag) && candidate.title !== title)
+          .map((candidate) => candidate.title)
           .slice(0, limit)
 
         return titles.length > 0 ? { tag, titles } : null
@@ -154,7 +150,7 @@ export const usePostStore = defineStore("post", () => {
 
   async function fetchPostHtml(title, options = {}) {
     const post = getPostByTitle(title)
-    if (!post) throw new Error("Post not found")
+    if (!post) throw new Error('Post not found')
 
     if (postHtmlCache.has(title)) {
       return postHtmlCache.get(title)

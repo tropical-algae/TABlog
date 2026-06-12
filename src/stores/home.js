@@ -11,11 +11,9 @@ export const useHomeStore = defineStore('home', () => {
     if (!post.value) {
       const res = await fetchOk(sourcePath)
       const mdText = await res.text()
-      
-      const [{ marked }] = await Promise.all([
-        import("marked"),
-      ])
-      
+
+      const [{ marked }] = await Promise.all([import('marked')])
+
       post.value = sanitizeHtml(marked.parse(mdText))
     }
   }

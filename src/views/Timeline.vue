@@ -1,34 +1,54 @@
 <script setup>
-import { usePostStore } from "@/stores/post"
-import TheNavbar from "@/components/layout/TheNavbar.vue"
+import { usePostStore } from '@/stores/post'
+import TheNavbar from '@/components/layout/TheNavbar.vue'
 
 const postStore = usePostStore()
 const months_map = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
 </script>
 
 <template>
-  <div class="flex-grow-1 d-flex flex-column h-auto" style="overflow: hidden auto;">
-    <p class="timeline-title motion-slide-layer" data-motion-scope="route" data-motion="slide">TIMELINE</p>
+  <div class="flex-grow-1 d-flex flex-column h-auto" style="overflow: hidden auto">
+    <p class="timeline-title motion-slide-layer" data-motion-scope="route" data-motion="slide">
+      TIMELINE
+    </p>
     <div class="timeline-container flex-grow-1" data-motion-scope="route" data-motion="fade">
       <div class="timeline-content">
-        <div class="timeline-years-group" v-for="{ year, months } in postStore.timeGroupPosts">
+        <div
+          v-for="{ year, months } in postStore.timeGroupPosts"
+          :key="year"
+          class="timeline-years-group"
+        >
           <div class="timeline-label primary">{{ year }}</div>
           <div>
-            <div v-for="{month, posts} in months" class="timeline-months-group">
-                <div class="timeline-label">{{ months_map[month - 1] }}</div>
-                <RouterLink 
-                  v-for="post in posts"
-                  :to="{ name: 'Post', params: { title: post.title } }"
-                  class="post-link my-1"
-                >
-                  {{ post.title }}
-                </RouterLink>
-              </div>
+            <div
+              v-for="{ month, posts } in months"
+              :key="`${year}-${month}`"
+              class="timeline-months-group"
+            >
+              <div class="timeline-label">{{ months_map[month - 1] }}</div>
+              <RouterLink
+                v-for="post in posts"
+                :key="post.slug || post.title"
+                :to="{ name: 'Post', params: { title: post.title } }"
+                class="post-link my-1"
+              >
+                {{ post.title }}
+              </RouterLink>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,7 +86,6 @@ const months_map = [
 .timeline-container::-webkit-scrollbar {
   display: none;
 }
-
 
 .timeline-content {
   position: absolute;

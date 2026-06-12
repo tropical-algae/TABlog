@@ -1,20 +1,16 @@
 <template>
-  <div
-    class="link-style-scope"
-    :class="scopeClass"
-    :style="scopeStyle"
-  >
+  <div class="link-style-scope" :class="scopeClass" :style="scopeStyle">
     <slot />
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue"
+import { computed } from 'vue'
 
 const props = defineProps({
   variant: {
     type: String,
-    default: "default"  /* normal filled default */
+    default: 'default' /* normal filled default */
   },
   selectable: {
     type: Boolean,
@@ -22,7 +18,7 @@ const props = defineProps({
   },
   backgroundRadius: {
     type: String,
-    default: ""
+    default: ''
   },
   hoverScale: {
     type: Number,
@@ -30,42 +26,31 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: ""
+    default: ''
   },
   selectColor: {
     type: String,
-    default: ""
+    default: ''
   }
 })
 
-const scopeClass = computed(() => (
-  [
-    props.variant && props.variant !== "default" ? `link-style-scope-${props.variant}` : "",
-    { "link-style-scope-selectable": props.selectable }
-  ]
-))
+const scopeClass = computed(() => [
+  props.variant && props.variant !== 'default' ? `link-style-scope-${props.variant}` : '',
+  { 'link-style-scope-selectable': props.selectable }
+])
 
-const scopeStyle = computed(() => (
-  [
-    props.color
-      ? { "--bubble-link-color": props.color }
-      : undefined,
-    props.selectColor
-      ? { "--bubble-link-hover-color": props.selectColor }
-      : undefined,
-    props.backgroundRadius
-      ? { "--bubble-link-border-radius": props.backgroundRadius }
-      : undefined,
-    props.hoverScale
-      ? { "--bubble-link-hover-scale": props.hoverScale }
-      : undefined
-    ]
-))
+const scopeStyle = computed(() => [
+  props.color ? { '--bubble-link-color': props.color } : undefined,
+  props.selectColor ? { '--bubble-link-hover-color': props.selectColor } : undefined,
+  props.backgroundRadius ? { '--bubble-link-border-radius': props.backgroundRadius } : undefined,
+  props.hoverScale ? { '--bubble-link-hover-scale': props.hoverScale } : undefined
+])
 </script>
 
 <style scoped>
 .link-style-scope {
   display: contents;
+
   --bubble-link-weight: 700;
   --bubble-link-border-radius: 6px;
   --bubble-link-color: var(--color-accent-alt);
@@ -77,6 +62,8 @@ const scopeStyle = computed(() => (
   --bubble-link-bg-opacity: 0;
   --bubble-link-hover-bg-opacity: 1;
   --bubble-link-active-bg-opacity: 1;
+  --bubble-link-z-index: 0;
+  --bubble-link-active-z-index: 1;
   --bubble-link-padding: 0.15rem 0.5rem;
   --bubble-link-bg-scale: 0.85;
   --bubble-link-hover-scale: 1;
@@ -91,7 +78,6 @@ const scopeStyle = computed(() => (
   --bubble-link-border-radius: 3px;
   --bubble-link-color: var(--color-accent-alt);
   --bubble-link-bg: var(--color-accent);
-
   --bubble-link-hover-color: var(--color-accent);
   --bubble-link-hover-bg: var(--color-accent-alt);
   --bubble-link-active-color: var(--bubble-link-hover-color);
@@ -105,10 +91,8 @@ const scopeStyle = computed(() => (
 .link-style-scope-normal {
   --bubble-link-weight: 400;
   --bubble-link-padding: 0;
-
   --bubble-link-color: var(--color-accent);
   --bubble-link-bg: var(--color-accent-alt);
-
   --bubble-link-hover-color: var(--color-accent-alt);
   --bubble-link-hover-bg: var(--color-accent-alt);
   --bubble-link-bg-opacity: 0;
@@ -117,29 +101,28 @@ const scopeStyle = computed(() => (
   --bubble-link-bg-scale: 1;
   --bubble-link-hover-scale: 1;
   --bubble-link-active-scale: 1;
-
   --bubble-link-color-duration: 0.35s;
 }
 
 .link-style-scope :where(a) {
   display: inline-block;
   position: relative;
-  font-weight: var(--bubble-link-weight);
+  z-index: var(--bubble-link-z-index);
   padding: var(--bubble-link-padding);
-  z-index: 0;
   color: var(--bubble-link-color);
+  transition:
+    color var(--bubble-link-color-duration) ease,
+    fill var(--bubble-link-color-duration) ease,
+    stroke var(--bubble-link-color-duration) ease;
+  font-weight: var(--bubble-link-weight);
   fill: var(--bubble-link-color);
   stroke: var(--bubble-link-color);
   background-color: transparent;
   text-decoration: none;
-  transition: 
-    color var(--bubble-link-color-duration) ease,
-    fill var(--bubble-link-color-duration) ease,
-    stroke var(--bubble-link-color-duration) ease;
 }
 
 .link-style-scope :where(a)::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -156,6 +139,7 @@ const scopeStyle = computed(() => (
 }
 
 .link-style-scope :where(a:hover, a:focus-visible) {
+  z-index: var(--bubble-link-active-z-index);
   color: var(--bubble-link-hover-color);
   fill: var(--bubble-link-hover-color);
   stroke: var(--bubble-link-hover-color);
@@ -169,6 +153,7 @@ const scopeStyle = computed(() => (
 }
 
 .link-style-scope :where(a:active) {
+  z-index: var(--bubble-link-active-z-index);
   color: var(--bubble-link-active-color);
   fill: var(--bubble-link-active-color);
   stroke: var(--bubble-link-active-color);
@@ -188,11 +173,11 @@ const scopeStyle = computed(() => (
   --bubble-link-bg-opacity: 1;
   --bubble-link-hover-bg-opacity: 1;
   --bubble-link-active-bg-opacity: 1;
+
   background-color: var(--bubble-link-color);
 }
 
 @media screen and (hover: none) and (pointer: coarse) {
-
   .link-style-scope :where(a) {
     -webkit-tap-highlight-color: transparent;
   }
@@ -224,6 +209,5 @@ const scopeStyle = computed(() => (
   .link-style-scope-selectable :where(a.selected, a.selected:hover)::before {
     background-color: var(--color-accent-alt);
   }
-
 }
 </style>

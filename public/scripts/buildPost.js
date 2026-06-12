@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { 
-  getFiles, 
+import {
+  getFiles,
   sortFiles,
-  clearDirectory, 
+  clearDirectory,
   movePosts,
   moveConfig,
   buildPostIndex

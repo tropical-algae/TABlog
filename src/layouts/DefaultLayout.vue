@@ -7,7 +7,7 @@
             <component :is="Component" :key="$route.fullPath" class="flex-grow-1" />
           </RouterView>
         </div>
-        <TheFooter/>
+        <TheFooter />
       </div>
       <div class="col-md-3 col-0 py-4 px-0 m-0 d-none d-md-block sticky-sidebar">
         <RouterView v-slot="{ Component }" name="postNavigator">
@@ -19,5 +19,5 @@
 </template>
 
 <script setup>
-import TheFooter from "@/components/layout/TheFooter.vue"
+import TheFooter from '@/components/layout/TheFooter.vue'
 </script>

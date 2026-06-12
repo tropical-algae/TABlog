@@ -10,7 +10,7 @@
   height: 100%;
   background-color: var(--color-primary);
   border-radius: 3px;
-  transform-origin: top; 
+  transform-origin: top;
 }
 
 .rail-node {
@@ -45,7 +45,7 @@
   max-height: 100vh;
   max-height: 100dvh;
   overflow-y: auto;
-  transform: translateZ(0); 
+  transform: translateZ(0);
   backface-visibility: hidden;
 }
 

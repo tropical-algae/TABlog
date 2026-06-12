@@ -1,20 +1,20 @@
-const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-const coarsePointerQuery = window.matchMedia("(hover: none) and (pointer: coarse)")
+const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+const coarsePointerQuery = window.matchMedia('(hover: none) and (pointer: coarse)')
 
 export const MOTION_SCOPES = {
-  route: "route",
-  archiveList: "archive-list"
+  route: 'route',
+  archiveList: 'archive-list'
 }
 
 export const MOTION_CANCEL = {
-  preserve: "preserve",
-  cleanup: "cleanup"
+  preserve: 'preserve',
+  cleanup: 'cleanup'
 }
 
 const baseEase = {
-  enter: "cubic-bezier(0.34, 1, 0.64, 1)",
-  fade: "cubic-bezier(0.24, 1, 0.34, 1)",
-  leave: "cubic-bezier(0.64, 0, 0.34, 1)"
+  enter: 'cubic-bezier(0.34, 1, 0.64, 1)',
+  fade: 'cubic-bezier(0.24, 1, 0.34, 1)',
+  leave: 'cubic-bezier(0.64, 0, 0.34, 1)'
 }
 
 const defaultTransition = {
@@ -33,27 +33,27 @@ const defaultTransition = {
 const presets = {
   fade: {
     enterFrom: () => ({ opacity: 0 }),
-    enterTo: base => ({ opacity: base.opacity }),
+    enterTo: (base) => ({ opacity: base.opacity }),
     enterEasing: baseEase.fade
   },
   slide: {
-    enterFrom: base => ({
+    enterFrom: (base) => ({
       opacity: 0,
       transform: composeTransform(base.transform, getSlideTransform(base.elem))
     }),
-    enterTo: base => ({
+    enterTo: (base) => ({
       opacity: base.opacity,
-      transform: composeTransform(base.transform, "translate(0, 0)")
+      transform: composeTransform(base.transform, 'translate(0, 0)')
     })
   },
   scale: {
-    enterFrom: base => ({
+    enterFrom: (base) => ({
       opacity: 0,
-      transform: composeTransform(base.transform, "scale3d(0, 0, 1)")
+      transform: composeTransform(base.transform, 'scale3d(0, 0, 1)')
     }),
-    enterTo: base => ({
+    enterTo: (base) => ({
       opacity: base.opacity,
-      transform: composeTransform(base.transform, "scale3d(1, 1, 1)")
+      transform: composeTransform(base.transform, 'scale3d(1, 1, 1)')
     })
   }
 }
@@ -66,7 +66,7 @@ function shouldReduceMotion() {
 }
 
 function nextAnimationFrame() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     requestAnimationFrame(resolve)
   })
 }
@@ -83,13 +83,11 @@ function getSlideTransform(elem) {
 }
 
 function composeTransform(baseTransform, motionTransform) {
-  return baseTransform
-    ? `${baseTransform} ${motionTransform}`
-    : motionTransform
+  return baseTransform ? `${baseTransform} ${motionTransform}` : motionTransform
 }
 
 function normalizeTransform(transform) {
-  return transform && transform !== "none" ? transform : ""
+  return transform && transform !== 'none' ? transform : ''
 }
 
 function toNumber(value, fallback) {
@@ -98,7 +96,7 @@ function toNumber(value, fallback) {
 }
 
 function escapeScope(scope) {
-  return String(scope).replace(/["\\]/g, "\\$&")
+  return String(scope).replace(/["\\]/g, '\\$&')
 }
 
 function getScopeSelector(scope) {
@@ -109,7 +107,7 @@ function readComputedFrame(elem) {
   const style = getComputedStyle(elem)
   return createFrame({
     elem,
-    opacity: style.opacity || "1",
+    opacity: style.opacity || '1',
     transform: normalizeTransform(style.transform)
   })
 }
@@ -117,7 +115,7 @@ function readComputedFrame(elem) {
 function createFrame(frame) {
   const normalized = {}
 
-  if ("opacity" in frame) {
+  if ('opacity' in frame) {
     normalized.opacity = frame.opacity
   }
 
@@ -128,7 +126,7 @@ function createFrame(frame) {
   return normalized
 }
 
-function getBaseFrame(elem, refresh = false) {
+function getBaseFrame(elem) {
   const state = running.get(elem)
   if (state?.baseFrame) return state.baseFrame
 
@@ -145,11 +143,11 @@ function beginRootRun(root) {
 }
 
 function normalizeCancelMode(options = MOTION_CANCEL.preserve) {
-  if (typeof options === "boolean") {
+  if (typeof options === 'boolean') {
     return options ? MOTION_CANCEL.cleanup : MOTION_CANCEL.preserve
   }
 
-  const mode = typeof options === "string" ? options : options.mode
+  const mode = typeof options === 'string' ? options : options.mode
   return Object.values(MOTION_CANCEL).includes(mode) ? mode : MOTION_CANCEL.preserve
 }
 
@@ -175,22 +173,22 @@ function cancelMotionElement(elem, options = MOTION_CANCEL.preserve) {
 
 function cancelTargets(root, scope, options = MOTION_CANCEL.preserve) {
   beginRootRun(root)
-  getTargets(root, scope).forEach(elem => cancelMotionElement(elem, options))
+  getTargets(root, scope).forEach((elem) => cancelMotionElement(elem, options))
 }
 
 function applyFrame(elem, frame) {
-  if ("opacity" in frame) {
+  if ('opacity' in frame) {
     elem.style.opacity = String(frame.opacity)
   }
 
-  if ("transform" in frame) {
-    elem.style.transform = frame.transform || ""
+  if ('transform' in frame) {
+    elem.style.transform = frame.transform || ''
   }
 }
 
 function clearMotionStyles(elem) {
-  elem.style.opacity = ""
-  elem.style.transform = ""
+  elem.style.opacity = ''
+  elem.style.transform = ''
 }
 
 function getPreset(elem) {
@@ -227,12 +225,12 @@ function getTiming(elem, phase, index, options) {
     duration: toNumber(elem.dataset.motionDuration, phaseOptions.duration ?? defaults.duration),
     delay: toNumber(elem.dataset.motionDelay, staggerIndex * stagger),
     easing: elem.dataset.motionEase || phaseOptions.easing || preset.enterEasing || defaults.easing,
-    fill: "both"
+    fill: 'both'
   }
 }
 
 function hasTransform(frames) {
-  return frames.some(frame => "transform" in frame)
+  return frames.some((frame) => 'transform' in frame)
 }
 
 function finishMotionStyles(elem, frames, cleanup) {
@@ -240,8 +238,8 @@ function finishMotionStyles(elem, frames, cleanup) {
 
   if (hasTransform(frames)) {
     const finalFrame = frames[frames.length - 1]
-    elem.style.opacity = ""
-    elem.style.transform = finalFrame.transform || ""
+    elem.style.opacity = ''
+    elem.style.transform = finalFrame.transform || ''
     return
   }
 
@@ -255,9 +253,7 @@ function startAnimation(elem, frames, timing, baseFrame, cleanup) {
   }
 
   const previous = running.get(elem)
-  const currentFrame = previous?.animation
-    ? readComputedFrame(elem)
-    : frames[0]
+  const currentFrame = previous?.animation ? readComputedFrame(elem) : frames[0]
 
   previous?.animation?.cancel()
   applyFrame(elem, currentFrame)
@@ -274,23 +270,18 @@ function startAnimation(elem, frames, timing, baseFrame, cleanup) {
     })
 }
 
-function buildEnterFrames(elem, refreshBaseFrame = false) {
+function buildEnterFrames(elem) {
   const state = running.get(elem)
   const baseFrame = {
     elem,
-    ...getBaseFrame(elem, refreshBaseFrame)
+    ...getBaseFrame(elem)
   }
   const preset = getPreset(elem)
-  const fromFrame = state
-    ? readComputedFrame(elem)
-    : preset.enterFrom(baseFrame)
+  const fromFrame = state ? readComputedFrame(elem) : preset.enterFrom(baseFrame)
 
   return {
     baseFrame,
-    frames: [
-      fromFrame,
-      preset.enterTo(baseFrame)
-    ]
+    frames: [fromFrame, preset.enterTo(baseFrame)]
   }
 }
 
@@ -313,9 +304,9 @@ function buildLeaveFrames(elem) {
   }
 }
 
-function primeEnter(targets, options = {}) {
-  const prepared = targets.map(elem => {
-    const item = buildEnterFrames(elem, options.refreshBaseFrame)
+function primeEnter(targets) {
+  const prepared = targets.map((elem) => {
+    const item = buildEnterFrames(elem)
     return { elem, ...item }
   })
 
@@ -336,14 +327,14 @@ function runPrepared(prepared, phase, options, cleanup) {
 }
 
 function prepareLeave(targets) {
-  return targets.map(elem => ({ elem, ...buildLeaveFrames(elem) }))
+  return targets.map((elem) => ({ elem, ...buildLeaveFrames(elem) }))
 }
 
 function notifyEnterStart(runtime) {
   try {
     runtime.onEnterStart?.()
   } catch (err) {
-    console.error("[motion enter start error]", err)
+    console.error('[motion enter start error]', err)
   }
 }
 
@@ -366,7 +357,7 @@ export function createMotionTransition(options = {}) {
       const run = beginRootRun(root)
 
       if (config.scrollToTop) {
-        window.scrollTo({ top: 0, behavior: "instant" })
+        window.scrollTo({ top: 0, behavior: 'instant' })
       }
 
       const targets = getTargets(root, config.scope)
@@ -380,13 +371,13 @@ export function createMotionTransition(options = {}) {
       const prepared = primeEnter(targets)
 
       Promise.resolve(runtime.ready)
-        .catch(err => {
-          console.error("[motion ready error]", err)
+        .catch((err) => {
+          console.error('[motion ready error]', err)
         })
         .then(() => {
           if (run.cancelled) return Promise.resolve()
           notifyEnterStart(runtime)
-          return runPrepared(prepared, "enter", config, true)
+          return runPrepared(prepared, 'enter', config, true)
         })
         .then(done)
     },
@@ -400,25 +391,25 @@ export function createMotionTransition(options = {}) {
         return
       }
 
-      runPrepared(prepareLeave(targets), "leave", config, false).then(done)
+      runPrepared(prepareLeave(targets), 'leave', config, false).then(done)
     },
 
     enterElement(elem, done, runtime = {}) {
       const prepared = primeEnter([elem])
 
       Promise.resolve(runtime.ready)
-        .catch(err => {
-          console.error("[motion ready error]", err)
+        .catch((err) => {
+          console.error('[motion ready error]', err)
         })
         .then(() => {
           notifyEnterStart(runtime)
-          return runPrepared(prepared, "enter", config, true)
+          return runPrepared(prepared, 'enter', config, true)
         })
         .then(done)
     },
 
     leaveElement(elem, done) {
-      runPrepared(prepareLeave([elem]), "leave", config, false).then(done)
+      runPrepared(prepareLeave([elem]), 'leave', config, false).then(done)
     },
 
     enterTargets(root, done = () => {}, runtime = {}) {
@@ -432,11 +423,11 @@ export function createMotionTransition(options = {}) {
         return Promise.resolve()
       }
 
-      const prepared = primeEnter(targets, { refreshBaseFrame: true })
+      const prepared = primeEnter(targets)
 
       return Promise.resolve(runtime.ready)
-        .catch(err => {
-          console.error("[motion ready error]", err)
+        .catch((err) => {
+          console.error('[motion ready error]', err)
         })
         .then(async () => {
           if (run.cancelled) return Promise.resolve()
@@ -444,7 +435,7 @@ export function createMotionTransition(options = {}) {
             await nextAnimationFrame()
           }
           notifyEnterStart(runtime)
-          return runPrepared(prepared, "enter", config, true)
+          return runPrepared(prepared, 'enter', config, true)
         })
         .then(done)
     },
@@ -465,7 +456,7 @@ function animateProgress(duration, onUpdate) {
     return Promise.resolve()
   }
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const start = performance.now()
 
     function update(now) {
@@ -484,37 +475,38 @@ function animateProgress(duration, onUpdate) {
 }
 
 export async function runInitialLoadMotion(scope, runtime = {}) {
-  window.scrollTo({ top: 0, behavior: "instant" })
+  window.scrollTo({ top: 0, behavior: 'instant' })
 
-  const loader = document.getElementById("app-loader")
+  const loader = document.getElementById('app-loader')
   if (!loader) {
     notifyEnterStart(runtime)
     return
   }
 
-  const container = loader.querySelector(".loader-container")
-  const fill = loader.querySelector(".loader-line-fill")
-  const percent = loader.querySelector(".status-percent")
-  const text = loader.querySelector(".status-text")
+  const container = loader.querySelector('.loader-container')
+  const fill = loader.querySelector('.loader-line-fill')
+  const percent = loader.querySelector('.status-percent')
+  const text = loader.querySelector('.status-text')
   const fillDuration = 650
 
   if (fill?.animate && !shouldReduceMotion()) {
-    fill.animate(
-      [{ width: "0%" }, { width: "100%" }],
-      { duration: fillDuration, easing: baseEase.leave, fill: "forwards" }
-    )
+    fill.animate([{ width: '0%' }, { width: '100%' }], {
+      duration: fillDuration,
+      easing: baseEase.leave,
+      fill: 'forwards'
+    })
   }
 
-  await animateProgress(fillDuration, progress => {
+  await animateProgress(fillDuration, (progress) => {
     const value = Math.round(progress * 100)
-    if (percent) percent.innerText = value < 100 ? `0${value}%`.slice(-3) : "OK"
+    if (percent) percent.innerText = value < 100 ? `0${value}%`.slice(-3) : 'OK'
   })
 
-  if (fill) fill.style.width = "100%"
-  if (text) text.textContent = "DONE."
+  if (fill) fill.style.width = '100%'
+  if (text) text.textContent = 'DONE.'
 
-  await Promise.resolve(runtime.ready).catch(err => {
-    console.error("[initial motion ready error]", err)
+  await Promise.resolve(runtime.ready).catch((err) => {
+    console.error('[initial motion ready error]', err)
   })
 
   notifyEnterStart(runtime)
@@ -534,15 +526,12 @@ export async function runInitialLoadMotion(scope, runtime = {}) {
 
       return startAnimation(
         elem,
-        [
-          frame,
-          createFrame({ opacity: 0, transform: frame.transform })
-        ],
+        [frame, createFrame({ opacity: 0, transform: frame.transform })],
         {
           duration: 420,
           delay: index * 80,
           easing: baseEase.leave,
-          fill: "both"
+          fill: 'both'
         },
         frame,
         false
@@ -550,7 +539,7 @@ export async function runInitialLoadMotion(scope, runtime = {}) {
     })
   ).then(() => loader.remove())
 
-  const enterPage = new Promise(resolve => {
+  const enterPage = new Promise((resolve) => {
     pageMotion.enter(document, resolve)
   })
 

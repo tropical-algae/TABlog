@@ -1,39 +1,32 @@
 <template>
   <div class="nav-container">
-    <hr class="split-line motion-slide-layer" data-motion-scope="route" data-motion="slide"/>
+    <hr class="split-line motion-slide-layer" data-motion-scope="route" data-motion="slide" />
     <ul>
       <li class="motion-slide-layer" data-motion-scope="route" data-motion="slide">
-        <RouterLink :to="{ name: 'Timeline'}">
-          Timeline...
-        </RouterLink>
+        <RouterLink :to="{ name: 'Timeline' }"> Timeline... </RouterLink>
       </li>
       <li class="motion-slide-layer" data-motion-scope="route" data-motion="slide">
-        <RouterLink :to="{ name: 'Archive'}">
-          Archive...
-        </RouterLink>
+        <RouterLink :to="{ name: 'Archive' }"> Archive... </RouterLink>
       </li>
       <li class="motion-slide-layer" data-motion-scope="route" data-motion="slide">
-        <RouterLink :to="{ name: 'Home'}">
-          Home...
-        </RouterLink>
+        <RouterLink :to="{ name: 'Home' }"> Home... </RouterLink>
       </li>
     </ul>
   </div>
 </template>
 
 <style scoped>
-
 .nav-container {
   margin: 0;
   padding: 0 0 1rem;
 }
 
-.nav-container ul{
+.nav-container ul {
   margin: 0;
   padding: 0;
 }
 
-.nav-container ul li{
+.nav-container ul li {
   margin-right: 0;
   margin-left: 0;
   padding-bottom: 0.7rem;

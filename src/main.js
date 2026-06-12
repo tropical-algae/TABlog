@@ -11,17 +11,17 @@ const app = createApp(App)
 app.use(createPinia())
 
 if (history.scrollRestoration) {
-  history.scrollRestoration = 'manual';
+  history.scrollRestoration = 'manual'
 }
 
 const startupRetryDelay = 1500
 
 function updateStartupStatus(textContent, percentContent) {
-  const loader = document.getElementById("app-loader")
+  const loader = document.getElementById('app-loader')
   if (!loader) return
 
-  const text = loader.querySelector(".status-text")
-  const percent = loader.querySelector(".status-percent")
+  const text = loader.querySelector('.status-text')
+  const percent = loader.querySelector('.status-percent')
 
   if (text) text.textContent = textContent
   if (percent) percent.textContent = percentContent
@@ -37,8 +37,8 @@ async function startApp() {
     } catch (err) {
       attempt += 1
       console.error(`[startup error] retry ${attempt}`, err)
-      updateStartupStatus(`LOAD FAILED. RETRY ${attempt}...`, "ERR")
-      await new Promise(resolve => setTimeout(resolve, startupRetryDelay))
+      updateStartupStatus(`LOAD FAILED. RETRY ${attempt}...`, 'ERR')
+      await new Promise((resolve) => setTimeout(resolve, startupRetryDelay))
     }
   }
 

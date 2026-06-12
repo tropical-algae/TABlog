@@ -2,16 +2,16 @@ let initialTheme = null
 
 function isThemeToken(key, value) {
   return (
-    typeof key === "string" &&
-    key.startsWith("--") &&
-    (typeof value === "string" || typeof value === "number")
+    typeof key === 'string' &&
+    key.startsWith('--') &&
+    (typeof value === 'string' || typeof value === 'number')
   )
 }
 
 function hasThemeTokens(theme) {
   return (
     theme &&
-    typeof theme === "object" &&
+    typeof theme === 'object' &&
     Object.entries(theme).some(([key, value]) => isThemeToken(key, value))
   )
 }
@@ -25,7 +25,7 @@ function getRandomIndex(length) {
 }
 
 export function applyTheme(theme, root) {
-  const target = root ?? (typeof document === "undefined" ? null : document.documentElement)
+  const target = root ?? (typeof document === 'undefined' ? null : document.documentElement)
   if (!hasThemeTokens(theme) || !target?.style) return false
 
   for (const [key, value] of Object.entries(theme)) {
@@ -49,7 +49,7 @@ export function applyInitialTheme(themes) {
 
   initialTheme = pickRandomTheme(themes)
 
-  if (initialTheme && typeof document !== "undefined") {
+  if (initialTheme && typeof document !== 'undefined') {
     applyTheme(initialTheme)
   }
 

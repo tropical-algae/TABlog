@@ -13,11 +13,11 @@
 **Live Demo**: [Demo](https://tablog.reeflats.com)
 
 ## 特点：
+
 - 轻量化、响应式的静态博客，动画流畅自然
 - Markdown 驱动，简单易用，支持 LaTeX
 - 部署便捷，内置一键启动脚本
 - 是一个不懂前端的人重复造的轮子
-
 
 ## 如何启动？
 
@@ -66,16 +66,16 @@ tropicalalgae/tablog:latest
 
 修改挂载出的配日志文件 [config/app.json](./public/config/app.json)
 
-| Key          | 说明           | 备注 |
-|--------------|----------------|-----------|
-| title        | 首页大标题     | 你的博客或项目名称 |
-| sub_title    | 首页副标题     | 一句简短的描述或口号 |
-| introduction | 侧边栏简介     | 支持纯文本或简短介绍 |
-| copyright    | copyright信息 | 位于博客页脚 |
+| Key          | 说明           | 备注                                           |
+| ------------ | -------------- | ---------------------------------------------- |
+| title        | 首页大标题     | 你的博客或项目名称                             |
+| sub_title    | 首页副标题     | 一句简短的描述或口号                           |
+| introduction | 侧边栏简介     | 支持纯文本或简短介绍                           |
+| copyright    | copyright信息  | 位于博客页脚                                   |
 | label_map    | 标签元数据映射 | 被映射的label名出现在post开头时，将被渲染为tag |
-| page_size    | 分页条数       | 归档页每页展示的文章数量 |
-| links        | 社交/友链配置   | 支持四种类型的link |
-| colors       | 主题颜色池     | 路由跳转时随机选中其中一个 |
+| page_size    | 分页条数       | 归档页每页展示的文章数量                       |
+| links        | 社交/友链配置  | 支持四种类型的link                             |
+| colors       | 主题颜色池     | 路由跳转时随机选中其中一个                     |
 
 ### 2. 添加主页信息
 

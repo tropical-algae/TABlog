@@ -1,6 +1,5 @@
 import path from 'path'
 
-
 /**
  * 修复markdown中对本地资源的引用路径
  * markdown与引用文件全部迁移至新路径且要在前端渲染，故要替换新的（前端资源）路径
@@ -12,12 +11,12 @@ import path from 'path'
  */
 export function fixMdAssetsRef(mdText, originFile, publicDir, fileMap) {
   // 获取前端访问的资源路径
-  return mdText.replace(/(!\[.*?\]\()([^\)]+)(\))/g, (match, prefix, imgPath, suffix) => {
+  return mdText.replace(/(!\[.*?\]\()([^)]+)(\))/g, (match, prefix, imgPath, suffix) => {
     if (/^(https?:)?\/\//.test(imgPath)) return match
 
     // 获取引用文件绝对路径
     let originAbsPath
-    if (imgPath.startsWith("/")) {
+    if (imgPath.startsWith('/')) {
       originAbsPath = imgPath
     } else {
       originAbsPath = path.resolve(path.dirname(originFile), imgPath)
@@ -28,11 +27,10 @@ export function fixMdAssetsRef(mdText, originFile, publicDir, fileMap) {
     if (!newAbsPath) {
       return match
     }
-    const publicPath = "/" + path.relative(publicDir, newAbsPath).replace(/\\/g, "/")
+    const publicPath = '/' + path.relative(publicDir, newAbsPath).replace(/\\/g, '/')
     return `${prefix}${publicPath}${suffix}`
   })
 }
-
 
 /**
  * 抽取markdown中定义的元信息（标签信息）
@@ -44,13 +42,10 @@ export function extractMdMetadata(mdText, labelMap) {
   const lines = mdText.split('\n')
   const result = {}
 
-  let cutIndex = -1
-
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim()
 
     if (/^---+$/.test(line)) {
-      cutIndex = i
       break
     }
 
@@ -106,7 +101,10 @@ export function removeMdMetadata(mdText, matchPrefixes = []) {
   }
 
   if (cutIndex >= 0 && hasMatchingItem) {
-    return lines.slice(cutIndex + 1).join('\n').trim()
+    return lines
+      .slice(cutIndex + 1)
+      .join('\n')
+      .trim()
   }
 
   return mdText

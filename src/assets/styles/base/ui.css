@@ -1,20 +1,19 @@
-
 .post-list-group {
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto; 
+  flex: 1 0 auto;
   overflow: visible;
 }
 
-.post-list-group ul li{
+.post-list-group ul li {
   list-style-type: none;
 }
 
 .post-list-group ul {
-  flex: 1; 
+  flex: 1;
   margin: 0;
   padding: 0;
-  min-width: 0; 
+  min-width: 0;
 }
 
 .post-list-group li {
@@ -53,7 +52,6 @@
   border-radius: 4px;
 }
 
-
 .post-tags {
   display: flex;
   flex-wrap: wrap;
@@ -72,7 +70,7 @@
 }
 
 [data-motion] {
-  backface-visibility: hidden; 
+  backface-visibility: hidden;
 }
 
 .motion-slide-layer {

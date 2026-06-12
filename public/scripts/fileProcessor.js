@@ -1,11 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import crypto from "crypto"
-import { 
-  extractMdMetadata, 
-  fixMdAssetsRef, 
-  removeMdMetadata, 
-} from './mdProcessor.js'
+import crypto from 'crypto'
+import { extractMdMetadata, fixMdAssetsRef, removeMdMetadata } from './mdProcessor.js'
 
 /**
  * 计算文件hash
@@ -16,9 +12,9 @@ import {
  */
 export function getFileHash(filePath, algorithm = 'sha256', length = 8) {
   const buffer = fs.readFileSync(filePath)
-  const hash = crypto.createHash(algorithm)  //（md5/sha1/sha256）
+  const hash = crypto.createHash(algorithm) //（md5/sha1/sha256）
   hash.update(buffer)
-  return hash.digest("hex").slice(0, length)
+  return hash.digest('hex').slice(0, length)
 }
 
 /**
@@ -29,9 +25,9 @@ export function getFileHash(filePath, algorithm = 'sha256', length = 8) {
  * @returns 文本hash
  */
 export function getTextHash(text, algorithm = 'sha256', length = 8) {
-  const hash = crypto.createHash(algorithm)  //（md5/sha1/sha256）
-  hash.update(text, "utf8")
-  return hash.digest("hex").slice(0, length)
+  const hash = crypto.createHash(algorithm) //（md5/sha1/sha256）
+  hash.update(text, 'utf8')
+  return hash.digest('hex').slice(0, length)
 }
 
 /**
@@ -55,9 +51,7 @@ export function getNewParentDir(originFile, originDir, newDir) {
  * @returns 带有hash的新文件路径
  */
 export function getNewHashedPath(originFile, newParentDir, newContent = null) {
-  const hash = newContent 
-    ? getTextHash(newContent, 'md5')
-    : getFileHash(originFile, 'md5')
+  const hash = newContent ? getTextHash(newContent, 'md5') : getFileHash(originFile, 'md5')
   const ext = path.extname(originFile)
   const base = path.basename(originFile, ext)
 
@@ -116,15 +110,15 @@ export function clearDirectory(dir) {
     return
   }
 
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const entries = fs.readdirSync(dir, { withFileTypes: true })
   for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue; // 跳过隐藏文件/目录
+    if (entry.name.startsWith('.')) continue // 跳过隐藏文件/目录
 
-    const fullPath = path.join(dir, entry.name);
+    const fullPath = path.join(dir, entry.name)
     if (entry.isDirectory()) {
-      fs.rmSync(fullPath, { recursive: true, force: true });
+      fs.rmSync(fullPath, { recursive: true, force: true })
     } else {
-      fs.unlinkSync(fullPath);
+      fs.unlinkSync(fullPath)
     }
   }
 }
@@ -133,7 +127,7 @@ export function clearDirectory(dir) {
  * 获取文件名（去除hash、去除连续后缀干扰）
  * @param {*} filename 含hash与后缀的文件全名。e.g file-8sdf82.md
  * @param {*} suffixes 后缀词黑名单
- * @returns 
+ * @returns
  */
 export function getFileRealName(filename, suffixes) {
   // 去除连续的后缀
@@ -148,7 +142,7 @@ export function getFileRealName(filename, suffixes) {
   }
   // 去除hash
   const fullname = parts.slice(0, i + 1).join('.')
-  const lastIndex = fullname.lastIndexOf("-")
+  const lastIndex = fullname.lastIndexOf('-')
   if (lastIndex === -1) return fullname
   return fullname.slice(0, lastIndex)
 }
@@ -167,7 +161,7 @@ export function makePostTitlesUnique(posts) {
   const usedTitles = new Set()
   const nextSuffixes = new Map()
 
-  return posts.map(post => {
+  return posts.map((post) => {
     if (titleCounts.get(post.title) === 1) {
       usedTitles.add(post.title)
       return post
@@ -210,9 +204,9 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
   const suffixes = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'md']
 
   for (const originFile of sortedFiles) {
-    const isMarkdown = originFile.endsWith(".md")
+    const isMarkdown = originFile.endsWith('.md')
     const newParentDir = getNewParentDir(originFile, originDir, newDir)
-    const content = isMarkdown ? fs.readFileSync(originFile, "utf-8") : null
+    const content = isMarkdown ? fs.readFileSync(originFile, 'utf-8') : null
     const newFile = isMarkdown
       ? getNewHashedPath(originFile, newParentDir, content)
       : getNewHashedPath(originFile, newParentDir)
@@ -221,11 +215,11 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
 
     if (isMarkdown) {
       mdId += 1
-      const sourceDir = "/" + path.relative(publicDir, newParentDir).replace(/\\/g, "/")
+      const sourceDir = '/' + path.relative(publicDir, newParentDir).replace(/\\/g, '/')
       const fixedContent = fixMdAssetsRef(content, originFile, publicDir, fileMap)
       const finalContent = removeMdMetadata(fixedContent, mdLabelName)
-    
-      fs.writeFileSync(newFile, finalContent, "utf-8")
+
+      fs.writeFileSync(newFile, finalContent, 'utf-8')
 
       const metadata = extractMdMetadata(fixedContent, reverseLabelMap)
       indexData.push({
@@ -233,7 +227,7 @@ export function movePosts(config, sortedFiles, publicDir, originDir, newDir) {
         title: getFileRealName(path.basename(newFile), suffixes),
         slug: path.basename(newFile),
         dir: sourceDir,
-        ...metadata,
+        ...metadata
       })
     } else {
       fs.copyFileSync(originFile, newFile)
@@ -257,7 +251,7 @@ export function moveConfig(publicDir, originDir, newDir) {
   for (const originFile of files) {
     const newParentDir = getNewParentDir(originFile, originDir, newDir)
     const newFile = getNewHashedPath(originFile, newParentDir)
-    const sourceFile = "/" + path.relative(publicDir, newFile).replace(/\\/g, "/")
+    const sourceFile = '/' + path.relative(publicDir, newFile).replace(/\\/g, '/')
     fs.copyFileSync(originFile, newFile)
 
     map[path.basename(originFile, path.extname(originFile))] = sourceFile
@@ -273,9 +267,9 @@ export function moveConfig(publicDir, originDir, newDir) {
  * @returns 配置名与新文件的（前端）资源地址的映射
  */
 export function buildPostIndex(publicDir, newDir, indexData) {
-  const indexHash = getTextHash(JSON.stringify(indexData), "md5")
+  const indexHash = getTextHash(JSON.stringify(indexData), 'md5')
   const indexFile = path.join(newDir, `index-${indexHash}.json`)
   fs.writeFileSync(indexFile, JSON.stringify(indexData, null, 2), 'utf-8')
 
-  return {"index": "/" + path.relative(publicDir, indexFile).replace(/\\/g, "/")}
+  return { index: '/' + path.relative(publicDir, indexFile).replace(/\\/g, '/') }
 }

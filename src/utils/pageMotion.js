@@ -1,13 +1,13 @@
 const motionEntries = new Map()
-let activeMotionKey = ""
+let activeMotionKey = ''
 
 function normalizeKey(key) {
-  return key || activeMotionKey || "__default__"
+  return key || activeMotionKey || '__default__'
 }
 
 function createDeferredEntry(resolved = false) {
   let resolve
-  const promise = new Promise(done => {
+  const promise = new Promise((done) => {
     resolve = done
   })
 

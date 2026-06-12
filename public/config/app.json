@@ -1,61 +1,61 @@
 {
-    "title": "REEF FLATS.",
-    "sub_title": "A lightweight, Markdown-driven static blog.",
-    "introduction": "'Diverse, sun-loving organisms vital to marine ecosystems', this is how ChatGPT introduces me.",
-    "copyright": "2026 powered by <a href=\"https://github.com/tropical-algae\">tropical algae</a>'s cat Mia.",
-    "label_map": {
-        "created_time": "created_time",
-        "tags": "tags"
+  "title": "REEF FLATS.",
+  "sub_title": "A lightweight, Markdown-driven static blog.",
+  "introduction": "'Diverse, sun-loving organisms vital to marine ecosystems', this is how ChatGPT introduces me.",
+  "copyright": "2026 powered by <a href=\"https://github.com/tropical-algae\">tropical algae</a>'s cat Mia.",
+  "label_map": {
+    "created_time": "created_time",
+    "tags": "tags"
+  },
+  "page_size": 10,
+  "links": {
+    "github": "https://github.com/tropical-algae",
+    "discord": "",
+    "notion": "",
+    "website": ""
+  },
+  "colors": [
+    {
+      "--color-bg": "#003d7b",
+      "--color-primary": "#ffb158",
+      "--color-primary-alt": "#f5d1a8",
+      "--color-accent": "#677bab",
+      "--color-accent-alt": "#ffffff"
     },
-    "page_size": 10,
-    "links": {
-        "github": "https://github.com/tropical-algae",
-        "discord": "",
-        "notion": "",
-        "website": ""
+    {
+      "--color-bg": "#562c29",
+      "--color-primary": "#cb9979",
+      "--color-primary-alt": "#eadaa0",
+      "--color-accent": "#e1c292",
+      "--color-accent-alt": "#ab5852"
     },
-    "colors": [
-        {
-            "--color-bg": "#003d7b",
-            "--color-primary": "#ffb158",
-            "--color-primary-alt": "#f5d1a8",
-            "--color-accent": "#677bab",
-            "--color-accent-alt": "#ffffff"
-        },
-        {
-            "--color-bg": "#562c29",
-            "--color-primary": "#cb9979",
-            "--color-primary-alt": "#eadaa0",
-            "--color-accent": "#e1c292",
-            "--color-accent-alt": "#ab5852"
-        },
-        {
-            "--color-bg": "#1d2326",
-            "--color-primary": "#8a8c8f",
-            "--color-primary-alt": "#605953",
-            "--color-accent": "#9e8778",
-            "--color-accent-alt": "#564945"
-        },
-        {
-            "--color-bg": "#004343",
-            "--color-primary": "#cb9c7d",
-            "--color-primary-alt": "#008585",
-            "--color-accent": "#74a892",
-            "--color-accent-alt": "#fbf2c4"
-        },
-        {
-            "--color-bg": "#e1e0dc",
-            "--color-primary": "#736865",
-            "--color-primary-alt": "#c2926b",
-            "--color-accent": "#776b67",
-            "--color-accent-alt": "#b2aa9f"
-        },
-        {
-            "--color-bg": "#142a31",
-            "--color-primary": "#c0c7ca",
-            "--color-primary-alt": "#496e7d",
-            "--color-accent": "#9d4022",
-            "--color-accent-alt": "#cfa789"
-        }
-    ]
+    {
+      "--color-bg": "#1d2326",
+      "--color-primary": "#8a8c8f",
+      "--color-primary-alt": "#605953",
+      "--color-accent": "#9e8778",
+      "--color-accent-alt": "#564945"
+    },
+    {
+      "--color-bg": "#004343",
+      "--color-primary": "#cb9c7d",
+      "--color-primary-alt": "#008585",
+      "--color-accent": "#74a892",
+      "--color-accent-alt": "#fbf2c4"
+    },
+    {
+      "--color-bg": "#e1e0dc",
+      "--color-primary": "#736865",
+      "--color-primary-alt": "#c2926b",
+      "--color-accent": "#776b67",
+      "--color-accent-alt": "#b2aa9f"
+    },
+    {
+      "--color-bg": "#142a31",
+      "--color-primary": "#c0c7ca",
+      "--color-primary-alt": "#496e7d",
+      "--color-accent": "#9d4022",
+      "--color-accent-alt": "#cfa789"
+    }
+  ]
 }

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+stats.html
+CHANGELOG.md
+package-lock.json
+
+public/config_processed/
+public/markdowns_processed/
+
+.env
+.env.*
